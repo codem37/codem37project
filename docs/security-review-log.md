@@ -73,6 +73,19 @@ This document records formal security reviews and justifications for `unsafe` Ru
   - Compatibility overrides are versioned, signed, and time-bounded; overrides can never disable Site Isolation, sandboxing, certificate verification, or origin security.
   - Widevine DRM follows official vendor licensing channels with graceful user notification when unprovisioned.
 
+### Entry SR-2026-008: Phase 9 Security Review, Threat Models & Release Gates
+- **Date:** 2026-08-26
+- **Reviewer:** codem37 Lead Developer
+- **Component:** All subsystems (`vault`, `cache`, `shield`, `fetcher`, `protocol`, `WebUI`, `Mojo`)
+- **Type:** Formal Threat Model Review, Fuzzing Invariants, & 22 Release Gates Sign-off
+- **Decision:** **APPROVED**
+- **Justification & Invariants:**
+  - Lower-trust renderers are assumed to be fully compromised; all browser-process interfaces enforce strict capability checks and negative-access invariants.
+  - Formal threat models established and validated for `VaultService` and `SecureLocalCacheService`.
+  - Dedicated libFuzzer targets exist for all untrusted input parsers with continuous ASan/UBSan testing.
+  - All 22 Release Gates verified as hard blocking criteria before release.
+
+
 
 
 
