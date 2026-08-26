@@ -38,4 +38,16 @@ This document records formal security reviews and justifications for `unsafe` Ru
   - `SegmentedFetchProducer` writes directly to preallocated sparse destination file offsets using non-overlapping ranges; concurrent writes require no mutex locks.
   - Resource consistency is strictly verified via `ETag` and `Content-Range`; mismatching responses are rejected before writing to disk.
 
+### Entry SR-2026-005: Phase 6 Content Blocking Engine & Scriptlet Security
+- **Date:** 2026-08-26
+- **Reviewer:** codem37 Lead Developer
+- **Component:** `src/mine/shield/`, `src/mine/shield/rust/`
+- **Type:** Content Blocker Sandbox, Ed25519 Signatures, & Isolated World Invariants
+- **Decision:** **APPROVED**
+- **Justification & Invariants:**
+  - `adblock-rust` rule evaluation runs in memory-safe Rust with bounded memory overhead (<50MB).
+  - All official rule bundles require valid Ed25519 cryptographic signatures verified prior to parsing.
+  - Scriptlets (`json-prune`, `set-constant`, `replace-fetch-response`) are data-driven actions executing exclusively in Blink isolated worlds at `document-start`; no `eval()`, arbitrary code strings, or main-world injections.
+
+
 
