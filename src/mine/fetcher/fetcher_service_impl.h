@@ -8,10 +8,13 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "base/memory/raw_ptr.h"
 #include "base/memory/weak_ptr.h"
 #include "base/sequence_checker.h"
+#include "mojo/public/cpp/bindings/receiver_set.h"
+#include "mojo/public/cpp/bindings/remote_set.h"
 #include "src/mine/fetcher/fetcher_service.h"
 
 namespace content {
@@ -29,10 +32,24 @@ class FetcherServiceImpl : public FetcherService {
   FetcherServiceImpl& operator=(const FetcherServiceImpl&) = delete;
 
   // FetcherService implementation:
+  void BindReceiver(
+      mojo::PendingReceiver<fetcher::mojom::MineFetcher> receiver,
+      const url::Origin& caller_origin) override;
+
   void StartSegmentedFetch(const GURL& url,
                            size_t chunk_size_bytes,
                            FetchCompletionCallback callback) override;
   void CancelFetch(const GURL& url) override;
+
+  // mojom::MineFetcher implementation:
+  void AddObserver(
+      mojo::PendingRemote<fetcher::mojom::MineFetcherObserver> observer) override;
+  void ListActiveDownloads(ListActiveDownloadsCallback callback) override;
+  void Pause(uint64_t download_id, PauseCallback callback) override;
+  void Resume(uint64_t download_id, ResumeCallback callback) override;
+  void Cancel(uint64_t download_id, CancelCallback callback) override;
+  void OpenContainingFolder(uint64_t download_id,
+                            OpenContainingFolderCallback callback) override;
 
   // KeyedService lifecycle:
   void Shutdown() override;
@@ -42,6 +59,10 @@ class FetcherServiceImpl : public FetcherService {
 
   raw_ptr<content::BrowserContext> context_;
   std::map<GURL, bool> active_fetches_;
+  std::map<uint64_t, fetcher::mojom::DownloadItemSnapshotPtr> active_downloads_;
+
+  mojo::ReceiverSet<fetcher::mojom::MineFetcher, url::Origin> receivers_;
+  mojo::RemoteSet<fetcher::mojom::MineFetcherObserver> observers_;
 
   base::WeakPtrFactory<FetcherServiceImpl> weak_factory_{this};
 };

@@ -16,3 +16,14 @@ This document records formal security reviews and justifications for `unsafe` Ru
   - Rust parsers for `vault` (file format), `shield` (filter rules), `fetcher` (HTTP responses), and `protocol` (`codem37://` URLs) operate over bounded byte slices (`&[u8]`).
   - No owning raw pointers across FFI boundaries; all string and buffer boundaries use explicit length parameters (`cxx::String`, `rust::Slice`).
   - Cryptographic secrets utilize `SecureBuffer` in C++ and `ZeroizeOnDrop` in Rust to eliminate plaintext retention in heap or crash dumps.
+
+### Entry SR-2026-003: Phase 4 MineFetcher Mojo Interface & Scheme Privilege Model
+- **Date:** 2026-08-26
+- **Reviewer:** codem37 Lead Developer
+- **Component:** `src/mine/fetcher/mojom/fetcher.mojom`, `src/mine/protocols/`
+- **Type:** Mojo Interface Approval & Custom Scheme Privilege Model
+- **Decision:** **APPROVED**
+- **Justification & Invariants:**
+  - `mojom::MineFetcher` exposes only opaque numeric download IDs (`uint64 download_id`); renderers cannot directly manipulate C++ `DownloadItem` pointers or raw filesystem locations.
+  - Custom scheme `codem37://` is restricted strictly to internal browser UI asset and WebUI routing; cross-origin web access and arbitrary script embedding are denied by default.
+

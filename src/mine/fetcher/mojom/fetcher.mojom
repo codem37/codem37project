@@ -1,0 +1,52 @@
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+module codem37.fetcher.mojom;
+
+import "url/mojom/url.mojom";
+
+enum DownloadState {
+  kInProgress,
+  kPaused,
+  kCompleted,
+  kCancelled,
+  kInterrupted,
+};
+
+// Snapshot representation of an active download.
+// Renderers receive sanitized filenames and progress snapshots, never raw pointers or full paths.
+struct DownloadItemSnapshot {
+  uint64 download_id;
+  url.mojom.Url url;
+  string display_filename;
+  int64 total_bytes;
+  int64 received_bytes;
+  DownloadState state;
+  int32 percent_complete;
+  int64 start_time_unix;
+};
+
+// Push notification interface for WebUI download manager.
+interface MineFetcherObserver {
+  OnDownloadCreated(DownloadItemSnapshot snapshot);
+  OnDownloadUpdated(DownloadItemSnapshot snapshot);
+  OnDownloadDestroyed(uint64 download_id);
+};
+
+// Control-plane Mojo interface for native download lifecycle management.
+interface MineFetcher {
+  // Register an observer to receive push notifications of download updates.
+  AddObserver(pending_remote<MineFetcherObserver> observer);
+
+  // List all active and recent downloads for the current profile.
+  ListActiveDownloads() => (array<DownloadItemSnapshot> downloads);
+
+  // Control operations by opaque ID.
+  Pause(uint64 download_id) => (bool success);
+  Resume(uint64 download_id) => (bool success);
+  Cancel(uint64 download_id) => (bool success);
+
+  // Triggers native OS file manager to display the file (browser process executes this).
+  OpenContainingFolder(uint64 download_id) => (bool success);
+};

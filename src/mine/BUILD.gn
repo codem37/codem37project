@@ -7,6 +7,7 @@ import("//mojo/public/tools/bindings/mojom.gni")
 # 1. Mojo Interface Definitions
 mojom("mojom") {
   sources = [
+    "fetcher/mojom/fetcher.mojom",
     "shield/mojom/shield.mojom",
     "vault/mojom/vault.mojom",
   ]
@@ -16,14 +17,20 @@ mojom("mojom") {
   ]
 }
 
-# 2. Browser-Process Services (Vault, Shield, Fetcher, Protocols, Crypto)
+# 2. Browser-Process Services (Vault, Shield, Fetcher, Protocols, Crypto, Migration)
 source_set("mine_services") {
   sources = [
     "crypto/secure_buffer.cc",
     "crypto/secure_buffer.h",
     "fetcher/fetcher_service.h",
+    "fetcher/fetcher_service_factory.cc",
+    "fetcher/fetcher_service_factory.h",
     "fetcher/fetcher_service_impl.cc",
     "fetcher/fetcher_service_impl.h",
+    "migration/shield_data_migrator.cc",
+    "migration/shield_data_migrator.h",
+    "migration/vault_data_migrator.cc",
+    "migration/vault_data_migrator.h",
     "protocols/mine_protocol_handler.cc",
     "protocols/mine_protocol_handler.h",
     "shield/shield_service.h",
@@ -74,7 +81,9 @@ source_set("mine_unittests") {
   testonly = true
 
   sources = [
+    "fetcher/fetcher_download_manager_unittest.cc",
     "fetcher/fetcher_service_unittest.cc",
+    "migration/vault_data_migrator_unittest.cc",
     "protocols/mine_protocol_handler_unittest.cc",
     "shield/shield_service_unittest.cc",
     "vault/vault_service_unittest.cc",

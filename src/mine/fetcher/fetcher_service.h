@@ -8,7 +8,10 @@
 #include <string>
 #include "base/functional/callback.h"
 #include "components/keyed_service/core/keyed_service.h"
+#include "mojo/public/cpp/bindings/pending_receiver.h"
+#include "src/mine/fetcher/mojom/fetcher.mojom.h"
 #include "url/gurl.h"
+#include "url/origin.h"
 
 namespace codem37 {
 
@@ -22,9 +25,13 @@ struct FetchResult {
 using FetchCompletionCallback = base::OnceCallback<void(FetchResult)>;
 
 // Abstract interface for the Fetcher Service.
-class FetcherService : public KeyedService {
+class FetcherService : public KeyedService, public fetcher::mojom::MineFetcher {
  public:
   ~FetcherService() override = default;
+
+  virtual void BindReceiver(
+      mojo::PendingReceiver<fetcher::mojom::MineFetcher> receiver,
+      const url::Origin& caller_origin) = 0;
 
   virtual void StartSegmentedFetch(const GURL& url,
                                    size_t chunk_size_bytes,
