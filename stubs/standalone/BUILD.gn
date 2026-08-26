@@ -1,0 +1,30 @@
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+executable("codem37") {
+  sources = [
+    "src/mine/app/codem37_main.cc",
+    "src/mine/compatibility/compatibility_override_manager.cc",
+    "src/mine/compatibility/compatibility_override_manager.h",
+    "src/mine/compatibility/user_agent_provider.cc",
+    "src/mine/compatibility/user_agent_provider.h",
+    "src/mine/crypto/secure_buffer.cc",
+    "src/mine/crypto/secure_buffer.h",
+  ]
+}
+
+group("mine_unittests") {
+  testonly = true
+  deps = [
+    "//src/mine:mine_unittests",
+  ]
+}
+
+group("default") {
+  testonly = true
+  deps = [
+    ":codem37",
+    ":mine_unittests",
+  ]
+}
