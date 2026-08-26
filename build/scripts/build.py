@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-codem37 Build Driver Script
-Generates GN configuration from versioned presets and invokes Ninja.
+codem37 Build & Launch Driver Script
+Automatically bootstraps build tools (depot_tools, gn, ninja) if missing,
+generates GN configuration from versioned presets, compiles, and optionally launches the browser.
 """
 
 import argparse
@@ -9,17 +10,58 @@ import os
 import shutil
 import subprocess
 import sys
+import urllib.request
+import zipfile
 from pathlib import Path
 
 VALID_CONFIGS = ["debug", "release", "component", "official", "asan", "ubsan"]
+DEPOT_TOOLS_URL = "https://storage.googleapis.com/chrome-infra/depot_tools.zip"
+
+def ensure_depot_tools(root_dir: Path) -> Path:
+    """Auto-detects or downloads and configures depot_tools if gn/ninja are missing."""
+    # 1. Check if gn and ninja already exist in PATH
+    if shutil.which("gn") and (shutil.which("ninja") or shutil.which("autoninja")):
+        return None
+
+    # 2. Check local depot_tools path
+    local_dt = root_dir / "third_party" / "depot_tools"
+    if not local_dt.exists():
+        c_src_dt = Path("C:/src/depot_tools")
+        if c_src_dt.exists():
+            local_dt = c_src_dt
+
+    if not local_dt.exists():
+        print("[+] Build tools (gn/ninja) not found. Automatically setting up depot_tools...")
+        local_dt.mkdir(parents=True, exist_ok=True)
+        zip_path = local_dt / "depot_tools.zip"
+
+        print(f"[+] Downloading depot_tools from {DEPOT_TOOLS_URL} ...")
+        try:
+            urllib.request.urlretrieve(DEPOT_TOOLS_URL, zip_path)
+            print("[+] Extracting depot_tools...")
+            with zipfile.ZipFile(zip_path, "r") as zip_ref:
+                zip_ref.extractall(local_dt)
+            if zip_path.exists():
+                zip_path.unlink()
+            print(f"[✓] depot_tools installed to {local_dt}")
+        except Exception as e:
+            print(f"[-] Automated download failed: {e}. Please ensure internet connectivity.", file=sys.stderr)
+
+    # 3. Add to PATH for this process
+    dt_str = str(local_dt)
+    os.environ["PATH"] = dt_str + os.pathsep + os.environ.get("PATH", "")
+    os.environ["DEPOT_TOOLS_WIN_TOOLCHAIN"] = "0"
+    os.environ["DEPOT_TOOLS_UPDATE"] = "0"
+
+    return local_dt
 
 def main():
-    parser = argparse.ArgumentParser(description="codem37 Build Driver")
+    parser = argparse.ArgumentParser(description="codem37 Build & Launch Driver")
     parser.add_argument(
         "--config",
         choices=VALID_CONFIGS,
-        default="debug",
-        help="Build configuration preset (default: debug)",
+        default="component",
+        help="Build configuration preset (default: component)",
     )
     parser.add_argument(
         "--target",
@@ -46,6 +88,11 @@ def main():
         action="store_true",
         help="Generate GN configuration only, do not invoke Ninja",
     )
+    parser.add_argument(
+        "--launch",
+        action="store_true",
+        help="Automatically launch the browser after successful build",
+    )
 
     args = parser.parse_args()
 
@@ -57,8 +104,11 @@ def main():
         print(f"[-] Error: Preset file not found: {preset_file}", file=sys.stderr)
         sys.exit(1)
 
+    # Auto-bootstrap build tools
+    ensure_depot_tools(root_dir)
+
     print("=" * 60)
-    print(f"  codem37 Build System")
+    print(f"  codem37 Automated Build System")
     print(f"  Configuration : {args.config}")
     print(f"  Target        : {args.target}")
     print(f"  Output Dir    : {out_dir}")
@@ -84,11 +134,12 @@ def main():
         env["CODEM37_BUILD_OFFLINE"] = "1"
 
     # 1. Run GN gen
-    gn_cmd = ["gn", "gen", str(out_dir)]
+    gn_exe = shutil.which("gn") or "gn"
+    gn_cmd = [gn_exe, "gen", str(out_dir)]
     print(f"[+] Executing: {' '.join(gn_cmd)}")
     result = subprocess.run(gn_cmd, cwd=root_dir, env=env)
     if result.returncode != 0:
-        print("[-] GN generation failed!", file=sys.stderr)
+        print("[-] GN generation failed! (Please ensure build tools are fully initialized)", file=sys.stderr)
         sys.exit(result.returncode)
 
     if args.gn_only:
@@ -96,7 +147,7 @@ def main():
         return
 
     # 2. Run Ninja / autoninja
-    ninja_exe = "autoninja" if shutil.which("autoninja") else "ninja"
+    ninja_exe = shutil.which("autoninja") or shutil.which("ninja") or "ninja"
     ninja_cmd = [ninja_exe, "-C", str(out_dir), args.target]
     print(f"[+] Executing: {' '.join(ninja_cmd)}")
     result = subprocess.run(ninja_cmd, cwd=root_dir, env=env)
@@ -107,6 +158,19 @@ def main():
     print("=" * 60)
     print(f"  [✓] Build completed successfully: {out_dir / args.target}")
     print("=" * 60)
+
+    # 3. Launch if requested
+    if args.launch:
+        exe_ext = ".exe" if sys.platform == "win32" else ""
+        browser_exe = out_dir / f"{args.target}{exe_ext}"
+        if not browser_exe.exists():
+            browser_exe = out_dir / f"chrome{exe_ext}"
+
+        if browser_exe.exists():
+            print(f"\n[+] Launching browser: {browser_exe} ...")
+            subprocess.Popen([str(browser_exe)])
+        else:
+            print(f"[-] Executable not found at {browser_exe}", file=sys.stderr)
 
 if __name__ == "__main__":
     main()
