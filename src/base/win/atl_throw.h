@@ -11,6 +11,7 @@
 
 #include "base/base_export.h"
 #include "base/win/windows_types.h"
+#include <winerror.h>
 
 // Defining _ATL_NO_EXCEPTIONS causes ATL to raise a structured exception
 // instead of throwing a CAtlException. While crashpad will eventually handle
