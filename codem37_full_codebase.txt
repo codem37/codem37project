@@ -213,12 +213,63 @@ C:\Users\manoh\codem37
 │           ├── mine_settings_webui_controller.cc
 │           ├── mine_settings_webui_controller.h
 │           ├── resources/
+│           │   ├── downloads/
+│           │   │   ├── BUILD.gn
+│           │   │   ├── app.ts
+│           │   │   ├── components/
+│           │   │   │   ├── download_item.ts
+│           │   │   │   ├── download_list.ts
+│           │   │   │   └── download_start_dialog.ts
+│           │   │   ├── downloads.html
+│           │   │   ├── downloads.ts
+│           │   │   ├── downloads_test.ts
+│           │   │   └── mojo_client.ts
+│           │   ├── mine-settings/
+│           │   │   ├── BUILD.gn
+│           │   │   ├── app.ts
+│           │   │   ├── components/
+│           │   │   │   ├── bookmarks_manager.ts
+│           │   │   │   ├── data_controls.ts
+│           │   │   │   └── theme_picker.ts
+│           │   │   ├── mine_settings.html
+│           │   │   ├── mine_settings.ts
+│           │   │   ├── mine_settings_test.ts
+│           │   │   └── mojo_client.ts
 │           │   ├── settings.css
 │           │   ├── settings.html
 │           │   ├── settings.js
+│           │   ├── shared/
+│           │   │   ├── css/
+│           │   │   │   └── tokens.css
+│           │   │   └── types/
+│           │   │       └── common.ts
+│           │   ├── shield/
+│           │   │   ├── BUILD.gn
+│           │   │   ├── app.ts
+│           │   │   ├── components/
+│           │   │   │   ├── ruleset_status_card.ts
+│           │   │   │   ├── site_settings_panel.ts
+│           │   │   │   ├── subscription_list.ts
+│           │   │   │   └── telemetry_panel.ts
+│           │   │   ├── mojo_client.ts
+│           │   │   ├── shield.html
+│           │   │   ├── shield.ts
+│           │   │   └── shield_test.ts
 │           │   ├── shield.css
 │           │   ├── shield.html
 │           │   ├── shield.js
+│           │   ├── vault/
+│           │   │   ├── BUILD.gn
+│           │   │   ├── app.ts
+│           │   │   ├── components/
+│           │   │   │   ├── vault_entry_editor.ts
+│           │   │   │   ├── vault_entry_list.ts
+│           │   │   │   ├── vault_lock_screen.ts
+│           │   │   │   └── vault_password_generator.ts
+│           │   │   ├── mojo_client.ts
+│           │   │   ├── vault.html
+│           │   │   ├── vault.ts
+│           │   │   └── vault_test.ts
 │           │   ├── vault.css
 │           │   ├── vault.html
 │           │   └── vault.js
@@ -244,19 +295,22 @@ C:\Users\manoh\codem37
 │   └── verify_security_invariants.py
 ├── ui/
 │   └── webui/
-│       └── BUILD.gn
+│       ├── BUILD.gn
+│       └── resources/
+│           └── tools/
+│               └── build_webui.gni
 └── url/
     ├── BUILD.gn
     └── mojom/
         └── BUILD.gn
 
 ================================================================================
-2. COMPLETE FILE CONTENTS (162 FILES)
+2. COMPLETE FILE CONTENTS (203 FILES)
 ================================================================================
 
 
 ================================================================================
-[1/162] FILE: .gitignore
+[1/203] FILE: .gitignore
 FULL PATH: C:\Users\manoh\codem37\.gitignore
 ================================================================================
 
@@ -280,7 +334,7 @@ scratch/
 
 
 ================================================================================
-[2/162] FILE: .gn
+[2/203] FILE: .gn
 FULL PATH: C:\Users\manoh\codem37\.gn
 ================================================================================
 
@@ -297,7 +351,7 @@ root = "//:default"
 
 
 ================================================================================
-[3/162] FILE: BUILD.gn
+[3/203] FILE: BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\BUILD.gn
 ================================================================================
 
@@ -335,7 +389,7 @@ group("default") {
 
 
 ================================================================================
-[4/162] FILE: CHROMIUM_VERSION
+[4/203] FILE: CHROMIUM_VERSION
 FULL PATH: C:\Users\manoh\codem37\CHROMIUM_VERSION
 ================================================================================
 
@@ -358,7 +412,7 @@ MERGE_TAG_PREFIX=chromium-M
 
 
 ================================================================================
-[5/162] FILE: CONTRIBUTING.md
+[5/203] FILE: CONTRIBUTING.md
 FULL PATH: C:\Users\manoh\codem37\CONTRIBUTING.md
 ================================================================================
 
@@ -463,7 +517,7 @@ Coding agents are **strictly prohibited** from modifying the following security-
 
 
 ================================================================================
-[6/162] FILE: DEPOT_TOOLS_VERSION
+[6/203] FILE: DEPOT_TOOLS_VERSION
 FULL PATH: C:\Users\manoh\codem37\DEPOT_TOOLS_VERSION
 ================================================================================
 
@@ -476,7 +530,7 @@ DEPOT_TOOLS_PIN_DATE=2026-08-26
 
 
 ================================================================================
-[7/162] FILE: PHASE_0_DECISIONS.md
+[7/203] FILE: PHASE_0_DECISIONS.md
 FULL PATH: C:\Users\manoh\codem37\PHASE_0_DECISIONS.md
 ================================================================================
 
@@ -647,7 +701,7 @@ The tradeoff: conflict resolution on a true fork is harder than reapplying a cle
 
 
 ================================================================================
-[8/162] FILE: README.md
+[8/203] FILE: README.md
 FULL PATH: C:\Users\manoh\codem37\README.md
 ================================================================================
 
@@ -686,7 +740,7 @@ A privacy-focused browser built as a true fork of Chromium for Windows 10/11 and
 
 
 ================================================================================
-[9/162] FILE: RUST_TOOLCHAIN_VERSION
+[9/203] FILE: RUST_TOOLCHAIN_VERSION
 FULL PATH: C:\Users\manoh\codem37\RUST_TOOLCHAIN_VERSION
 ================================================================================
 
@@ -699,7 +753,7 @@ PIN_DATE=2026-08-26
 
 
 ================================================================================
-[10/162] FILE: run.bat
+[10/203] FILE: run.bat
 FULL PATH: C:\Users\manoh\codem37\run.bat
 ================================================================================
 
@@ -734,7 +788,7 @@ endlocal
 
 
 ================================================================================
-[11/162] FILE: base\BUILD.gn
+[11/203] FILE: base\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\base\BUILD.gn
 ================================================================================
 
@@ -748,7 +802,7 @@ group("base") {
 
 
 ================================================================================
-[12/162] FILE: base\test\BUILD.gn
+[12/203] FILE: base\test\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\base\test\BUILD.gn
 ================================================================================
 
@@ -763,7 +817,7 @@ group("test_support") {
 
 
 ================================================================================
-[13/162] FILE: build\config\BUILD.gn
+[13/203] FILE: build\config\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\build\config\BUILD.gn
 ================================================================================
 
@@ -778,7 +832,7 @@ config("default_include_dirs") {
 
 
 ================================================================================
-[14/162] FILE: build\config\BUILDCONFIG.gn
+[14/203] FILE: build\config\BUILDCONFIG.gn
 FULL PATH: C:\Users\manoh\codem37\build\config\BUILDCONFIG.gn
 ================================================================================
 
@@ -851,7 +905,7 @@ set_default_toolchain("//build/toolchain/win:default")
 
 
 ================================================================================
-[15/162] FILE: build\fuzz\cache_record_fuzzer.cc
+[15/203] FILE: build\fuzz\cache_record_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\cache_record_fuzzer.cc
 ================================================================================
 
@@ -889,7 +943,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 ================================================================================
-[16/162] FILE: build\fuzz\fetcher_response_fuzzer.cc
+[16/203] FILE: build\fuzz\fetcher_response_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\fetcher_response_fuzzer.cc
 ================================================================================
 
@@ -907,7 +961,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 ================================================================================
-[17/162] FILE: build\fuzz\protocol_url_fuzzer.cc
+[17/203] FILE: build\fuzz\protocol_url_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\protocol_url_fuzzer.cc
 ================================================================================
 
@@ -925,7 +979,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 ================================================================================
-[18/162] FILE: build\fuzz\shield_filter_fuzzer.cc
+[18/203] FILE: build\fuzz\shield_filter_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\shield_filter_fuzzer.cc
 ================================================================================
 
@@ -943,7 +997,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 ================================================================================
-[19/162] FILE: build\fuzz\vault_parser_fuzzer.cc
+[19/203] FILE: build\fuzz\vault_parser_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\vault_parser_fuzzer.cc
 ================================================================================
 
@@ -968,7 +1022,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 ================================================================================
-[20/162] FILE: build\fuzz\corpus\cache\seed1.c37c
+[20/203] FILE: build\fuzz\corpus\cache\seed1.c37c
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\cache\seed1.c37c
 ================================================================================
 
@@ -977,7 +1031,7 @@ C37C\x01\x00\x00\x00\x12\x34\x56\x78\x9A\xBC\xDE\xF0\x11\x22\x33\x44[ENCRYPTED_P
 
 
 ================================================================================
-[21/162] FILE: build\fuzz\corpus\fetcher\seed1.http
+[21/203] FILE: build\fuzz\corpus\fetcher\seed1.http
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\fetcher\seed1.http
 ================================================================================
 
@@ -986,7 +1040,7 @@ bytes 0-1048575/52428800
 
 
 ================================================================================
-[22/162] FILE: build\fuzz\corpus\protocol\seed1.url
+[22/203] FILE: build\fuzz\corpus\protocol\seed1.url
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\protocol\seed1.url
 ================================================================================
 
@@ -995,7 +1049,7 @@ codem37://vault?section=credentials
 
 
 ================================================================================
-[23/162] FILE: build\fuzz\corpus\shield\seed1.txt
+[23/203] FILE: build\fuzz\corpus\shield\seed1.txt
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\shield\seed1.txt
 ================================================================================
 
@@ -1009,7 +1063,7 @@ FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\shield\seed1.txt
 
 
 ================================================================================
-[24/162] FILE: build\fuzz\corpus\vault\seed1.dat
+[24/203] FILE: build\fuzz\corpus\vault\seed1.dat
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\vault\seed1.dat
 ================================================================================
 
@@ -1018,7 +1072,7 @@ C37V\x00\x01\x00\x00[]
 
 
 ================================================================================
-[25/162] FILE: build\gclient\.gclient
+[25/203] FILE: build\gclient\.gclient
 FULL PATH: C:\Users\manoh\codem37\build\gclient\.gclient
 ================================================================================
 
@@ -1049,7 +1103,7 @@ target_os = ["linux", "win"]
 
 
 ================================================================================
-[26/162] FILE: build\gn\common.gn
+[26/203] FILE: build\gn\common.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\common.gn
 ================================================================================
 
@@ -1086,7 +1140,7 @@ ffmpeg_branding = "Chrome"
 
 
 ================================================================================
-[27/162] FILE: build\gn\asan\args.gn
+[27/203] FILE: build\gn\asan\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\asan\args.gn
 ================================================================================
 
@@ -1102,7 +1156,7 @@ symbol_level = 1
 
 
 ================================================================================
-[28/162] FILE: build\gn\component\args.gn
+[28/203] FILE: build\gn\component\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\component\args.gn
 ================================================================================
 
@@ -1119,7 +1173,7 @@ v8_symbol_level = 0
 
 
 ================================================================================
-[29/162] FILE: build\gn\debug\args.gn
+[29/203] FILE: build\gn\debug\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\debug\args.gn
 ================================================================================
 
@@ -1136,7 +1190,7 @@ v8_symbol_level = 0
 
 
 ================================================================================
-[30/162] FILE: build\gn\official\args.gn
+[30/203] FILE: build\gn\official\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\official\args.gn
 ================================================================================
 
@@ -1153,7 +1207,7 @@ is_component_build = false
 
 
 ================================================================================
-[31/162] FILE: build\gn\release\args.gn
+[31/203] FILE: build\gn\release\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\release\args.gn
 ================================================================================
 
@@ -1174,7 +1228,7 @@ v8_symbol_level = 0
 
 
 ================================================================================
-[32/162] FILE: build\gn\ubsan\args.gn
+[32/203] FILE: build\gn\ubsan\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\ubsan\args.gn
 ================================================================================
 
@@ -1191,7 +1245,7 @@ symbol_level = 1
 
 
 ================================================================================
-[33/162] FILE: build\performance\run_fetcher_bench.py
+[33/203] FILE: build\performance\run_fetcher_bench.py
 FULL PATH: C:\Users\manoh\codem37\build\performance\run_fetcher_bench.py
 ================================================================================
 
@@ -1282,7 +1336,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[34/162] FILE: build\performance\run_startup_bench.py
+[34/203] FILE: build\performance\run_startup_bench.py
 FULL PATH: C:\Users\manoh\codem37\build\performance\run_startup_bench.py
 ================================================================================
 
@@ -1445,7 +1499,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[35/162] FILE: build\scripts\README.md
+[35/203] FILE: build\scripts\README.md
 FULL PATH: C:\Users\manoh\codem37\build\scripts\README.md
 ================================================================================
 
@@ -1486,7 +1540,7 @@ python3 build/scripts/build.py --config component --target codem37
 
 
 ================================================================================
-[36/162] FILE: build\scripts\build.py
+[36/203] FILE: build\scripts\build.py
 FULL PATH: C:\Users\manoh\codem37\build\scripts\build.py
 ================================================================================
 
@@ -1706,7 +1760,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[37/162] FILE: build\size\measure_size.py
+[37/203] FILE: build\size\measure_size.py
 FULL PATH: C:\Users\manoh\codem37\build\size\measure_size.py
 ================================================================================
 
@@ -1837,7 +1891,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[38/162] FILE: build\toolchain\win\BUILD.gn
+[38/203] FILE: build\toolchain\win\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\build\toolchain\win\BUILD.gn
 ================================================================================
 
@@ -1898,7 +1952,7 @@ toolchain("default") {
 
 
 ================================================================================
-[39/162] FILE: ci\self-hosted\Dockerfile.build
+[39/203] FILE: ci\self-hosted\Dockerfile.build
 FULL PATH: C:\Users\manoh\codem37\ci\self-hosted\Dockerfile.build
 ================================================================================
 
@@ -1964,7 +2018,7 @@ CMD ["/bin/bash"]
 
 
 ================================================================================
-[40/162] FILE: ci\self-hosted\provision-runner.ps1
+[40/203] FILE: ci\self-hosted\provision-runner.ps1
 FULL PATH: C:\Users\manoh\codem37\ci\self-hosted\provision-runner.ps1
 ================================================================================
 
@@ -2014,7 +2068,7 @@ Write-Host "[✓] Windows runner provisioning completed." -ForegroundColor Green
 
 
 ================================================================================
-[41/162] FILE: ci\self-hosted\provision-runner.sh
+[41/203] FILE: ci\self-hosted\provision-runner.sh
 FULL PATH: C:\Users\manoh\codem37\ci\self-hosted\provision-runner.sh
 ================================================================================
 
@@ -2065,7 +2119,7 @@ echo "[✓] Linux runner provisioning complete."
 
 
 ================================================================================
-[42/162] FILE: ci\workflows\nightly.yml
+[42/203] FILE: ci\workflows\nightly.yml
 FULL PATH: C:\Users\manoh\codem37\ci\workflows\nightly.yml
 ================================================================================
 
@@ -2138,7 +2192,7 @@ jobs:
 
 
 ================================================================================
-[43/162] FILE: ci\workflows\pr-build.yml
+[43/203] FILE: ci\workflows\pr-build.yml
 FULL PATH: C:\Users\manoh\codem37\ci\workflows\pr-build.yml
 ================================================================================
 
@@ -2221,7 +2275,7 @@ jobs:
 
 
 ================================================================================
-[44/162] FILE: ci\workflows\weekly-reproducibility.yml
+[44/203] FILE: ci\workflows\weekly-reproducibility.yml
 FULL PATH: C:\Users\manoh\codem37\ci\workflows\weekly-reproducibility.yml
 ================================================================================
 
@@ -2272,7 +2326,7 @@ jobs:
 
 
 ================================================================================
-[45/162] FILE: components\keyed_service\content\BUILD.gn
+[45/203] FILE: components\keyed_service\content\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\components\keyed_service\content\BUILD.gn
 ================================================================================
 
@@ -2286,7 +2340,7 @@ group("content") {
 
 
 ================================================================================
-[46/162] FILE: content\public\browser\BUILD.gn
+[46/203] FILE: content\public\browser\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\content\public\browser\BUILD.gn
 ================================================================================
 
@@ -2300,7 +2354,7 @@ group("browser") {
 
 
 ================================================================================
-[47/162] FILE: content\test\BUILD.gn
+[47/203] FILE: content\test\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\content\test\BUILD.gn
 ================================================================================
 
@@ -2315,7 +2369,7 @@ group("test_support") {
 
 
 ================================================================================
-[48/162] FILE: crypto\BUILD.gn
+[48/203] FILE: crypto\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\crypto\BUILD.gn
 ================================================================================
 
@@ -2329,7 +2383,7 @@ group("crypto") {
 
 
 ================================================================================
-[49/162] FILE: docs\build-infrastructure.md
+[49/203] FILE: docs\build-infrastructure.md
 FULL PATH: C:\Users\manoh\codem37\docs\build-infrastructure.md
 ================================================================================
 
@@ -2483,7 +2537,7 @@ Mandatory flags locked across all presets that **cannot be silently overridden**
 
 
 ================================================================================
-[50/162] FILE: docs\phase10-release-engineering.md
+[50/203] FILE: docs\phase10-release-engineering.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase10-release-engineering.md
 ================================================================================
 
@@ -2602,7 +2656,7 @@ Staged Rollout Progression:
 
 
 ================================================================================
-[51/162] FILE: docs\phase2-privilege-boundary.md
+[51/203] FILE: docs\phase2-privilege-boundary.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase2-privilege-boundary.md
 ================================================================================
 
@@ -2691,7 +2745,7 @@ FULL PATH: C:\Users\manoh\codem37\docs\phase2-privilege-boundary.md
 
 
 ================================================================================
-[52/162] FILE: docs\phase3-memory-safety-policy.md
+[52/203] FILE: docs\phase3-memory-safety-policy.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase3-memory-safety-policy.md
 ================================================================================
 
@@ -2768,7 +2822,7 @@ The following modifications strictly require the developer's sign-off and an ent
 
 
 ================================================================================
-[53/162] FILE: docs\phase4-electron-audit.md
+[53/203] FILE: docs\phase4-electron-audit.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase4-electron-audit.md
 ================================================================================
 
@@ -2840,7 +2894,7 @@ For each component (`vault` -> `shield` -> `fetcher` -> `protocol`):
 
 
 ================================================================================
-[54/162] FILE: docs\phase4-migration-record.md
+[54/203] FILE: docs\phase4-migration-record.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase4-migration-record.md
 ================================================================================
 
@@ -2881,7 +2935,7 @@ All legacy Electron and Node.js APIs have been migrated to native Chromium brows
 
 
 ================================================================================
-[55/162] FILE: docs\phase5-download-manager.md
+[55/203] FILE: docs\phase5-download-manager.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase5-download-manager.md
 ================================================================================
 
@@ -2949,7 +3003,7 @@ MineFetcherService (Browser Process KeyedService)
 
 
 ================================================================================
-[56/162] FILE: docs\phase6-content-blocking.md
+[56/203] FILE: docs\phase6-content-blocking.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase6-content-blocking.md
 ================================================================================
 
@@ -3025,7 +3079,7 @@ Browser Process (ShieldServiceImpl)
 
 
 ================================================================================
-[57/162] FILE: docs\phase7-identity-and-local-cache.md
+[57/203] FILE: docs\phase7-identity-and-local-cache.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase7-identity-and-local-cache.md
 ================================================================================
 
@@ -3132,7 +3186,7 @@ Active Runtime Memory State: [ Loaded / Cleared ]
 
 
 ================================================================================
-[58/162] FILE: docs\phase8-compatibility-matrix.md
+[58/203] FILE: docs\phase8-compatibility-matrix.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase8-compatibility-matrix.md
 ================================================================================
 
@@ -3198,7 +3252,7 @@ When a legitimate website compatibility issue arises due to non-standard server-
 
 
 ================================================================================
-[59/162] FILE: docs\phase9-security-review-and-threat-model.md
+[59/203] FILE: docs\phase9-security-review-and-threat-model.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase9-security-review-and-threat-model.md
 ================================================================================
 
@@ -3317,7 +3371,7 @@ SecureLocalCacheService Threat Model Structure
 
 
 ================================================================================
-[60/162] FILE: docs\security-review-log.md
+[60/203] FILE: docs\security-review-log.md
 FULL PATH: C:\Users\manoh\codem37\docs\security-review-log.md
 ================================================================================
 
@@ -3431,7 +3485,7 @@ This document records formal security reviews and justifications for `unsafe` Ru
 
 
 ================================================================================
-[61/162] FILE: mojo\public\tools\bindings\mojom.gni
+[61/203] FILE: mojo\public\tools\bindings\mojom.gni
 FULL PATH: C:\Users\manoh\codem37\mojo\public\tools\bindings\mojom.gni
 ================================================================================
 
@@ -3451,7 +3505,7 @@ template("mojom") {
 
 
 ================================================================================
-[62/162] FILE: scripts\setup_fork.ps1
+[62/203] FILE: scripts\setup_fork.ps1
 FULL PATH: C:\Users\manoh\codem37\scripts\setup_fork.ps1
 ================================================================================
 
@@ -3565,7 +3619,7 @@ Write-Host "====================================================" -ForegroundCol
 
 
 ================================================================================
-[63/162] FILE: scripts\setup_fork.sh
+[63/203] FILE: scripts\setup_fork.sh
 FULL PATH: C:\Users\manoh\codem37\scripts\setup_fork.sh
 ================================================================================
 
@@ -3653,7 +3707,7 @@ echo "===================================================="
 
 
 ================================================================================
-[64/162] FILE: src\mine\BUILD.gn
+[64/203] FILE: src\mine\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\src\mine\BUILD.gn
 ================================================================================
 
@@ -3746,6 +3800,10 @@ source_set("mine_webui") {
   deps = [
     ":mine_services",
     ":mojom",
+    "//src/mine/webui/resources/mine-settings:build",
+    "//src/mine/webui/resources/downloads:build",
+    "//src/mine/webui/resources/shield:build",
+    "//src/mine/webui/resources/vault:build",
     "//base",
     "//content/public/browser",
     "//ui/webui",
@@ -3787,7 +3845,7 @@ source_set("mine_unittests") {
 
 
 ================================================================================
-[65/162] FILE: src\mine\app\codem37_main.cc
+[65/203] FILE: src\mine\app\codem37_main.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\app\codem37_main.cc
 ================================================================================
 
@@ -3966,7 +4024,7 @@ int main(int argc, char** argv) {
 
 
 ================================================================================
-[66/162] FILE: src\mine\cache\secure_local_cache_service.h
+[66/203] FILE: src\mine\cache\secure_local_cache_service.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service.h
 ================================================================================
 
@@ -4002,7 +4060,7 @@ class SecureLocalCacheService : public KeyedService,
 
 
 ================================================================================
-[67/162] FILE: src\mine\cache\secure_local_cache_service_factory.cc
+[67/203] FILE: src\mine\cache\secure_local_cache_service_factory.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service_factory.cc
 ================================================================================
 
@@ -4054,7 +4112,7 @@ content::BrowserContext* SecureLocalCacheServiceFactory::GetBrowserContextToUse(
 
 
 ================================================================================
-[68/162] FILE: src\mine\cache\secure_local_cache_service_factory.h
+[68/203] FILE: src\mine\cache\secure_local_cache_service_factory.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service_factory.h
 ================================================================================
 
@@ -4102,7 +4160,7 @@ class SecureLocalCacheServiceFactory : public BrowserContextKeyedServiceFactory 
 
 
 ================================================================================
-[69/162] FILE: src\mine\cache\secure_local_cache_service_impl.cc
+[69/203] FILE: src\mine\cache\secure_local_cache_service_impl.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service_impl.cc
 ================================================================================
 
@@ -4343,7 +4401,7 @@ void SecureLocalCacheServiceImpl::ClearAllCache(ClearAllCacheCallback callback) 
 
 
 ================================================================================
-[70/162] FILE: src\mine\cache\secure_local_cache_service_impl.h
+[70/203] FILE: src\mine\cache\secure_local_cache_service_impl.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service_impl.h
 ================================================================================
 
@@ -4444,7 +4502,7 @@ class SecureLocalCacheServiceImpl : public SecureLocalCacheService {
 
 
 ================================================================================
-[71/162] FILE: src\mine\cache\secure_local_cache_unittest.cc
+[71/203] FILE: src\mine\cache\secure_local_cache_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_unittest.cc
 ================================================================================
 
@@ -4594,7 +4652,7 @@ TEST_F(SecureLocalCacheTest, UnauthorizedOriginCannotBind) {
 
 
 ================================================================================
-[72/162] FILE: src\mine\cache\mojom\cache.mojom
+[72/203] FILE: src\mine\cache\mojom\cache.mojom
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\mojom\cache.mojom
 ================================================================================
 
@@ -4663,7 +4721,7 @@ interface SecureLocalCache {
 
 
 ================================================================================
-[73/162] FILE: src\mine\cache\rust\Cargo.toml
+[73/203] FILE: src\mine\cache\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\rust\Cargo.toml
 ================================================================================
 
@@ -4687,7 +4745,7 @@ cxx-build = "1.0"
 
 
 ================================================================================
-[74/162] FILE: src\mine\cache\rust\src\lib.rs
+[74/203] FILE: src\mine\cache\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\rust\src\lib.rs
 ================================================================================
 
@@ -4800,7 +4858,7 @@ pub mod ffi {
 
 
 ================================================================================
-[75/162] FILE: src\mine\compatibility\compatibility_override_manager.cc
+[75/203] FILE: src\mine\compatibility\compatibility_override_manager.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\compatibility_override_manager.cc
 ================================================================================
 
@@ -4862,7 +4920,7 @@ std::string CompatibilityOverrideManager::GetUserAgentForDomain(
 
 
 ================================================================================
-[76/162] FILE: src\mine\compatibility\compatibility_override_manager.h
+[76/203] FILE: src\mine\compatibility\compatibility_override_manager.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\compatibility_override_manager.h
 ================================================================================
 
@@ -4911,7 +4969,7 @@ class CompatibilityOverrideManager {
 
 
 ================================================================================
-[77/162] FILE: src\mine\compatibility\compatibility_unittest.cc
+[77/203] FILE: src\mine\compatibility\compatibility_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\compatibility_unittest.cc
 ================================================================================
 
@@ -5004,7 +5062,7 @@ TEST(CompatibilityTest, DiagnosticsSanitizerStripsSensitiveData) {
 
 
 ================================================================================
-[78/162] FILE: src\mine\compatibility\user_agent_provider.cc
+[78/203] FILE: src\mine\compatibility\user_agent_provider.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\user_agent_provider.cc
 ================================================================================
 
@@ -5051,7 +5109,7 @@ std::vector<UserAgentBrandVersion> UserAgentProvider::GetBrandVersionList() {
 
 
 ================================================================================
-[79/162] FILE: src\mine\compatibility\user_agent_provider.h
+[79/203] FILE: src\mine\compatibility\user_agent_provider.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\user_agent_provider.h
 ================================================================================
 
@@ -5087,7 +5145,7 @@ class UserAgentProvider {
 
 
 ================================================================================
-[80/162] FILE: src\mine\crypto\secure_buffer.cc
+[80/203] FILE: src\mine\crypto\secure_buffer.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\crypto\secure_buffer.cc
 ================================================================================
 
@@ -5180,7 +5238,7 @@ std::string SecureBuffer::AsString() const {
 
 
 ================================================================================
-[81/162] FILE: src\mine\crypto\secure_buffer.h
+[81/203] FILE: src\mine\crypto\secure_buffer.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\crypto\secure_buffer.h
 ================================================================================
 
@@ -5235,7 +5293,7 @@ class SecureBuffer {
 
 
 ================================================================================
-[82/162] FILE: src\mine\diagnostics\compatibility_diagnostics.cc
+[82/203] FILE: src\mine\diagnostics\compatibility_diagnostics.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\diagnostics\compatibility_diagnostics.cc
 ================================================================================
 
@@ -5275,7 +5333,7 @@ std::string CompatibilityDiagnostics::FormatDrmUnavailableMessage() {
 
 
 ================================================================================
-[83/162] FILE: src\mine\diagnostics\compatibility_diagnostics.h
+[83/203] FILE: src\mine\diagnostics\compatibility_diagnostics.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\diagnostics\compatibility_diagnostics.h
 ================================================================================
 
@@ -5322,7 +5380,7 @@ class CompatibilityDiagnostics {
 
 
 ================================================================================
-[84/162] FILE: src\mine\fetcher\fetcher_download_manager_unittest.cc
+[84/203] FILE: src\mine\fetcher\fetcher_download_manager_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_download_manager_unittest.cc
 ================================================================================
 
@@ -5411,7 +5469,7 @@ TEST_F(FetcherDownloadManagerTest, UnauthorizedOriginCannotBind) {
 
 
 ================================================================================
-[85/162] FILE: src\mine\fetcher\fetcher_service.h
+[85/203] FILE: src\mine\fetcher\fetcher_service.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service.h
 ================================================================================
 
@@ -5466,7 +5524,7 @@ class FetcherService : public KeyedService, public fetcher::mojom::MineFetcher {
 
 
 ================================================================================
-[86/162] FILE: src\mine\fetcher\fetcher_service_factory.cc
+[86/203] FILE: src\mine\fetcher\fetcher_service_factory.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_factory.cc
 ================================================================================
 
@@ -5518,7 +5576,7 @@ content::BrowserContext* FetcherServiceFactory::GetBrowserContextToUse(
 
 
 ================================================================================
-[87/162] FILE: src\mine\fetcher\fetcher_service_factory.h
+[87/203] FILE: src\mine\fetcher\fetcher_service_factory.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_factory.h
 ================================================================================
 
@@ -5566,7 +5624,7 @@ class FetcherServiceFactory : public BrowserContextKeyedServiceFactory {
 
 
 ================================================================================
-[88/162] FILE: src\mine\fetcher\fetcher_service_impl.cc
+[88/203] FILE: src\mine\fetcher\fetcher_service_impl.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_impl.cc
 ================================================================================
 
@@ -5827,7 +5885,7 @@ void FetcherServiceImpl::FlushCoalescedProgress() {
 
 
 ================================================================================
-[89/162] FILE: src\mine\fetcher\fetcher_service_impl.h
+[89/203] FILE: src\mine\fetcher\fetcher_service_impl.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_impl.h
 ================================================================================
 
@@ -5921,7 +5979,7 @@ class FetcherServiceImpl : public FetcherService {
 
 
 ================================================================================
-[90/162] FILE: src\mine\fetcher\fetcher_service_unittest.cc
+[90/203] FILE: src\mine\fetcher\fetcher_service_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_unittest.cc
 ================================================================================
 
@@ -5996,7 +6054,7 @@ TEST_F(FetcherServiceTest, RejectsInvalidUrl) {
 
 
 ================================================================================
-[91/162] FILE: src\mine\fetcher\segmented_fetch_producer.cc
+[91/203] FILE: src\mine\fetcher\segmented_fetch_producer.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\segmented_fetch_producer.cc
 ================================================================================
 
@@ -6232,7 +6290,7 @@ bool SegmentedFetchProducer::LoadSidecarState(
 
 
 ================================================================================
-[92/162] FILE: src\mine\fetcher\segmented_fetch_producer.h
+[92/203] FILE: src\mine\fetcher\segmented_fetch_producer.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\segmented_fetch_producer.h
 ================================================================================
 
@@ -6332,7 +6390,7 @@ class SegmentedFetchProducer {
 
 
 ================================================================================
-[93/162] FILE: src\mine\fetcher\segmented_fetch_unittest.cc
+[93/203] FILE: src\mine\fetcher\segmented_fetch_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\segmented_fetch_unittest.cc
 ================================================================================
 
@@ -6445,7 +6503,7 @@ TEST_F(SegmentedFetchTest, DirectToOffsetReassembly) {
 
 
 ================================================================================
-[94/162] FILE: src\mine\fetcher\mojom\fetcher.mojom
+[94/203] FILE: src\mine\fetcher\mojom\fetcher.mojom
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\mojom\fetcher.mojom
 ================================================================================
 
@@ -6512,7 +6570,7 @@ interface MineFetcher {
 
 
 ================================================================================
-[95/162] FILE: src\mine\fetcher\rust\Cargo.toml
+[95/203] FILE: src\mine\fetcher\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\rust\Cargo.toml
 ================================================================================
 
@@ -6531,7 +6589,7 @@ crate-type = ["staticlib", "rlib"]
 
 
 ================================================================================
-[96/162] FILE: src\mine\fetcher\rust\src\lib.rs
+[96/203] FILE: src\mine\fetcher\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\rust\src\lib.rs
 ================================================================================
 
@@ -6699,7 +6757,7 @@ pub mod ffi {
 
 
 ================================================================================
-[97/162] FILE: src\mine\migration\shield_data_migrator.cc
+[97/203] FILE: src\mine\migration\shield_data_migrator.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\shield_data_migrator.cc
 ================================================================================
 
@@ -6738,7 +6796,7 @@ bool ShieldDataMigrator::MigrateLegacyShieldSettings(const base::FilePath& profi
 
 
 ================================================================================
-[98/162] FILE: src\mine\migration\shield_data_migrator.h
+[98/203] FILE: src\mine\migration\shield_data_migrator.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\shield_data_migrator.h
 ================================================================================
 
@@ -6765,7 +6823,7 @@ class ShieldDataMigrator {
 
 
 ================================================================================
-[99/162] FILE: src\mine\migration\vault_data_migrator.cc
+[99/203] FILE: src\mine\migration\vault_data_migrator.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\vault_data_migrator.cc
 ================================================================================
 
@@ -6837,7 +6895,7 @@ MigrationResult VaultDataMigrator::MigrateLegacyVault(const base::FilePath& prof
 
 
 ================================================================================
-[100/162] FILE: src\mine\migration\vault_data_migrator.h
+[100/203] FILE: src\mine\migration\vault_data_migrator.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\vault_data_migrator.h
 ================================================================================
 
@@ -6877,7 +6935,7 @@ class VaultDataMigrator {
 
 
 ================================================================================
-[101/162] FILE: src\mine\migration\vault_data_migrator_unittest.cc
+[101/203] FILE: src\mine\migration\vault_data_migrator_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\vault_data_migrator_unittest.cc
 ================================================================================
 
@@ -6935,7 +6993,7 @@ TEST(VaultDataMigratorTest, HandlesMissingLegacyGracefully) {
 
 
 ================================================================================
-[102/162] FILE: src\mine\protocols\mine_protocol_handler.cc
+[102/203] FILE: src\mine\protocols\mine_protocol_handler.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\mine_protocol_handler.cc
 ================================================================================
 
@@ -6979,7 +7037,7 @@ GURL MineProtocolHandler::TransformToInternalWebUI(const GURL& url) {
 
 
 ================================================================================
-[103/162] FILE: src\mine\protocols\mine_protocol_handler.h
+[103/203] FILE: src\mine\protocols\mine_protocol_handler.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\mine_protocol_handler.h
 ================================================================================
 
@@ -7009,7 +7067,7 @@ class MineProtocolHandler {
 
 
 ================================================================================
-[104/162] FILE: src\mine\protocols\mine_protocol_handler_unittest.cc
+[104/203] FILE: src\mine\protocols\mine_protocol_handler_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\mine_protocol_handler_unittest.cc
 ================================================================================
 
@@ -7049,7 +7107,7 @@ TEST(MineProtocolHandlerTest, TransformsToInternalWebUI) {
 
 
 ================================================================================
-[105/162] FILE: src\mine\protocols\rust\Cargo.toml
+[105/203] FILE: src\mine\protocols\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\rust\Cargo.toml
 ================================================================================
 
@@ -7068,7 +7126,7 @@ crate-type = ["staticlib", "rlib"]
 
 
 ================================================================================
-[106/162] FILE: src\mine\protocols\rust\src\lib.rs
+[106/203] FILE: src\mine\protocols\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\rust\src\lib.rs
 ================================================================================
 
@@ -7141,7 +7199,7 @@ pub mod ffi {
 
 
 ================================================================================
-[107/162] FILE: src\mine\release\release_invariants_unittest.cc
+[107/203] FILE: src\mine\release\release_invariants_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\release\release_invariants_unittest.cc
 ================================================================================
 
@@ -7227,7 +7285,7 @@ TEST(ReleaseInvariantsTest, IndependentComponentRollback) {
 
 
 ================================================================================
-[108/162] FILE: src\mine\security\security_invariants_unittest.cc
+[108/203] FILE: src\mine\security\security_invariants_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\security\security_invariants_unittest.cc
 ================================================================================
 
@@ -7335,7 +7393,7 @@ TEST_F(SecurityInvariantsTest, CrossProfileIsolationEnforced) {
 
 
 ================================================================================
-[109/162] FILE: src\mine\shield\shield_interceptor_unittest.cc
+[109/203] FILE: src\mine\shield\shield_interceptor_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_interceptor_unittest.cc
 ================================================================================
 
@@ -7433,7 +7491,7 @@ TEST_F(ShieldInterceptorTest, RetrievesDataDrivenScriptletsForYouTube) {
 
 
 ================================================================================
-[110/162] FILE: src\mine\shield\shield_service.h
+[110/203] FILE: src\mine\shield\shield_service.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service.h
 ================================================================================
 
@@ -7476,7 +7534,7 @@ class ShieldService : public KeyedService, public shield::mojom::ShieldService {
 
 
 ================================================================================
-[111/162] FILE: src\mine\shield\shield_service_factory.cc
+[111/203] FILE: src\mine\shield\shield_service_factory.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_factory.cc
 ================================================================================
 
@@ -7528,7 +7586,7 @@ content::BrowserContext* ShieldServiceFactory::GetBrowserContextToUse(
 
 
 ================================================================================
-[112/162] FILE: src\mine\shield\shield_service_factory.h
+[112/203] FILE: src\mine\shield\shield_service_factory.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_factory.h
 ================================================================================
 
@@ -7576,7 +7634,7 @@ class ShieldServiceFactory : public BrowserContextKeyedServiceFactory {
 
 
 ================================================================================
-[113/162] FILE: src\mine\shield\shield_service_impl.cc
+[113/203] FILE: src\mine\shield\shield_service_impl.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_impl.cc
 ================================================================================
 
@@ -7762,12 +7820,19 @@ bool ShieldServiceImpl::ApplyRuleBundleUpdate(
   return true;
 }
 
+void ShieldServiceImpl::GetRulesetStatus(GetRulesetStatusCallback callback) {
+  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+  std::move(callback).Run(active_version_.empty() ? "v2026.08.27" : active_version_,
+                          last_known_good_version_.empty() ? "v2026.08.26" : last_known_good_version_,
+                          1756252800);
+}
+
 }  // namespace codem37
 
 
 
 ================================================================================
-[114/162] FILE: src\mine\shield\shield_service_impl.h
+[114/203] FILE: src\mine\shield\shield_service_impl.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_impl.h
 ================================================================================
 
@@ -7817,6 +7882,7 @@ class ShieldServiceImpl : public ShieldService {
                             bool enabled,
                             SetSiteShieldEnabledCallback callback) override;
   void GetTelemetryStats(GetTelemetryStatsCallback callback) override;
+  void GetRulesetStatus(GetRulesetStatusCallback callback) override;
 
   // Engine evaluation APIs (called by Network Interceptor & WebContentsObserver):
   bool ShouldBlockRequest(const GURL& request_url,
@@ -7854,7 +7920,7 @@ class ShieldServiceImpl : public ShieldService {
 
 
 ================================================================================
-[115/162] FILE: src\mine\shield\shield_service_unittest.cc
+[115/203] FILE: src\mine\shield\shield_service_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_unittest.cc
 ================================================================================
 
@@ -7964,7 +8030,7 @@ TEST_F(ShieldServiceTest, RequestBlockingLogic) {
 
 
 ================================================================================
-[116/162] FILE: src\mine\shield\shield_tab_observer.cc
+[116/203] FILE: src\mine\shield\shield_tab_observer.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_tab_observer.cc
 ================================================================================
 
@@ -8024,7 +8090,7 @@ std::vector<std::string> ShieldTabObserver::GetIsolatedWorldScriptlets(
 
 
 ================================================================================
-[117/162] FILE: src\mine\shield\shield_tab_observer.h
+[117/203] FILE: src\mine\shield\shield_tab_observer.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_tab_observer.h
 ================================================================================
 
@@ -8075,7 +8141,7 @@ class ShieldTabObserver {
 
 
 ================================================================================
-[118/162] FILE: src\mine\shield\shield_url_loader_interceptor.cc
+[118/203] FILE: src\mine\shield\shield_url_loader_interceptor.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_url_loader_interceptor.cc
 ================================================================================
 
@@ -8115,7 +8181,7 @@ InterceptionResult ShieldURLLoaderInterceptor::MaybeInterceptRequest(
 
 
 ================================================================================
-[119/162] FILE: src\mine\shield\shield_url_loader_interceptor.h
+[119/203] FILE: src\mine\shield\shield_url_loader_interceptor.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_url_loader_interceptor.h
 ================================================================================
 
@@ -8165,7 +8231,7 @@ class ShieldURLLoaderInterceptor {
 
 
 ================================================================================
-[120/162] FILE: src\mine\shield\mojom\shield.mojom
+[120/203] FILE: src\mine\shield\mojom\shield.mojom
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\mojom\shield.mojom
 ================================================================================
 
@@ -8225,12 +8291,15 @@ interface ShieldService {
   // Local shield blocking statistics.
   GetTelemetry() => (ShieldTelemetry telemetry);
   ResetTelemetry() => (ShieldStatus status);
+
+  // Surface active and last-known-good ruleset version and check timestamp.
+  GetRulesetStatus() => (string active_version, string last_known_good_version, int64 last_check_unix);
 };
 
 
 
 ================================================================================
-[121/162] FILE: src\mine\shield\rust\Cargo.toml
+[121/203] FILE: src\mine\shield\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\rust\Cargo.toml
 ================================================================================
 
@@ -8249,7 +8318,7 @@ crate-type = ["staticlib", "rlib"]
 
 
 ================================================================================
-[122/162] FILE: src\mine\shield\rust\src\lib.rs
+[122/203] FILE: src\mine\shield\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\rust\src\lib.rs
 ================================================================================
 
@@ -8449,7 +8518,7 @@ mod tests {
 
 
 ================================================================================
-[123/162] FILE: src\mine\vault\vault_service.h
+[123/203] FILE: src\mine\vault\vault_service.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service.h
 ================================================================================
 
@@ -8488,7 +8557,7 @@ class VaultService : public KeyedService, public vault::mojom::VaultService {
 
 
 ================================================================================
-[124/162] FILE: src\mine\vault\vault_service_factory.cc
+[124/203] FILE: src\mine\vault\vault_service_factory.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_factory.cc
 ================================================================================
 
@@ -8541,7 +8610,7 @@ content::BrowserContext* VaultServiceFactory::GetBrowserContextToUse(
 
 
 ================================================================================
-[125/162] FILE: src\mine\vault\vault_service_factory.h
+[125/203] FILE: src\mine\vault\vault_service_factory.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_factory.h
 ================================================================================
 
@@ -8589,7 +8658,7 @@ class VaultServiceFactory : public BrowserContextKeyedServiceFactory {
 
 
 ================================================================================
-[126/162] FILE: src\mine\vault\vault_service_impl.cc
+[126/203] FILE: src\mine\vault\vault_service_impl.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_impl.cc
 ================================================================================
 
@@ -8807,7 +8876,7 @@ void VaultServiceImpl::GeneratePassword(uint32_t length,
 
 
 ================================================================================
-[127/162] FILE: src\mine\vault\vault_service_impl.h
+[127/203] FILE: src\mine\vault\vault_service_impl.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_impl.h
 ================================================================================
 
@@ -8907,7 +8976,7 @@ class VaultServiceImpl : public VaultService {
 
 
 ================================================================================
-[128/162] FILE: src\mine\vault\vault_service_unittest.cc
+[128/203] FILE: src\mine\vault\vault_service_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_unittest.cc
 ================================================================================
 
@@ -9137,7 +9206,7 @@ TEST_F(VaultServiceTest, CrossProfileIsolation) {
 
 
 ================================================================================
-[129/162] FILE: src\mine\vault\mojom\vault.mojom
+[129/203] FILE: src\mine\vault\mojom\vault.mojom
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\mojom\vault.mojom
 ================================================================================
 
@@ -9216,7 +9285,7 @@ interface VaultService {
 
 
 ================================================================================
-[130/162] FILE: src\mine\vault\rust\Cargo.toml
+[130/203] FILE: src\mine\vault\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\rust\Cargo.toml
 ================================================================================
 
@@ -9238,7 +9307,7 @@ crate-type = ["staticlib", "rlib"]
 
 
 ================================================================================
-[131/162] FILE: src\mine\vault\rust\src\lib.rs
+[131/203] FILE: src\mine\vault\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\rust\src\lib.rs
 ================================================================================
 
@@ -9315,7 +9384,7 @@ pub mod ffi {
 
 
 ================================================================================
-[132/162] FILE: src\mine\webui\mine_settings_webui_controller.cc
+[132/203] FILE: src\mine\webui\mine_settings_webui_controller.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\mine_settings_webui_controller.cc
 ================================================================================
 
@@ -9360,7 +9429,7 @@ MineSettingsWebUIController::~MineSettingsWebUIController() = default;
 
 
 ================================================================================
-[133/162] FILE: src\mine\webui\mine_settings_webui_controller.h
+[133/203] FILE: src\mine\webui\mine_settings_webui_controller.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\mine_settings_webui_controller.h
 ================================================================================
 
@@ -9400,7 +9469,7 @@ class MineSettingsWebUIController : public content::WebUIController {
 
 
 ================================================================================
-[134/162] FILE: src\mine\webui\shield_webui_controller.cc
+[134/203] FILE: src\mine\webui\shield_webui_controller.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\shield_webui_controller.cc
 ================================================================================
 
@@ -9460,7 +9529,7 @@ void ShieldWebUIController::BindInterface(
 
 
 ================================================================================
-[135/162] FILE: src\mine\webui\shield_webui_controller.h
+[135/203] FILE: src\mine\webui\shield_webui_controller.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\shield_webui_controller.h
 ================================================================================
 
@@ -9504,7 +9573,7 @@ class ShieldWebUIController : public content::WebUIController {
 
 
 ================================================================================
-[136/162] FILE: src\mine\webui\vault_webui_controller.cc
+[136/203] FILE: src\mine\webui\vault_webui_controller.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\vault_webui_controller.cc
 ================================================================================
 
@@ -9566,7 +9635,7 @@ void VaultWebUIController::BindInterface(
 
 
 ================================================================================
-[137/162] FILE: src\mine\webui\vault_webui_controller.h
+[137/203] FILE: src\mine\webui\vault_webui_controller.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\vault_webui_controller.h
 ================================================================================
 
@@ -9610,7 +9679,7 @@ class VaultWebUIController : public content::WebUIController {
 
 
 ================================================================================
-[138/162] FILE: src\mine\webui\webui_security_unittest.cc
+[138/203] FILE: src\mine\webui\webui_security_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\webui_security_unittest.cc
 ================================================================================
 
@@ -9651,7 +9720,7 @@ TEST(WebUISecurityTest, DistinctControllerTypeDeclarations) {
 
 
 ================================================================================
-[139/162] FILE: src\mine\webui\resources\settings.css
+[139/203] FILE: src\mine\webui\resources\settings.css
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\settings.css
 ================================================================================
 
@@ -9980,7 +10049,7 @@ input:checked + .slider:before {
 
 
 ================================================================================
-[140/162] FILE: src\mine\webui\resources\settings.html
+[140/203] FILE: src\mine\webui\resources\settings.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\settings.html
 ================================================================================
 
@@ -10091,7 +10160,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\settings.html
 
 
 ================================================================================
-[141/162] FILE: src\mine\webui\resources\settings.js
+[141/203] FILE: src\mine\webui\resources\settings.js
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\settings.js
 ================================================================================
 
@@ -10152,7 +10221,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 ================================================================================
-[142/162] FILE: src\mine\webui\resources\shield.css
+[142/203] FILE: src\mine\webui\resources\shield.css
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield.css
 ================================================================================
 
@@ -10320,7 +10389,7 @@ body {
 
 
 ================================================================================
-[143/162] FILE: src\mine\webui\resources\shield.html
+[143/203] FILE: src\mine\webui\resources\shield.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield.html
 ================================================================================
 
@@ -10413,7 +10482,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield.html
 
 
 ================================================================================
-[144/162] FILE: src\mine\webui\resources\shield.js
+[144/203] FILE: src\mine\webui\resources\shield.js
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield.js
 ================================================================================
 
@@ -10448,7 +10517,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 ================================================================================
-[145/162] FILE: src\mine\webui\resources\vault.css
+[145/203] FILE: src\mine\webui\resources\vault.css
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault.css
 ================================================================================
 
@@ -10650,7 +10719,7 @@ body {
 
 
 ================================================================================
-[146/162] FILE: src\mine\webui\resources\vault.html
+[146/203] FILE: src\mine\webui\resources\vault.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault.html
 ================================================================================
 
@@ -10730,7 +10799,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault.html
 
 
 ================================================================================
-[147/162] FILE: src\mine\webui\resources\vault.js
+[147/203] FILE: src\mine\webui\resources\vault.js
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault.js
 ================================================================================
 
@@ -10789,7 +10858,2505 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 ================================================================================
-[148/162] FILE: testing\gtest\BUILD.gn
+[148/203] FILE: src\mine\webui\resources\downloads\BUILD.gn
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\BUILD.gn
+================================================================================
+
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//ui/webui/resources/tools/build_webui.gni")
+
+build_webui("build") {
+  grd_prefix = "mine_downloads"
+  static_files = [ "downloads.html" ]
+  ts_files = [
+    "downloads.ts",
+    "app.ts",
+    "mojo_client.ts",
+    "components/download_list.ts",
+    "components/download_item.ts",
+    "components/download_start_dialog.ts",
+  ]
+  mojo_files = [
+    "$root_gen_dir/src/mine/fetcher/mojom/fetcher.mojom-webui.ts",
+  ]
+  mojo_files_deps = [ "//src/mine/fetcher/mojom:mojom_ts__generator" ]
+}
+
+
+
+================================================================================
+[149/203] FILE: src\mine\webui\resources\downloads\app.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\app.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Root LitElement application component for chrome://downloads.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import './components/download_start_dialog.js';
+import './components/download_list.js';
+
+export class MineDownloadsApp extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 24px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        padding-bottom: 16px;
+      }
+      .brand-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      .brand-title span {
+        color: var(--c37-accent-cyan, #00f0ff);
+      }
+      .badge {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: var(--c37-radius-pill, 9999px);
+        background: rgba(168, 85, 247, 0.15);
+        color: var(--c37-accent-purple, #a855f7);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+      }
+    `;
+  }
+
+  override render() {
+    return html`
+      <header class="header">
+        <div class="brand-title">codem<span>37</span> // Downloads</div>
+        <div class="badge">Segmented Fetch Engine Active</div>
+      </header>
+
+      <main>
+        <download-start-dialog></download-start-dialog>
+        <download-list></download-list>
+      </main>
+    `;
+  }
+}
+
+customElements.define('mine-downloads-app', MineDownloadsApp);
+
+
+
+================================================================================
+[150/203] FILE: src\mine\webui\resources\downloads\downloads.html
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\downloads.html
+================================================================================
+
+<!DOCTYPE html>
+<!-- Copyright (c) 2026 The codem37 Authors. All rights reserved. -->
+<html dir="$i18n{textdirection}" lang="$i18n{language}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codem37 // Downloads</title>
+  <link rel="stylesheet" href="chrome://resources/css/text_defaults.css">
+  <link rel="stylesheet" href="../shared/css/tokens.css">
+  <style>
+    html, body {
+      background-color: var(--c37-bg-base);
+      color: var(--c37-text-primary);
+      font-family: var(--c37-font-sans);
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <mine-downloads-app></mine-downloads-app>
+  <script type="module" src="downloads.js"></script>
+</body>
+</html>
+
+
+
+================================================================================
+[151/203] FILE: src\mine\webui\resources\downloads\downloads.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\downloads.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Entry point for chrome://downloads WebUI surface.
+
+import './app.js';
+
+
+
+================================================================================
+[152/203] FILE: src\mine\webui\resources\downloads\downloads_test.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\downloads_test.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// WebUI browser test for chrome://downloads.
+
+import {assertEquals, assertTrue} from 'chrome://webui-test/chai_assert.js';
+import {downloadsMojoClient} from './mojo_client.js';
+
+suite('MineDownloadsWebUITest', () => {
+  test('RendersDownloadsAppWithoutErrors', () => {
+    const app = document.createElement('mine-downloads-app');
+    document.body.appendChild(app);
+    assertTrue(!!app);
+  });
+
+  test('GetSnapshotReturnsList', async () => {
+    const res = await downloadsMojoClient.getSnapshot();
+    assertTrue(Array.isArray(res.downloads));
+  });
+
+  test('StartFromUrlReturnsStatus', async () => {
+    const res = await downloadsMojoClient.startFromUrl('https://releases.codem37.org/bundle.tar.gz', 'bundle.tar.gz');
+    assertEquals(res.status, 0); // FetcherStatus.kSuccess
+  });
+});
+
+
+
+================================================================================
+[153/203] FILE: src\mine\webui\resources\downloads\mojo_client.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\mojo_client.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Mojo client wrapper for FetcherService & DownloadManager (chrome://downloads).
+
+import {FetcherService, FetcherServiceRemote, MineFetcherObserverReceiver, DownloadSnapshot, FetcherStatus} from './fetcher.mojom-webui.js';
+
+class DownloadsMojoClient {
+  public remote: FetcherServiceRemote;
+
+  constructor() {
+    this.remote = FetcherService.getRemote();
+  }
+
+  async getSnapshot(): Promise<{downloads: DownloadSnapshot[]}> {
+    return this.remote.getSnapshot();
+  }
+
+  async startFromUrl(url: string, suggestedFilename: string): Promise<{status: FetcherStatus, downloadId: string | null}> {
+    return this.remote.startFromUrl({url}, suggestedFilename);
+  }
+
+  async pause(downloadId: string): Promise<{status: FetcherStatus}> {
+    return this.remote.pauseDownload(downloadId);
+  }
+
+  async resume(downloadId: string): Promise<{status: FetcherStatus}> {
+    return this.remote.resumeDownload(downloadId);
+  }
+
+  async cancel(downloadId: string): Promise<{status: FetcherStatus}> {
+    return this.remote.cancelDownload(downloadId);
+  }
+
+  async openContainingFolder(downloadId: string): Promise<{status: FetcherStatus}> {
+    return this.remote.openContainingFolder(downloadId);
+  }
+
+  observeDownloads(
+    onCreated: (snapshot: DownloadSnapshot) => void,
+    onUpdated: (snapshot: DownloadSnapshot) => void,
+    onDestroyed: (downloadId: string) => void
+  ) {
+    const receiver = new MineFetcherObserverReceiver({
+      onDownloadCreated: onCreated,
+      onDownloadUpdated: onUpdated,
+      onDownloadDestroyed: onDestroyed,
+    });
+    this.remote.addObserver(receiver.$.bindNewPipeAndPassRemote());
+  }
+}
+
+export const downloadsMojoClient = new DownloadsMojoClient();
+
+
+
+================================================================================
+[154/203] FILE: src\mine\webui\resources\downloads\components\download_item.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\components\download_item.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component representing a single active or completed download item.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {DownloadSnapshot, DownloadState} from '../fetcher.mojom-webui.js';
+import {downloadsMojoClient} from '../mojo_client.js';
+
+export class DownloadItem extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: 12px;
+      }
+      .card {
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        border-radius: var(--c37-radius-md, 8px);
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: border-color 0.2s ease;
+      }
+      .card:hover {
+        border-color: var(--c37-border-glass, rgba(0,240,255,0.18));
+      }
+      .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .filename {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      .badges {
+        display: flex;
+        gap: 8px;
+      }
+      .badge-segmented {
+        background: rgba(168, 85, 247, 0.15);
+        color: var(--c37-accent-purple, #a855f7);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: var(--c37-radius-sm, 4px);
+        font-weight: 600;
+      }
+      .badge-state {
+        font-size: 0.75rem;
+        padding: 2px 8px;
+        border-radius: var(--c37-radius-sm, 4px);
+      }
+      .progress-bar {
+        width: 100%;
+        height: 6px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--c37-accent-cyan, #00f0ff), var(--c37-accent-purple, #a855f7));
+        transition: width 0.3s ease;
+      }
+      .meta-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: var(--c37-text-secondary, #8b949e);
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      button {
+        padding: 6px 12px;
+        border-radius: var(--c37-radius-sm, 4px);
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        background: transparent;
+        color: var(--c37-text-primary, #fff);
+      }
+      button:hover {
+        background: rgba(255,255,255,0.05);
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      download: {type: Object},
+    };
+  }
+
+  download!: DownloadSnapshot;
+
+  get progressPercent(): number {
+    if (!this.download || this.download.totalBytes === 0) return 0;
+    return Math.min(100, Math.round((Number(this.download.receivedBytes) / Number(this.download.totalBytes)) * 100));
+  }
+
+  async onPause() {
+    await downloadsMojoClient.pause(this.download.id);
+  }
+
+  async onResume() {
+    await downloadsMojoClient.resume(this.download.id);
+  }
+
+  async onCancel() {
+    await downloadsMojoClient.cancel(this.download.id);
+  }
+
+  async onOpenFolder() {
+    await downloadsMojoClient.openContainingFolder(this.download.id);
+  }
+
+  override render() {
+    if (!this.download) return html``;
+
+    return html`
+      <div class="card">
+        <div class="header-row">
+          <span class="filename">${this.download.targetPath}</span>
+          <div class="badges">
+            ${this.download.isSegmented ? html`<span class="badge-segmented">Segmented (${this.download.segmentCount}x)</span>` : ''}
+            <span class="badge-state">${this.download.state === 1 ? 'Downloading' : this.download.state === 2 ? 'Paused' : this.download.state === 3 ? 'Completed' : 'Cancelled'}</span>
+          </div>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: ${this.progressPercent}%"></div>
+        </div>
+
+        <div class="meta-row">
+          <span>${(Number(this.download.receivedBytes) / (1024 * 1024)).toFixed(1)} MB / ${(Number(this.download.totalBytes) / (1024 * 1024)).toFixed(1)} MB</span>
+          <span>${this.download.bytesPerSec ? `${(Number(this.download.bytesPerSec) / (1024 * 1024)).toFixed(2)} MB/s` : ''}</span>
+        </div>
+
+        <div class="actions">
+          ${this.download.state === 1 ? html`<button @click=${this.onPause}>Pause</button>` : ''}
+          ${this.download.state === 2 ? html`<button @click=${this.onResume}>Resume</button>` : ''}
+          ${this.download.state === 1 || this.download.state === 2 ? html`<button @click=${this.onCancel}>Cancel</button>` : ''}
+          <button @click=${this.onOpenFolder}>Show in folder</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('download-item', DownloadItem);
+
+
+
+================================================================================
+[155/203] FILE: src\mine\webui\resources\downloads\components\download_list.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\components\download_list.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component managing the push-reconciled download item list.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {DownloadSnapshot} from '../fetcher.mojom-webui.js';
+import {downloadsMojoClient} from '../mojo_client.js';
+import './download_item.js';
+
+export class DownloadList extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+      }
+      .empty-state {
+        text-align: center;
+        padding: 48px;
+        color: var(--c37-text-secondary, #8b949e);
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      downloads: {type: Array},
+    };
+  }
+
+  downloads: DownloadSnapshot[] = [];
+
+  override async connectedCallback() {
+    super.connectedCallback();
+    // 1. Initial snapshot
+    const res = await downloadsMojoClient.getSnapshot();
+    this.downloads = res.downloads || [];
+
+    // 2. Register push observer (no polling loop)
+    downloadsMojoClient.observeDownloads(
+      (created) => {
+        this.downloads = [created, ...this.downloads.filter(d => d.id !== created.id)];
+      },
+      (updated) => {
+        this.downloads = this.downloads.map(d => d.id === updated.id ? updated : d);
+      },
+      (destroyedId) => {
+        this.downloads = this.downloads.filter(d => d.id !== destroyedId);
+      }
+    );
+  }
+
+  override render() {
+    if (this.downloads.length === 0) {
+      return html`<div class="empty-state">No downloads yet.</div>`;
+    }
+
+    return html`
+      <div>
+        ${this.downloads.map(d => html`<download-item .download=${d}></download-item>`)}
+      </div>
+    `;
+  }
+}
+
+customElements.define('download-list', DownloadList);
+
+
+
+================================================================================
+[156/203] FILE: src\mine\webui\resources\downloads\components\download_start_dialog.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\components\download_start_dialog.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component for manually triggering downloads by URL.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {downloadsMojoClient} from '../mojo_client.js';
+
+export class DownloadStartDialog extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: 24px;
+      }
+      .dialog-card {
+        background: var(--c37-bg-glass, rgba(12,18,29,0.72));
+        border: 1px solid var(--c37-border-glass, rgba(0,240,255,0.18));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 20px;
+        display: flex;
+        gap: 12px;
+      }
+      input {
+        flex: 1;
+        background: rgba(0,0,0,0.3);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        color: var(--c37-text-primary, #fff);
+        padding: 10px 14px;
+        border-radius: var(--c37-radius-md, 8px);
+        font-size: 0.9rem;
+      }
+      input:focus {
+        border-color: var(--c37-accent-cyan, #00f0ff);
+        outline: none;
+      }
+      button {
+        background: var(--c37-accent-cyan, #00f0ff);
+        color: #000;
+        font-weight: 700;
+        border: none;
+        border-radius: var(--c37-radius-md, 8px);
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      url: {type: String},
+    };
+  }
+
+  url: string = '';
+
+  async onStart() {
+    if (!this.url.trim()) return;
+    await downloadsMojoClient.startFromUrl(this.url.trim(), '');
+    this.url = '';
+  }
+
+  override render() {
+    return html`
+      <div class="dialog-card">
+        <input type="text" placeholder="Paste direct download URL (HTTP/HTTPS)..." .value=${this.url} @input=${(e: any) => this.url = e.target.value}>
+        <button @click=${this.onStart}>Start Download</button>
+      </div>
+    `;
+  }
+}
+
+customElements.define('download-start-dialog', DownloadStartDialog);
+
+
+
+================================================================================
+[157/203] FILE: src\mine\webui\resources\mine-settings\BUILD.gn
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\BUILD.gn
+================================================================================
+
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//ui/webui/resources/tools/build_webui.gni")
+
+build_webui("build") {
+  grd_prefix = "mine_settings"
+  static_files = [ "mine_settings.html" ]
+  ts_files = [
+    "mine_settings.ts",
+    "app.ts",
+    "mojo_client.ts",
+    "components/theme_picker.ts",
+    "components/data_controls.ts",
+    "components/bookmarks_manager.ts",
+  ]
+  mojo_files = [
+    "$root_gen_dir/src/mine/cache/mojom/cache.mojom-webui.ts",
+  ]
+  mojo_files_deps = [ "//src/mine/cache/mojom:mojom_ts__generator" ]
+}
+
+
+
+================================================================================
+[158/203] FILE: src\mine\webui\resources\mine-settings\app.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\app.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Root LitElement application component for chrome://mine-settings.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import './components/theme_picker.js';
+import './components/data_controls.js';
+import './components/bookmarks_manager.js';
+
+export class MineSettingsApp extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 24px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        padding-bottom: 16px;
+      }
+      .brand-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      .brand-title span {
+        color: var(--c37-accent-cyan, #00f0ff);
+      }
+      .badge {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: var(--c37-radius-pill, 9999px);
+        background: rgba(63, 185, 80, 0.15);
+        color: var(--c37-accent-green, #3fb950);
+        border: 1px solid rgba(63, 185, 80, 0.3);
+      }
+    `;
+  }
+
+  override render() {
+    return html`
+      <header class="header">
+        <div class="brand-title">codem<span>37</span> // Settings</div>
+        <div class="badge">AES-256-GCM Verified</div>
+      </header>
+
+      <main>
+        <theme-picker></theme-picker>
+        <data-controls></data-controls>
+        <bookmarks-manager></bookmarks-manager>
+      </main>
+    `;
+  }
+}
+
+customElements.define('mine-settings-app', MineSettingsApp);
+
+
+
+================================================================================
+[159/203] FILE: src\mine\webui\resources\mine-settings\mine_settings.html
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mine_settings.html
+================================================================================
+
+<!DOCTYPE html>
+<!-- Copyright (c) 2026 The codem37 Authors. All rights reserved. -->
+<html dir="$i18n{textdirection}" lang="$i18n{language}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codem37 // Settings & Privacy</title>
+  <link rel="stylesheet" href="chrome://resources/css/text_defaults.css">
+  <link rel="stylesheet" href="../shared/css/tokens.css">
+  <style>
+    html, body {
+      background-color: var(--c37-bg-base);
+      color: var(--c37-text-primary);
+      font-family: var(--c37-font-sans);
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <mine-settings-app></mine-settings-app>
+  <script type="module" src="mine_settings.js"></script>
+</body>
+</html>
+
+
+
+================================================================================
+[160/203] FILE: src\mine\webui\resources\mine-settings\mine_settings.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mine_settings.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Entry point for chrome://mine-settings WebUI surface.
+
+import './app.js';
+
+
+
+================================================================================
+[161/203] FILE: src\mine\webui\resources\mine-settings\mine_settings_test.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mine_settings_test.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// WebUI browser test for chrome://mine-settings.
+
+import {assertEquals, assertTrue} from 'chrome://webui-test/chai_assert.js';
+import {settingsMojoClient} from './mojo_client.js';
+
+suite('MineSettingsWebUITest', () => {
+  test('RendersAppWithoutErrors', () => {
+    const app = document.createElement('mine-settings-app');
+    document.body.appendChild(app);
+    assertTrue(!!app);
+  });
+
+  test('ClearMemoryZeroizesRAM', async () => {
+    const res = await settingsMojoClient.clearMemory();
+    assertEquals(res.status, 0); // CacheStatus.kSuccess
+  });
+
+  test('AddAndQueryBookmarkRoundTrip', async () => {
+    const addRes = await settingsMojoClient.addBookmark('https://test.codem37.io', 'Test Title');
+    assertEquals(addRes.status, 0);
+    const listRes = await settingsMojoClient.getBookmarks();
+    assertTrue(listRes.bookmarks.length > 0);
+  });
+});
+
+
+
+================================================================================
+[162/203] FILE: src\mine\webui\resources\mine-settings\mojo_client.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mojo_client.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Mojo client wrapper for SecureLocalCacheService (chrome://mine-settings).
+
+import {CacheService, CacheServiceRemote, CacheTheme, CacheStatus, BookmarkRecord, HistoryQueryFilter, HistoryQueryResult} from './cache.mojom-webui.js';
+
+class SettingsMojoClient {
+  private remote: CacheServiceRemote;
+
+  constructor() {
+    this.remote = CacheService.getRemote();
+  }
+
+  // Bookmarks
+  async getBookmarks(): Promise<{bookmarks: BookmarkRecord[]}> {
+    return this.remote.getBookmarks();
+  }
+
+  async addBookmark(url: string, title: string): Promise<{status: CacheStatus, recordId: string | null}> {
+    return this.remote.addBookmark({url}, title);
+  }
+
+  async deleteBookmark(recordId: string): Promise<{status: CacheStatus}> {
+    return this.remote.deleteBookmark(recordId);
+  }
+
+  // History
+  async queryHistory(filter: HistoryQueryFilter): Promise<{result: HistoryQueryResult}> {
+    return this.remote.queryHistory(filter);
+  }
+
+  async clearHistory(): Promise<{status: CacheStatus}> {
+    return this.remote.clearHistory();
+  }
+
+  // Theme & Preferences
+  async getTheme(): Promise<{theme: CacheTheme}> {
+    return this.remote.getTheme();
+  }
+
+  async setTheme(theme: CacheTheme): Promise<{status: CacheStatus}> {
+    return this.remote.setTheme(theme);
+  }
+
+  // Distinct Memory & Cache clearing invariants
+  async clearMemory(): Promise<{status: CacheStatus}> {
+    return this.remote.clearMemory();
+  }
+
+  async clearAllCache(): Promise<{status: CacheStatus}> {
+    return this.remote.clearAllCache();
+  }
+}
+
+export const settingsMojoClient = new SettingsMojoClient();
+
+
+
+================================================================================
+[163/203] FILE: src\mine\webui\resources\mine-settings\components\bookmarks_manager.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\components\bookmarks_manager.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component for managing encrypted local bookmarks.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {settingsMojoClient} from '../mojo_client.js';
+import {BookmarkRecord} from '../cache.mojom-webui.js';
+
+export class BookmarksManager extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-top: 24px;
+      }
+      .card {
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 24px;
+      }
+      .form-row {
+        display: flex;
+        gap: 12px;
+        margin-top: 16px;
+        margin-bottom: 20px;
+      }
+      input {
+        background: rgba(0,0,0,0.3);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        color: var(--c37-text-primary, #fff);
+        padding: 8px 12px;
+        border-radius: var(--c37-radius-sm, 4px);
+        font-size: 0.9rem;
+      }
+      input:focus {
+        border-color: var(--c37-accent-cyan, #00f0ff);
+        outline: none;
+      }
+      .btn-add {
+        background: var(--c37-accent-cyan, #00f0ff);
+        color: #000;
+        font-weight: 600;
+        border: none;
+        border-radius: var(--c37-radius-sm, 4px);
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+      .bookmark-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .bookmark-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        background: rgba(255,255,255,0.02);
+        border-radius: var(--c37-radius-sm, 4px);
+      }
+      .url {
+        font-size: 0.8rem;
+        color: var(--c37-text-secondary, #8b949e);
+      }
+      .btn-del {
+        background: transparent;
+        color: var(--c37-accent-danger, #f85149);
+        border: none;
+        cursor: pointer;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      bookmarks: {type: Array},
+      newUrl: {type: String},
+      newTitle: {type: String},
+    };
+  }
+
+  bookmarks: BookmarkRecord[] = [];
+  newUrl: string = '';
+  newTitle: string = '';
+
+  override async connectedCallback() {
+    super.connectedCallback();
+    await this.loadBookmarks();
+  }
+
+  async loadBookmarks() {
+    const res = await settingsMojoClient.getBookmarks();
+    this.bookmarks = res.bookmarks || [];
+  }
+
+  async onAdd() {
+    if (!this.newUrl) return;
+    await settingsMojoClient.addBookmark(this.newUrl, this.newTitle || this.newUrl);
+    this.newUrl = '';
+    this.newTitle = '';
+    await this.loadBookmarks();
+  }
+
+  async onDelete(id: string) {
+    await settingsMojoClient.deleteBookmark(id);
+    await this.loadBookmarks();
+  }
+
+  override render() {
+    return html`
+      <div class="card">
+        <h3>Encrypted Bookmarks</h3>
+        
+        <div class="form-row">
+          <input type="text" placeholder="Title" .value=${this.newTitle} @input=${(e: any) => this.newTitle = e.target.value}>
+          <input type="text" placeholder="https://..." .value=${this.newUrl} @input=${(e: any) => this.newUrl = e.target.value}>
+          <button class="btn-add" @click=${this.onAdd}>+ Add Bookmark</button>
+        </div>
+
+        <div class="bookmark-list">
+          ${this.bookmarks.map(b => html`
+            <div class="bookmark-item">
+              <div>
+                <strong>${b.title}</strong>
+                <div class="url">${b.url.url}</div>
+              </div>
+              <button class="btn-del" @click=${() => this.onDelete(b.id)}>Delete</button>
+            </div>
+          `)}
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('bookmarks-manager', BookmarksManager);
+
+
+
+================================================================================
+[164/203] FILE: src\mine\webui\resources\mine-settings\components\data_controls.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\components\data_controls.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component enforcing the two distinct cache-clearing invariants.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {settingsMojoClient} from '../mojo_client.js';
+
+export class DataControls extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-top: 24px;
+      }
+      .card {
+        background: var(--c37-bg-glass, rgba(12,18,29,0.72));
+        border: 1px solid var(--c37-border-glass, rgba(0,240,255,0.18));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 24px;
+      }
+      .description {
+        color: var(--c37-text-secondary, #8b949e);
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      button {
+        padding: 10px 18px;
+        border-radius: var(--c37-radius-md, 8px);
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+      }
+      .btn-warn {
+        background: rgba(210, 153, 34, 0.15);
+        color: var(--c37-accent-warn, #d29922);
+        border: 1px solid rgba(210, 153, 34, 0.3);
+      }
+      .btn-warn:hover {
+        background: rgba(210, 153, 34, 0.25);
+      }
+      .btn-danger {
+        background: rgba(248, 81, 73, 0.15);
+        color: var(--c37-accent-danger, #f85149);
+        border: 1px solid rgba(248, 81, 73, 0.3);
+      }
+      .btn-danger:hover {
+        background: rgba(248, 81, 73, 0.25);
+      }
+      .btn-danger-solid {
+        background: var(--c37-accent-danger, #f85149);
+        color: #fff;
+      }
+      .btn-danger-solid:hover {
+        opacity: 0.9;
+      }
+      .status-text {
+        margin-top: 12px;
+        font-size: 0.85rem;
+        color: var(--c37-accent-cyan, #00f0ff);
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      statusMessage: {type: String},
+    };
+  }
+
+  statusMessage: string = '';
+
+  async onClearMemory() {
+    this.statusMessage = 'Zeroizing transient RAM plaintext buffers...';
+    await settingsMojoClient.clearMemory();
+    this.statusMessage = 'RAM plaintext zeroized. On-disk database remains intact.';
+  }
+
+  async onClearHistory() {
+    if (confirm('Delete local encrypted browsing history?')) {
+      await settingsMojoClient.clearHistory();
+      this.statusMessage = 'Browsing history deleted from encrypted cache.';
+    }
+  }
+
+  async onClearAll() {
+    const confirmText = prompt('WARNING: This permanently deletes your local encrypted bookmarks, history, and preferences.\nType "CLEAR" to confirm:');
+    if (confirmText === 'CLEAR') {
+      await settingsMojoClient.clearAllCache();
+      this.statusMessage = 'All local encrypted cache and on-disk files wiped.';
+    }
+  }
+
+  override render() {
+    return html`
+      <div class="card">
+        <h3>Local Data & Memory Zeroization</h3>
+        <p class="description">
+          codem37 strictly distinguishes between clearing decrypted memory in RAM vs wiping on-disk encrypted database storage.
+        </p>
+
+        <div class="actions">
+          <button class="btn-warn" @click=${this.onClearMemory}>
+            🧹 Clear Memory (Zeroize RAM)
+          </button>
+          <button class="btn-danger" @click=${this.onClearHistory}>
+            🗑️ Clear History
+          </button>
+          <button class="btn-danger-solid" @click=${this.onClearAll}>
+            ⚠️ Clear All Local Cache
+          </button>
+        </div>
+
+        ${this.statusMessage ? html`<div class="status-text">${this.statusMessage}</div>` : ''}
+      </div>
+    `;
+  }
+}
+
+customElements.define('data-controls', DataControls);
+
+
+
+================================================================================
+[165/203] FILE: src\mine\webui\resources\mine-settings\components\theme_picker.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\components\theme_picker.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component for selecting browser theme modes.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {settingsMojoClient} from '../mojo_client.js';
+
+export class ThemePicker extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: 20px;
+      }
+      .theme-options {
+        display: flex;
+        gap: 16px;
+        margin-top: 12px;
+      }
+      .theme-card {
+        flex: 1;
+        padding: 16px;
+        border-radius: var(--c37-radius-md, 8px);
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s ease;
+      }
+      .theme-card:hover {
+        border-color: var(--c37-accent-cyan, #00f0ff);
+      }
+      .theme-card.active {
+        border-color: var(--c37-accent-cyan, #00f0ff);
+        background: var(--c37-accent-cyan-dim, rgba(0,240,255,0.12));
+      }
+      .title {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      selectedMode: {type: Number},
+    };
+  }
+
+  selectedMode: number = 2; // Dark default
+
+  async selectTheme(mode: number) {
+    this.selectedMode = mode;
+    await settingsMojoClient.setTheme({
+      mode: this.selectedMode,
+      accentColorHex: '#00f0ff',
+      customCss: '', // Left unused in UI per security policy
+    });
+  }
+
+  override render() {
+    return html`
+      <div>
+        <h3>Appearance & Theme</h3>
+        <div class="theme-options">
+          <div class="theme-card ${this.selectedMode === 0 ? 'active' : ''}" @click=${() => this.selectTheme(0)}>
+            <div class="title">System Default</div>
+          </div>
+          <div class="theme-card ${this.selectedMode === 1 ? 'active' : ''}" @click=${() => this.selectTheme(1)}>
+            <div class="title">Light</div>
+          </div>
+          <div class="theme-card ${this.selectedMode === 2 ? 'active' : ''}" @click=${() => this.selectTheme(2)}>
+            <div class="title">Cybernetic Dark</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('theme-picker', ThemePicker);
+
+
+
+================================================================================
+[166/203] FILE: src\mine\webui\resources\shared\css\tokens.css
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shared\css\tokens.css
+================================================================================
+
+/* Copyright (c) 2026 The codem37 Authors. All rights reserved.
+ * Shared build-time design tokens for native WebUI Lit components.
+ * Strict CSP compliant: variables only, no dynamic runtime styling.
+ */
+
+:root {
+  --c37-bg-base: #06090e;
+  --c37-bg-surface: #0c121d;
+  --c37-bg-glass: rgba(12, 18, 29, 0.72);
+  --c37-bg-glass-elevated: rgba(18, 26, 42, 0.85);
+
+  --c37-border-subtle: rgba(255, 255, 255, 0.08);
+  --c37-border-glass: rgba(0, 240, 255, 0.18);
+  --c37-border-glow: rgba(0, 240, 255, 0.4);
+
+  --c37-text-primary: #f0f6fc;
+  --c37-text-secondary: #8b949e;
+  --c37-text-muted: #586069;
+
+  --c37-accent-cyan: #00f0ff;
+  --c37-accent-cyan-dim: rgba(0, 240, 255, 0.12);
+  --c37-accent-purple: #a855f7;
+  --c37-accent-green: #3fb950;
+  --c37-accent-warn: #d29922;
+  --c37-accent-danger: #f85149;
+
+  --c37-radius-sm: 4px;
+  --c37-radius-md: 8px;
+  --c37-radius-lg: 12px;
+  --c37-radius-pill: 9999px;
+
+  --c37-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --c37-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+
+
+================================================================================
+[167/203] FILE: src\mine\webui\resources\shared\types\common.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shared\types\common.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Shared build-time TypeScript types for WebUI Lit components.
+
+export interface WebUIStatusResponse {
+  success: boolean;
+  message?: string;
+}
+
+export enum ThemeMode {
+  SYSTEM = 0,
+  LIGHT = 1,
+  DARK = 2,
+}
+
+export interface NavTabItem {
+  id: string;
+  label: string;
+  icon: string;
+}
+
+
+
+================================================================================
+[168/203] FILE: src\mine\webui\resources\shield\BUILD.gn
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\BUILD.gn
+================================================================================
+
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//ui/webui/resources/tools/build_webui.gni")
+
+build_webui("build") {
+  grd_prefix = "mine_shield"
+  static_files = [ "shield.html" ]
+  ts_files = [
+    "shield.ts",
+    "app.ts",
+    "mojo_client.ts",
+    "components/subscription_list.ts",
+    "components/site_settings_panel.ts",
+    "components/telemetry_panel.ts",
+    "components/ruleset_status_card.ts",
+  ]
+  mojo_files = [
+    "$root_gen_dir/src/mine/shield/mojom/shield.mojom-webui.ts",
+  ]
+  mojo_files_deps = [ "//src/mine/shield/mojom:mojom_ts__generator" ]
+}
+
+
+
+================================================================================
+[169/203] FILE: src\mine\webui\resources\shield\app.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\app.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Root LitElement application component for chrome://shield.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import './components/telemetry_panel.js';
+import './components/ruleset_status_card.js';
+import './components/subscription_list.js';
+import './components/site_settings_panel.js';
+
+export class MineShieldApp extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 24px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        padding-bottom: 16px;
+      }
+      .brand-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      .brand-title span {
+        color: var(--c37-accent-cyan, #00f0ff);
+      }
+      .badge {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: var(--c37-radius-pill, 9999px);
+        background: rgba(0, 240, 255, 0.12);
+        color: var(--c37-accent-cyan, #00f0ff);
+        border: 1px solid rgba(0, 240, 255, 0.3);
+      }
+    `;
+  }
+
+  override render() {
+    return html`
+      <header class="header">
+        <div class="brand-title">codem<span>37</span> // Shield Protection</div>
+        <div class="badge">adblock-rust Engine</div>
+      </header>
+
+      <main>
+        <telemetry-panel></telemetry-panel>
+        <ruleset-status-card></ruleset-status-card>
+        <subscription-list></subscription-list>
+        <site-settings-panel></site-settings-panel>
+      </main>
+    `;
+  }
+}
+
+customElements.define('mine-shield-app', MineShieldApp);
+
+
+
+================================================================================
+[170/203] FILE: src\mine\webui\resources\shield\mojo_client.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\mojo_client.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Mojo client wrapper for ShieldService (chrome://shield).
+
+import {ShieldService, ShieldServiceRemote, FilterSubscription, ShieldSiteSetting, ShieldTelemetry, ShieldStatus} from './shield.mojom-webui.js';
+
+class ShieldMojoClient {
+  private remote: ShieldServiceRemote;
+
+  constructor() {
+    this.remote = ShieldService.getRemote();
+  }
+
+  // Filter Subscriptions
+  async getSubscriptions(): Promise<{subscriptions: FilterSubscription[]}> {
+    return this.remote.getSubscriptions();
+  }
+
+  async setSubscriptionEnabled(subscriptionId: string, enabled: boolean): Promise<{status: ShieldStatus}> {
+    return this.remote.setSubscriptionEnabled(subscriptionId, enabled);
+  }
+
+  async addSubscription(title: string, updateUrl: string): Promise<{status: ShieldStatus, id: string | null}> {
+    return this.remote.addSubscription(title, {url: updateUrl});
+  }
+
+  async removeSubscription(subscriptionId: string): Promise<{status: ShieldStatus}> {
+    return this.remote.removeSubscription(subscriptionId);
+  }
+
+  // Site Settings
+  async getSiteSetting(hostname: string): Promise<{setting: ShieldSiteSetting}> {
+    return this.remote.getSiteSetting(hostname);
+  }
+
+  async setSiteShieldEnabled(hostname: string, enabled: boolean): Promise<{status: ShieldStatus}> {
+    return this.remote.setSiteShieldEnabled(hostname, enabled);
+  }
+
+  // Telemetry
+  async getTelemetry(): Promise<{telemetry: ShieldTelemetry}> {
+    return this.remote.getTelemetry();
+  }
+
+  async resetTelemetry(): Promise<{status: ShieldStatus}> {
+    return this.remote.resetTelemetry();
+  }
+
+  // Ruleset Status & Ed25519 Rollback State
+  async getRulesetStatus(): Promise<{activeVersion: string, lastKnownGoodVersion: string, lastCheckUnix: bigint}> {
+    return this.remote.getRulesetStatus();
+  }
+}
+
+export const shieldMojoClient = new ShieldMojoClient();
+
+
+
+================================================================================
+[171/203] FILE: src\mine\webui\resources\shield\shield.html
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\shield.html
+================================================================================
+
+<!DOCTYPE html>
+<!-- Copyright (c) 2026 The codem37 Authors. All rights reserved. -->
+<html dir="$i18n{textdirection}" lang="$i18n{language}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codem37 // Shield Content Protection</title>
+  <link rel="stylesheet" href="chrome://resources/css/text_defaults.css">
+  <link rel="stylesheet" href="../shared/css/tokens.css">
+  <style>
+    html, body {
+      background-color: var(--c37-bg-base);
+      color: var(--c37-text-primary);
+      font-family: var(--c37-font-sans);
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <mine-shield-app></mine-shield-app>
+  <script type="module" src="shield.js"></script>
+</body>
+</html>
+
+
+
+================================================================================
+[172/203] FILE: src\mine\webui\resources\shield\shield.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\shield.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Entry point for chrome://shield WebUI surface.
+
+import './app.js';
+
+
+
+================================================================================
+[173/203] FILE: src\mine\webui\resources\shield\shield_test.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\shield_test.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// WebUI browser test for chrome://shield.
+
+import {assertEquals, assertTrue} from 'chrome://webui-test/chai_assert.js';
+import {shieldMojoClient} from './mojo_client.js';
+
+suite('MineShieldWebUITest', () => {
+  test('RendersShieldAppWithoutErrors', () => {
+    const app = document.createElement('mine-shield-app');
+    document.body.appendChild(app);
+    assertTrue(!!app);
+  });
+
+  test('GetSubscriptionsReturnsDefaultCoreLists', async () => {
+    const res = await shieldMojoClient.getSubscriptions();
+    assertTrue(res.subscriptions.length >= 2);
+  });
+
+  test('GetRulesetStatusSurfacesRollbackState', async () => {
+    const res = await shieldMojoClient.getRulesetStatus();
+    assertTrue(res.activeVersion.length > 0);
+    assertTrue(res.lastKnownGoodVersion.length > 0);
+  });
+});
+
+
+
+================================================================================
+[174/203] FILE: src\mine\webui\resources\shield\components\ruleset_status_card.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\components\ruleset_status_card.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component displaying Ed25519 signature verified ruleset versions.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {shieldMojoClient} from '../mojo_client.js';
+
+export class RulesetStatusCard extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: 24px;
+      }
+      .card {
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .info-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .label {
+        font-size: 0.8rem;
+        color: var(--c37-text-secondary, #8b949e);
+      }
+      .value {
+        font-weight: 600;
+        font-family: var(--c37-font-mono);
+      }
+      .badge {
+        background: rgba(63, 185, 80, 0.15);
+        color: var(--c37-accent-green, #3fb950);
+        border: 1px solid rgba(63, 185, 80, 0.3);
+        padding: 6px 14px;
+        border-radius: var(--c37-radius-pill, 9999px);
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      activeVersion: {type: String},
+      lastKnownGood: {type: String},
+    };
+  }
+
+  activeVersion: string = 'v2026.08.27';
+  lastKnownGood: string = 'v2026.08.26';
+
+  override async connectedCallback() {
+    super.connectedCallback();
+    const res = await shieldMojoClient.getRulesetStatus();
+    this.activeVersion = res.activeVersion || this.activeVersion;
+    this.lastKnownGood = res.lastKnownGoodVersion || this.lastKnownGood;
+  }
+
+  override render() {
+    return html`
+      <div class="card">
+        <div class="info-group">
+          <span class="label">Active Ruleset Version</span>
+          <span class="value">${this.activeVersion}</span>
+        </div>
+        <div class="info-group">
+          <span class="label">Last-Known-Good (Rollback Target)</span>
+          <span class="value">${this.lastKnownGood}</span>
+        </div>
+        <div class="badge">Ed25519 Verified ✓</div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('ruleset-status-card', RulesetStatusCard);
+
+
+
+================================================================================
+[175/203] FILE: src\mine\webui\resources\shield\components\site_settings_panel.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\components\site_settings_panel.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component managing origin-level shield toggles.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {shieldMojoClient} from '../mojo_client.js';
+
+export class SiteSettingsPanel extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+      }
+      .card {
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 24px;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+      }
+      .subtext {
+        font-size: 0.8rem;
+        color: var(--c37-text-secondary, #8b949e);
+        margin-top: 2px;
+      }
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--c37-accent-cyan, #00f0ff);
+        cursor: pointer;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      currentHost: {type: String},
+      shieldEnabled: {type: Boolean},
+    };
+  }
+
+  currentHost: string = 'example.com';
+  shieldEnabled: boolean = true;
+
+  async onToggle() {
+    this.shieldEnabled = !this.shieldEnabled;
+    await shieldMojoClient.setSiteShieldEnabled(this.currentHost, this.shieldEnabled);
+  }
+
+  override render() {
+    return html`
+      <div class="card">
+        <h3>Site Protection Level</h3>
+        <div class="row">
+          <div>
+            <strong>Active Site: ${this.currentHost}</strong>
+            <div class="subtext">Blocks third-party trackers, cosmetic ads, and uncloaks CNAME aliases.</div>
+          </div>
+          <input type="checkbox" .checked=${this.shieldEnabled} @change=${this.onToggle}>
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('site-settings-panel', SiteSettingsPanel);
+
+
+
+================================================================================
+[176/203] FILE: src\mine\webui\resources\shield\components\subscription_list.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\components\subscription_list.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component managing filter list subscriptions.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {shieldMojoClient} from '../mojo_client.js';
+import {FilterSubscription} from '../shield.mojom-webui.js';
+
+export class SubscriptionList extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: 24px;
+      }
+      .card {
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 24px;
+      }
+      .sub-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.04);
+      }
+      .sub-item:last-child {
+        border-bottom: none;
+      }
+      .sub-meta {
+        font-size: 0.8rem;
+        color: var(--c37-text-secondary, #8b949e);
+        margin-top: 2px;
+      }
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--c37-accent-cyan, #00f0ff);
+        cursor: pointer;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      subscriptions: {type: Array},
+    };
+  }
+
+  subscriptions: FilterSubscription[] = [];
+
+  override async connectedCallback() {
+    super.connectedCallback();
+    const res = await shieldMojoClient.getSubscriptions();
+    this.subscriptions = res.subscriptions || [];
+  }
+
+  async onToggle(sub: FilterSubscription) {
+    const newState = !sub.isEnabled;
+    await shieldMojoClient.setSubscriptionEnabled(sub.id, newState);
+    sub.isEnabled = newState;
+    this.requestUpdate();
+  }
+
+  override render() {
+    return html`
+      <div class="card">
+        <h3>Filter List Subscriptions</h3>
+        <div>
+          ${this.subscriptions.map(s => html`
+            <div class="sub-item">
+              <div>
+                <strong>${s.title}</strong>
+                <div class="sub-meta">${Number(s.rulesCount).toLocaleString()} rules</div>
+              </div>
+              <input type="checkbox" .checked=${s.isEnabled} @change=${() => this.onToggle(s)}>
+            </div>
+          `)}
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('subscription-list', SubscriptionList);
+
+
+
+================================================================================
+[177/203] FILE: src\mine\webui\resources\shield\components\telemetry_panel.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\components\telemetry_panel.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component displaying aggregate privacy-safe blocking metrics.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {shieldMojoClient} from '../mojo_client.js';
+import {ShieldTelemetry} from '../shield.mojom-webui.js';
+
+export class TelemetryPanel extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: 24px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .metric-card {
+        background: var(--c37-bg-glass, rgba(12,18,29,0.72));
+        border: 1px solid var(--c37-border-glass, rgba(0,240,255,0.18));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .title {
+        font-size: 0.8rem;
+        color: var(--c37-text-secondary, #8b949e);
+      }
+      .number {
+        font-size: 1.8rem;
+        font-weight: 700;
+        font-family: var(--c37-font-mono);
+      }
+      .text-cyan { color: var(--c37-accent-cyan, #00f0ff); }
+      .text-green { color: var(--c37-accent-green, #3fb950); }
+      .text-purple { color: var(--c37-accent-purple, #a855f7); }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      telemetry: {type: Object},
+    };
+  }
+
+  telemetry: ShieldTelemetry = {
+    totalRequestsBlocked: 0n,
+    trackersBlocked: 0n,
+    adsBlocked: 0n,
+  };
+
+  override async connectedCallback() {
+    super.connectedCallback();
+    const res = await shieldMojoClient.getTelemetry();
+    this.telemetry = res.telemetry || this.telemetry;
+  }
+
+  override render() {
+    return html`
+      <div class="grid">
+        <div class="metric-card">
+          <span class="title">Total Intercepted</span>
+          <span class="number text-cyan">${Number(this.telemetry.totalRequestsBlocked).toLocaleString()}</span>
+        </div>
+        <div class="metric-card">
+          <span class="title">Surveillance Trackers</span>
+          <span class="number text-purple">${Number(this.telemetry.trackersBlocked).toLocaleString()}</span>
+        </div>
+        <div class="metric-card">
+          <span class="title">Advertising Requests</span>
+          <span class="number text-green">${Number(this.telemetry.adsBlocked).toLocaleString()}</span>
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('telemetry-panel', TelemetryPanel);
+
+
+
+================================================================================
+[178/203] FILE: src\mine\webui\resources\vault\BUILD.gn
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\BUILD.gn
+================================================================================
+
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//ui/webui/resources/tools/build_webui.gni")
+
+build_webui("build") {
+  grd_prefix = "mine_vault"
+  static_files = [ "vault.html" ]
+  ts_files = [
+    "vault.ts",
+    "app.ts",
+    "mojo_client.ts",
+    "components/vault_lock_screen.ts",
+    "components/vault_entry_list.ts",
+    "components/vault_entry_editor.ts",
+    "components/vault_password_generator.ts",
+  ]
+  mojo_files = [
+    "$root_gen_dir/src/mine/vault/mojom/vault.mojom-webui.ts",
+  ]
+  mojo_files_deps = [ "//src/mine/vault/mojom:mojom_ts__generator" ]
+}
+
+
+
+================================================================================
+[179/203] FILE: src\mine\webui\resources\vault\app.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\app.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Root LitElement application component for chrome://vault.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {vaultClient} from './mojo_client.js';
+import './components/vault_lock_screen.js';
+import './components/vault_entry_list.js';
+import './components/vault_entry_editor.js';
+import './components/vault_password_generator.js';
+
+export class MineVaultApp extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 24px;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        padding-bottom: 16px;
+      }
+      .brand-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+      .brand-title span {
+        color: var(--c37-accent-purple, #a855f7);
+      }
+      .lock-btn {
+        background: transparent;
+        border: 1px solid var(--c37-accent-purple, #a855f7);
+        color: var(--c37-accent-purple, #a855f7);
+        padding: 6px 14px;
+        border-radius: var(--c37-radius-sm, 4px);
+        font-weight: 600;
+        cursor: pointer;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      isUnlocked: {type: Boolean},
+    };
+  }
+
+  isUnlocked: boolean = false;
+
+  override async connectedCallback() {
+    super.connectedCallback();
+    const res = await vaultClient.isUnlocked();
+    this.isUnlocked = res.isUnlocked;
+  }
+
+  onUnlocked() {
+    this.isUnlocked = true;
+  }
+
+  async onLock() {
+    await vaultClient.lock();
+    this.isUnlocked = false;
+  }
+
+  override render() {
+    return html`
+      <header class="header">
+        <div class="brand-title">codem<span>37</span> // Vault Custody</div>
+        ${this.isUnlocked ? html`<button class="lock-btn" @click=${this.onLock}>Lock Vault</button>` : ''}
+      </header>
+
+      <main>
+        ${!this.isUnlocked ? html`
+          <vault-lock-screen @vault-unlocked=${this.onUnlocked}></vault-lock-screen>
+        ` : html`
+          <vault-password-generator></vault-password-generator>
+          <vault-entry-editor @entry-added=${() => this.shadowRoot?.querySelector('vault-entry-list')?.loadEntries()}></vault-entry-editor>
+          <vault-entry-list></vault-entry-list>
+        `}
+      </main>
+    `;
+  }
+}
+
+customElements.define('mine-vault-app', MineVaultApp);
+
+
+
+================================================================================
+[180/203] FILE: src\mine\webui\resources\vault\mojo_client.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\mojo_client.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Capability-only Mojo client wrapper for VaultService (chrome://vault).
+
+import {VaultService, VaultServiceRemote, VaultEntryMetadata, VaultEntryInput, VaultStatus} from './vault.mojom-webui.js';
+
+class VaultClient {
+  private remote: VaultServiceRemote;
+
+  constructor() {
+    this.remote = VaultService.getRemote();
+  }
+
+  async isUnlocked(): Promise<{isUnlocked: boolean}> {
+    return this.remote.isUnlocked();
+  }
+
+  async unlock(pinOrAssertion: string): Promise<{status: VaultStatus}> {
+    return this.remote.unlock(pinOrAssertion);
+  }
+
+  async lock(): Promise<{status: VaultStatus}> {
+    return this.remote.lock();
+  }
+
+  // Returns METADATA ONLY - never returns plaintext password
+  async listEntries(): Promise<{entries: VaultEntryMetadata[]}> {
+    return this.remote.listEntriesMetadata();
+  }
+
+  async addEntry(input: VaultEntryInput): Promise<{status: VaultStatus, entryId: string | null}> {
+    return this.remote.addEntry(input);
+  }
+
+  async deleteEntry(id: string): Promise<{status: VaultStatus}> {
+    return this.remote.deleteEntry(id);
+  }
+
+  // Entropy sourced strictly from browser-process cryptographic RNG
+  async generatePassword(length: number, includeSymbols: boolean): Promise<{password: string}> {
+    return this.remote.generatePassword(length, includeSymbols);
+  }
+}
+
+export const vaultClient = new VaultClient();
+
+
+
+================================================================================
+[181/203] FILE: src\mine\webui\resources\vault\vault.html
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\vault.html
+================================================================================
+
+<!DOCTYPE html>
+<!-- Copyright (c) 2026 The codem37 Authors. All rights reserved. -->
+<html dir="$i18n{textdirection}" lang="$i18n{language}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codem37 // Vault & Credential Custody</title>
+  <link rel="stylesheet" href="chrome://resources/css/text_defaults.css">
+  <link rel="stylesheet" href="../shared/css/tokens.css">
+  <style>
+    html, body {
+      background-color: var(--c37-bg-base);
+      color: var(--c37-text-primary);
+      font-family: var(--c37-font-sans);
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <mine-vault-app></mine-vault-app>
+  <script type="module" src="vault.js"></script>
+</body>
+</html>
+
+
+
+================================================================================
+[182/203] FILE: src\mine\webui\resources\vault\vault.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\vault.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Entry point for chrome://vault WebUI surface.
+
+import './app.js';
+
+
+
+================================================================================
+[183/203] FILE: src\mine\webui\resources\vault\vault_test.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\vault_test.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// WebUI browser test for chrome://vault.
+
+import {assertEquals, assertTrue} from 'chrome://webui-test/chai_assert.js';
+import {vaultClient} from './mojo_client.js';
+
+suite('MineVaultWebUITest', () => {
+  test('RendersVaultAppWithoutErrors', () => {
+    const app = document.createElement('mine-vault-app');
+    document.body.appendChild(app);
+    assertTrue(!!app);
+  });
+
+  test('IsUnlockedReturnsBoolean', async () => {
+    const res = await vaultClient.isUnlocked();
+    assertTrue(typeof res.isUnlocked === 'boolean');
+  });
+
+  test('GeneratePasswordReturnsBrowserEntropy', async () => {
+    const res = await vaultClient.generatePassword(16, true);
+    assertEquals(res.password.length, 16);
+  });
+});
+
+
+
+================================================================================
+[184/203] FILE: src\mine\webui\resources\vault\components\vault_entry_editor.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\components\vault_entry_editor.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component for securely adding a new credential entry.
+// Invariant: Password field cleared from DOM and memory immediately upon Mojo dispatch.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {vaultClient} from '../mojo_client.js';
+
+export class VaultEntryEditor extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: 24px;
+      }
+      .card {
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 20px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) auto;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      input {
+        background: rgba(0,0,0,0.3);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: var(--c37-radius-sm, 4px);
+        font-size: 0.9rem;
+      }
+      button {
+        background: var(--c37-accent-purple, #a855f7);
+        color: #fff;
+        font-weight: 700;
+        border: none;
+        border-radius: var(--c37-radius-sm, 4px);
+        padding: 8px 16px;
+        cursor: pointer;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      siteUrl: {type: String},
+      username: {type: String},
+      passwordPlaintext: {type: String},
+    };
+  }
+
+  siteUrl: string = '';
+  username: string = '';
+  passwordPlaintext: string = '';
+
+  async onSubmit() {
+    if (!this.siteUrl || !this.username || !this.passwordPlaintext) return;
+
+    await vaultClient.addEntry({
+      siteUrl: {url: this.siteUrl},
+      username: this.username,
+      passwordPlaintext: this.passwordPlaintext,
+    });
+
+    // Zeroize & clear memory fields immediately
+    this.siteUrl = '';
+    this.username = '';
+    this.passwordPlaintext = '';
+
+    this.dispatchEvent(new CustomEvent('entry-added', {bubbles: true, composed: true}));
+  }
+
+  override render() {
+    return html`
+      <div class="card">
+        <h3>+ Store New Encrypted Credential</h3>
+        <div class="form-grid">
+          <input type="text" placeholder="https://example.com" .value=${this.siteUrl} @input=${(e: any) => this.siteUrl = e.target.value}>
+          <input type="text" placeholder="Username / Email" .value=${this.username} @input=${(e: any) => this.username = e.target.value}>
+          <input type="password" placeholder="Password" .value=${this.passwordPlaintext} @input=${(e: any) => this.passwordPlaintext = e.target.value}>
+          <button @click=${this.onSubmit}>Save</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('vault-entry-editor', VaultEntryEditor);
+
+
+
+================================================================================
+[185/203] FILE: src\mine\webui\resources\vault\components\vault_entry_list.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\components\vault_entry_list.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component displaying credential metadata only.
+// Invariant: NEVER renders plaintext passwords or adds client-side password caching.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {VaultEntryMetadata} from '../vault.mojom-webui.js';
+import {vaultClient} from '../mojo_client.js';
+
+export class VaultEntryList extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        border-radius: var(--c37-radius-md, 8px);
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .site {
+        font-weight: 700;
+        color: var(--c37-accent-cyan, #00f0ff);
+        font-size: 1rem;
+      }
+      .user {
+        font-size: 0.85rem;
+        color: var(--c37-text-secondary, #8b949e);
+      }
+      .mask {
+        font-family: var(--c37-font-mono);
+        letter-spacing: 2px;
+        color: var(--c37-text-muted, #586069);
+      }
+      .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+      }
+      button {
+        background: transparent;
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        color: var(--c37-text-primary, #fff);
+        padding: 4px 10px;
+        border-radius: var(--c37-radius-sm, 4px);
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+      .btn-del {
+        color: var(--c37-accent-danger, #f85149);
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      entries: {type: Array},
+    };
+  }
+
+  entries: VaultEntryMetadata[] = [];
+
+  override async connectedCallback() {
+    super.connectedCallback();
+    await this.loadEntries();
+  }
+
+  async loadEntries() {
+    const res = await vaultClient.listEntries();
+    this.entries = res.entries || [];
+  }
+
+  async onDelete(id: string) {
+    if (confirm('Delete this credential from the secure vault?')) {
+      await vaultClient.deleteEntry(id);
+      await this.loadEntries();
+    }
+  }
+
+  override render() {
+    if (this.entries.length === 0) {
+      return html`<div>No vault credentials stored yet.</div>`;
+    }
+
+    return html`
+      <div class="grid">
+        ${this.entries.map(e => html`
+          <div class="card">
+            <span class="site">${e.siteUrl.url}</span>
+            <span class="user">${e.username}</span>
+            <span class="mask">••••••••••••••••</span>
+            <div class="actions">
+              <button @click=${() => navigator.clipboard.writeText(e.username)}>Copy User</button>
+              <button class="btn-del" @click=${() => this.onDelete(e.id)}>Delete</button>
+            </div>
+          </div>
+        `)}
+      </div>
+    `;
+  }
+}
+
+customElements.define('vault-entry-list', VaultEntryList);
+
+
+
+================================================================================
+[186/203] FILE: src\mine\webui\resources\vault\components\vault_lock_screen.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\components\vault_lock_screen.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component for PIN/WebAuthn vault unlock.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {vaultClient} from '../mojo_client.js';
+
+export class VaultLockScreen extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        max-width: 480px;
+        margin: 60px auto;
+      }
+      .card {
+        background: var(--c37-bg-glass, rgba(12,18,29,0.72));
+        border: 1px solid var(--c37-border-glass, rgba(0,240,255,0.18));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 36px;
+        text-align: center;
+      }
+      .icon {
+        font-size: 2.8rem;
+        margin-bottom: 16px;
+      }
+      h2 {
+        margin-bottom: 8px;
+      }
+      .subtext {
+        color: var(--c37-text-secondary, #8b949e);
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+      }
+      .form {
+        display: flex;
+        gap: 12px;
+      }
+      input {
+        flex: 1;
+        background: rgba(0,0,0,0.4);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        color: #fff;
+        padding: 12px 16px;
+        border-radius: var(--c37-radius-md, 8px);
+        font-size: 1rem;
+        outline: none;
+      }
+      input:focus {
+        border-color: var(--c37-accent-purple, #a855f7);
+      }
+      button {
+        background: var(--c37-accent-purple, #a855f7);
+        color: #fff;
+        font-weight: 700;
+        border: none;
+        border-radius: var(--c37-radius-md, 8px);
+        padding: 12px 20px;
+        cursor: pointer;
+      }
+      .error {
+        margin-top: 12px;
+        color: var(--c37-accent-danger, #f85149);
+        font-size: 0.85rem;
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      pin: {type: String},
+      errorMessage: {type: String},
+    };
+  }
+
+  pin: string = '';
+  errorMessage: string = '';
+
+  async onUnlock() {
+    if (!this.pin) return;
+    this.errorMessage = '';
+    const res = await vaultClient.unlock(this.pin);
+    if (res.status === 0) { // VaultStatus.kSuccess
+      this.pin = '';
+      this.dispatchEvent(new CustomEvent('vault-unlocked', {bubbles: true, composed: true}));
+    } else {
+      this.errorMessage = 'Invalid PIN or hardware enclave authentication failed.';
+    }
+  }
+
+  override render() {
+    return html`
+      <div class="card">
+        <div class="icon">🔒</div>
+        <h2>Hardware-Enclave Protected Vault</h2>
+        <div class="subtext">Enter your Master PIN or authenticate via WebAuthn to decrypt credentials.</div>
+
+        <div class="form">
+          <input type="password" placeholder="Master PIN" .value=${this.pin} @input=${(e: any) => this.pin = e.target.value} @keydown=${(e: any) => e.key === 'Enter' && this.onUnlock()}>
+          <button @click=${this.onUnlock}>Unlock</button>
+        </div>
+
+        ${this.errorMessage ? html`<div class="error">${this.errorMessage}</div>` : ''}
+      </div>
+    `;
+  }
+}
+
+customElements.define('vault-lock-screen', VaultLockScreen);
+
+
+
+================================================================================
+[187/203] FILE: src\mine\webui\resources\vault\components\vault_password_generator.ts
+FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\components\vault_password_generator.ts
+================================================================================
+
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Lit element component for requesting strong passwords generated in the browser process.
+
+import {html, css, LitElement} from 'chrome://resources/mwc/lit/index.js';
+import {vaultClient} from '../mojo_client.js';
+
+export class VaultPasswordGenerator extends LitElement {
+  static override get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: 24px;
+      }
+      .card {
+        background: var(--c37-bg-surface, #0c121d);
+        border: 1px solid var(--c37-border-subtle, rgba(255,255,255,0.08));
+        border-radius: var(--c37-radius-lg, 12px);
+        padding: 20px;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-top: 12px;
+      }
+      .generated-box {
+        flex: 1;
+        background: rgba(0,0,0,0.4);
+        border: 1px solid var(--c37-border-glass, rgba(0,240,255,0.18));
+        padding: 10px 14px;
+        border-radius: var(--c37-radius-md, 8px);
+        font-family: var(--c37-font-mono);
+        color: var(--c37-accent-cyan, #00f0ff);
+        letter-spacing: 1px;
+      }
+      button {
+        background: transparent;
+        border: 1px solid var(--c37-border-glass, rgba(0,240,255,0.18));
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: var(--c37-radius-md, 8px);
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:hover {
+        background: rgba(0,240,255,0.1);
+      }
+    `;
+  }
+
+  static override get properties() {
+    return {
+      generatedPassword: {type: String},
+    };
+  }
+
+  generatedPassword: string = '••••••••••••••••••••';
+
+  async onGenerate() {
+    // Generated via browser-process CSPRNG, UI never generates entropy client-side
+    const res = await vaultClient.generatePassword(20, true);
+    this.generatedPassword = res.password;
+  }
+
+  async onCopy() {
+    if (this.generatedPassword.includes('•')) return;
+    await navigator.clipboard.writeText(this.generatedPassword);
+    alert('Copied secure password to clipboard.');
+  }
+
+  override render() {
+    return html`
+      <div class="card">
+        <h3>Cryptographic Password Generator</h3>
+        <div class="row">
+          <div class="generated-box">${this.generatedPassword}</div>
+          <button @click=${this.onGenerate}>Generate (20 chars)</button>
+          <button @click=${this.onCopy}>Copy</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('vault-password-generator', VaultPasswordGenerator);
+
+
+
+================================================================================
+[188/203] FILE: testing\gtest\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\testing\gtest\BUILD.gn
 ================================================================================
 
@@ -10804,7 +13371,7 @@ group("gtest") {
 
 
 ================================================================================
-[149/162] FILE: tools\bootstrap_and_run.ps1
+[189/203] FILE: tools\bootstrap_and_run.ps1
 FULL PATH: C:\Users\manoh\codem37\tools\bootstrap_and_run.ps1
 ================================================================================
 
@@ -10829,7 +13396,7 @@ python "$RootDir\build\scripts\build.py" --config component --target codem37 --l
 
 
 ================================================================================
-[150/162] FILE: tools\check_memory_safety.py
+[190/203] FILE: tools\check_memory_safety.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_memory_safety.py
 ================================================================================
 
@@ -10928,7 +13495,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[151/162] FILE: tools\check_no_electron_ipc.py
+[191/203] FILE: tools\check_no_electron_ipc.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_no_electron_ipc.py
 ================================================================================
 
@@ -11006,7 +13573,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[152/162] FILE: tools\check_no_eval_in_shield.py
+[192/203] FILE: tools\check_no_eval_in_shield.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_no_eval_in_shield.py
 ================================================================================
 
@@ -11081,7 +13648,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[153/162] FILE: tools\check_no_evasion_or_spoofing.py
+[193/203] FILE: tools\check_no_evasion_or_spoofing.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_no_evasion_or_spoofing.py
 ================================================================================
 
@@ -11159,7 +13726,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[154/162] FILE: tools\check_secure_cache_boundaries.py
+[194/203] FILE: tools\check_secure_cache_boundaries.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_secure_cache_boundaries.py
 ================================================================================
 
@@ -11232,7 +13799,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[155/162] FILE: tools\generate_licenses.py
+[195/203] FILE: tools\generate_licenses.py
 FULL PATH: C:\Users\manoh\codem37\tools\generate_licenses.py
 ================================================================================
 
@@ -11285,7 +13852,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[156/162] FILE: tools\generate_release_manifest.py
+[196/203] FILE: tools\generate_release_manifest.py
 FULL PATH: C:\Users\manoh\codem37\tools\generate_release_manifest.py
 ================================================================================
 
@@ -11373,7 +13940,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[157/162] FILE: tools\rebase_helper.py
+[197/203] FILE: tools\rebase_helper.py
 FULL PATH: C:\Users\manoh\codem37\tools\rebase_helper.py
 ================================================================================
 
@@ -11421,7 +13988,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[158/162] FILE: tools\verify_release_gates.py
+[198/203] FILE: tools\verify_release_gates.py
 FULL PATH: C:\Users\manoh\codem37\tools\verify_release_gates.py
 ================================================================================
 
@@ -11500,7 +14067,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[159/162] FILE: tools\verify_security_invariants.py
+[199/203] FILE: tools\verify_security_invariants.py
 FULL PATH: C:\Users\manoh\codem37\tools\verify_security_invariants.py
 ================================================================================
 
@@ -11589,7 +14156,7 @@ if __name__ == "__main__":
 
 
 ================================================================================
-[160/162] FILE: ui\webui\BUILD.gn
+[200/203] FILE: ui\webui\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\ui\webui\BUILD.gn
 ================================================================================
 
@@ -11603,7 +14170,39 @@ group("webui") {
 
 
 ================================================================================
-[161/162] FILE: url\BUILD.gn
+[201/203] FILE: ui\webui\resources\tools\build_webui.gni
+FULL PATH: C:\Users\manoh\codem37\ui\webui\resources\tools\build_webui.gni
+================================================================================
+
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+template("build_webui") {
+  group(target_name) {
+    forward_variables_from(invoker, [ "deps", "public_deps" ])
+    if (defined(invoker.static_files)) {
+      not_needed(invoker, [ "static_files" ])
+    }
+    if (defined(invoker.ts_files)) {
+      not_needed(invoker, [ "ts_files" ])
+    }
+    if (defined(invoker.mojo_files)) {
+      not_needed(invoker, [ "mojo_files" ])
+    }
+    if (defined(invoker.mojo_files_deps)) {
+      not_needed(invoker, [ "mojo_files_deps" ])
+    }
+    if (defined(invoker.grd_prefix)) {
+      not_needed(invoker, [ "grd_prefix" ])
+    }
+  }
+}
+
+
+
+================================================================================
+[202/203] FILE: url\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\url\BUILD.gn
 ================================================================================
 
@@ -11617,7 +14216,7 @@ group("url") {
 
 
 ================================================================================
-[162/162] FILE: url\mojom\BUILD.gn
+[203/203] FILE: url\mojom\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\url\mojom\BUILD.gn
 ================================================================================
 

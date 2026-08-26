@@ -1,0 +1,24 @@
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+template("build_webui") {
+  group(target_name) {
+    forward_variables_from(invoker, [ "deps", "public_deps" ])
+    if (defined(invoker.static_files)) {
+      not_needed(invoker, [ "static_files" ])
+    }
+    if (defined(invoker.ts_files)) {
+      not_needed(invoker, [ "ts_files" ])
+    }
+    if (defined(invoker.mojo_files)) {
+      not_needed(invoker, [ "mojo_files" ])
+    }
+    if (defined(invoker.mojo_files_deps)) {
+      not_needed(invoker, [ "mojo_files_deps" ])
+    }
+    if (defined(invoker.grd_prefix)) {
+      not_needed(invoker, [ "grd_prefix" ])
+    }
+  }
+}

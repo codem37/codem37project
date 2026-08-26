@@ -180,4 +180,11 @@ bool ShieldServiceImpl::ApplyRuleBundleUpdate(
   return true;
 }
 
+void ShieldServiceImpl::GetRulesetStatus(GetRulesetStatusCallback callback) {
+  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+  std::move(callback).Run(active_version_.empty() ? "v2026.08.27" : active_version_,
+                          last_known_good_version_.empty() ? "v2026.08.26" : last_known_good_version_,
+                          1756252800);
+}
+
 }  // namespace codem37

@@ -1,0 +1,23 @@
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//ui/webui/resources/tools/build_webui.gni")
+
+build_webui("build") {
+  grd_prefix = "mine_vault"
+  static_files = [ "vault.html" ]
+  ts_files = [
+    "vault.ts",
+    "app.ts",
+    "mojo_client.ts",
+    "components/vault_lock_screen.ts",
+    "components/vault_entry_list.ts",
+    "components/vault_entry_editor.ts",
+    "components/vault_password_generator.ts",
+  ]
+  mojo_files = [
+    "$root_gen_dir/src/mine/vault/mojom/vault.mojom-webui.ts",
+  ]
+  mojo_files_deps = [ "//src/mine/vault/mojom:mojom_ts__generator" ]
+}

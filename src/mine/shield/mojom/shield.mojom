@@ -54,4 +54,7 @@ interface ShieldService {
   // Local shield blocking statistics.
   GetTelemetry() => (ShieldTelemetry telemetry);
   ResetTelemetry() => (ShieldStatus status);
+
+  // Surface active and last-known-good ruleset version and check timestamp.
+  GetRulesetStatus() => (string active_version, string last_known_good_version, int64 last_check_unix);
 };

@@ -44,6 +44,7 @@ class ShieldServiceImpl : public ShieldService {
                             bool enabled,
                             SetSiteShieldEnabledCallback callback) override;
   void GetTelemetryStats(GetTelemetryStatsCallback callback) override;
+  void GetRulesetStatus(GetRulesetStatusCallback callback) override;
 
   // Engine evaluation APIs (called by Network Interceptor & WebContentsObserver):
   bool ShouldBlockRequest(const GURL& request_url,

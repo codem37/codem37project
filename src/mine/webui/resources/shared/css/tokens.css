@@ -1,0 +1,34 @@
+/* Copyright (c) 2026 The codem37 Authors. All rights reserved.
+ * Shared build-time design tokens for native WebUI Lit components.
+ * Strict CSP compliant: variables only, no dynamic runtime styling.
+ */
+
+:root {
+  --c37-bg-base: #06090e;
+  --c37-bg-surface: #0c121d;
+  --c37-bg-glass: rgba(12, 18, 29, 0.72);
+  --c37-bg-glass-elevated: rgba(18, 26, 42, 0.85);
+
+  --c37-border-subtle: rgba(255, 255, 255, 0.08);
+  --c37-border-glass: rgba(0, 240, 255, 0.18);
+  --c37-border-glow: rgba(0, 240, 255, 0.4);
+
+  --c37-text-primary: #f0f6fc;
+  --c37-text-secondary: #8b949e;
+  --c37-text-muted: #586069;
+
+  --c37-accent-cyan: #00f0ff;
+  --c37-accent-cyan-dim: rgba(0, 240, 255, 0.12);
+  --c37-accent-purple: #a855f7;
+  --c37-accent-green: #3fb950;
+  --c37-accent-warn: #d29922;
+  --c37-accent-danger: #f85149;
+
+  --c37-radius-sm: 4px;
+  --c37-radius-md: 8px;
+  --c37-radius-lg: 12px;
+  --c37-radius-pill: 9999px;
+
+  --c37-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --c37-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
