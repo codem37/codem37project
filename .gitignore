@@ -1,0 +1,17 @@
+# Depot tools & GN build outputs
+out/
+build/
+*.pyc
+__pycache__/
+
+# OS and Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local scratch / logs
+*.log
+scratch/

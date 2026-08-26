@@ -1,0 +1,15 @@
+# codem37 Upstream Chromium Version Pin
+# This file tracks the exact pinned upstream Chromium release milestone merged into codem37-main.
+
+CHROMIUM_VERSION=134.0.6998.88
+CHROMIUM_MILESTONE=134
+CHROMIUM_TAG=134.0.6998.88
+CHROMIUM_COMMIT=
+UPSTREAM_REMOTE_URL=https://chromium.googlesource.com/chromium/src.git
+
+# Cadence and Maintenance SLA
+REBASE_CADENCE_WEEKS=8
+SECURITY_CHERRYPICK_MAX_DAYS=14
+LAST_MERGE_DATE=2026-08-26
+NEXT_SCHEDULED_REBASE=2026-10-21
+MERGE_TAG_PREFIX=chromium-M
