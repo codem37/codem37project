@@ -64,7 +64,7 @@ def main():
         print("\n[-] CI Compatibility & Anti-Evasion Check FAILED.")
         sys.exit(1)
 
-    print("\n[✓] Compatibility security verified: 0 deceptive spoofing or security-bypass patterns found.")
+    print("\n[SUCCESS] Compatibility security verified: 0 deceptive spoofing or security-bypass patterns found.")
 
 if __name__ == "__main__":
     main()

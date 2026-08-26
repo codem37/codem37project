@@ -60,14 +60,35 @@ impl ShieldEngine {
         }
     }
 
-    /// Evaluates whether a network request should be blocked or modified.
-    pub fn evaluate_request(
-        &self,
-        request_url: &str,
-        top_origin: &str,
-        is_third_party: bool,
-    ) -> ActionType {
-        if self.site_exceptions.contains(top_origin) {
+    pub fn add_rule(&mut self, rule: FilterRule) {
+        self.network_rules.push(rule);
+    }
+
+    pub fn add_cosmetic_rule(&mut self, domain: String, selector: String) {
+        self.cosmetic_css_by_domain
+            .entry(domain)
+            .or_default()
+            .push(selector);
+    }
+
+    pub fn add_scriptlet(&mut self, domain: String, scriptlet: ScriptletAction) {
+        self.scriptlets_by_domain
+            .entry(domain)
+            .or_default()
+            .push(scriptlet);
+    }
+
+    pub fn set_site_exception(&mut self, domain: String, allow: bool) {
+        if allow {
+            self.site_exceptions.insert(domain);
+        } else {
+            self.site_exceptions.remove(&domain);
+        }
+    }
+
+    /// Evaluates a URL against all network blocking rules with third-party domain awareness.
+    pub fn match_url(&self, url: &str, source_domain: &str, is_third_party: bool) -> ActionType {
+        if self.site_exceptions.contains(source_domain) {
             return ActionType::Allow;
         }
 
@@ -76,11 +97,11 @@ impl ShieldEngine {
                 continue;
             }
 
-            if !rule.domains.is_empty() && !rule.domains.iter().any(|d| top_origin.ends_with(d)) {
+            if !rule.domains.is_empty() && !rule.domains.iter().any(|d| d == source_domain) {
                 continue;
             }
 
-            if request_url.contains(&rule.pattern) {
+            if url.contains(&rule.pattern) {
                 return rule.action.clone();
             }
         }
@@ -88,47 +109,84 @@ impl ShieldEngine {
         ActionType::Allow
     }
 
-    /// Synthesizes CSS selector rules for hiding DOM elements on the specified origin.
-    pub fn get_cosmetic_css_for_origin(&self, origin: &str) -> String {
-        if self.site_exceptions.contains(origin) {
-            return String::new();
+    /// Compiles cosmetic CSS hiding rules into a single stylesheet payload.
+    pub fn get_cosmetic_stylesheet(&self, domain: &str) -> Option<String> {
+        if self.site_exceptions.contains(domain) {
+            return None;
         }
 
-        let mut css = String::new();
-        if let Some(selectors) = self.cosmetic_css_by_domain.get(origin) {
-            for sel in selectors {
-                css.push_str(&format!("{} {{ display: none !important; }}\n", sel));
-            }
+        let mut selectors = Vec::new();
+        if let Some(global_selectors) = self.cosmetic_css_by_domain.get("*") {
+            selectors.extend(global_selectors.clone());
         }
-        css
+        if let Some(domain_selectors) = self.cosmetic_css_by_domain.get(domain) {
+            selectors.extend(domain_selectors.clone());
+        }
+
+        if selectors.is_empty() {
+            None
+        } else {
+            Some(format!("{} {{ display: none !important; }}", selectors.join(", ")))
+        }
     }
 
-    /// Retrieves data-driven scriptlets targeting a specific domain (e.g. YouTube).
+    /// Returns active isolated-world scriptlets for a given origin.
     pub fn get_scriptlets_for_domain(&self, domain: &str) -> Vec<ScriptletAction> {
         if self.site_exceptions.contains(domain) {
             return Vec::new();
         }
-
         self.scriptlets_by_domain.get(domain).cloned().unwrap_or_default()
     }
 }
 
-/// Verifies Ed25519 signature of the downloaded rule bundle before parsing.
-pub fn verify_bundle_signature(
-    _payload: &[u8],
-    _signature: &[u8],
-    _public_key: &[u8],
-) -> Result<bool, ShieldError> {
-    // In production, uses ed25519_dalek to verify signature
-    if _signature.is_empty() || _public_key.is_empty() {
-        return Err(ShieldError::InvalidSignature);
-    }
-    Ok(true)
+#[no_mangle]
+pub extern "C" fn mine_shield_engine_create() -> *mut ShieldEngine {
+    Box::into_raw(Box::new(ShieldEngine::new("1.0.0".to_string())))
 }
 
-#[cxx::bridge(namespace = "codem37::shield::rust")]
-pub mod ffi {
-    extern "Rust" {
-        // CXX bridge exports for C++ Shield integration
+#[no_mangle]
+pub extern "C" fn mine_shield_engine_destroy(engine: *mut ShieldEngine) {
+    if !engine.is_null() {
+        // SAFETY: Pointer was created by Box::into_raw in mine_shield_engine_create and checked non-null.
+        unsafe {
+            drop(Box::from_raw(engine));
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_network_blocking_and_exceptions() {
+        let mut engine = ShieldEngine::new("1.0.0".to_string());
+        engine.add_rule(FilterRule {
+            pattern: "doubleclick.net".to_string(),
+            domains: vec![],
+            action: ActionType::Block,
+            is_third_party_only: false,
+        });
+
+        assert_eq!(
+            engine.match_url("https://ad.doubleclick.net/ad.js", "example.com", true),
+            ActionType::Block
+        );
+
+        engine.set_site_exception("example.com".to_string(), true);
+        assert_eq!(
+            engine.match_url("https://ad.doubleclick.net/ad.js", "example.com", true),
+            ActionType::Allow
+        );
+    }
+
+    #[test]
+    fn test_cosmetic_stylesheet_generation() {
+        let mut engine = ShieldEngine::new("1.0.0".to_string());
+        engine.add_cosmetic_rule("news.com".to_string(), ".ad-banner".to_string());
+        engine.add_cosmetic_rule("news.com".to_string(), "#sponsored-post".to_string());
+
+        let css = engine.get_cosmetic_stylesheet("news.com").unwrap();
+        assert_eq!(css, ".ad-banner, #sponsored-post { display: none !important; }");
     }
 }

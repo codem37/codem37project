@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codem37 // Shield Content Protection</title>
+  <link rel="stylesheet" href="shield.css">
+</head>
+<body>
+  <div class="cyber-app">
+    <header class="shield-header">
+      <div class="brand">
+        <div class="shield-badge-icon"></div>
+        <h1>Shield<span>Engine</span></h1>
+      </div>
+      <div class="engine-status">
+        <span class="pulse-indicator"></span>
+        <span>adblock-rust 0.8.5 // Active</span>
+      </div>
+    </header>
+
+    <main class="shield-content">
+      <!-- Live Metrics Cards -->
+      <section class="metrics-grid">
+        <div class="metric-card glass">
+          <span class="metric-title">Trackers Intercepted</span>
+          <span class="metric-number" id="metric-trackers">14,289</span>
+          <span class="metric-sub">CNAME uncloaked: 1,842</span>
+        </div>
+        <div class="metric-card glass">
+          <span class="metric-title">Ad Requests Blocked</span>
+          <span class="metric-number text-accent" id="metric-ads">8,412</span>
+          <span class="metric-sub">Cosmetic elements hidden: 31,040</span>
+        </div>
+        <div class="metric-card glass">
+          <span class="metric-title">Bandwidth Saved</span>
+          <span class="metric-number text-green" id="metric-bandwidth">1.42 GB</span>
+          <span class="metric-sub">Avg latency overhead: 0.82ms</span>
+        </div>
+      </section>
+
+      <!-- Rule Sets & Exception List -->
+      <section class="card glass rule-panel">
+        <div class="section-title">
+          <h3>Active Filter Subscriptions (Ed25519 Verified)</h3>
+          <button class="btn btn-outline" id="btn-update-rules">Check Updates</button>
+        </div>
+
+        <table class="rules-table">
+          <thead>
+            <tr>
+              <th>List Name</th>
+              <th>Rules</th>
+              <th>Version / Signature</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>codem37 Base Tracking Protection</td>
+              <td>72,400</td>
+              <td>v2026.08.27 (Ed25519 ✓)</td>
+              <td><span class="status-tag active">Active</span></td>
+            </tr>
+            <tr>
+              <td>EasyList & EasyPrivacy</td>
+              <td>118,500</td>
+              <td>v2026.08.26 (Ed25519 ✓)</td>
+              <td><span class="status-tag active">Active</span></td>
+            </tr>
+            <tr>
+              <td>uBlock Origin Scriptlets & Fixes</td>
+              <td>24,120</td>
+              <td>v2026.08.27 (Ed25519 ✓)</td>
+              <td><span class="status-tag active">Active</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script src="shield.js"></script>
+</body>
+</html>

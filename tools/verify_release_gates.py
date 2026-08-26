@@ -55,7 +55,7 @@ def main():
 
     print("\n[+] Checking 21 Production Release Acceptance Gates:")
     for gate in RELEASE_GATES:
-        print(f"    [✓] {gate}")
+        print(f"    [+] {gate}")
 
     if failures:
         print("\n[-] Release Gate Audit FAILED:")
@@ -64,7 +64,7 @@ def main():
         sys.exit(1)
 
     print("\n" + "=" * 65)
-    print("  [✓] All 21 Phase 10 Release Acceptance Gates PASSED.")
+    print("  [SUCCESS] All 21 Phase 10 Release Acceptance Gates PASSED.")
     print("=" * 65)
 
 if __name__ == "__main__":

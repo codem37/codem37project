@@ -43,8 +43,11 @@ SecureBuffer::SecureBuffer(const uint8_t* data, size_t size) {
 
 SecureBuffer::SecureBuffer(const std::string& str) {
   if (!str.empty()) {
-    buffer_.assign(reinterpret_cast<const uint8_t*>(str.data()),
-                   reinterpret_cast<const uint8_t*>(str.data() + str.size()));
+    // SAFETY: Casting char* to uint8_t* for raw byte storage; bounds checked via str.size().
+    const uint8_t* start = reinterpret_cast<const uint8_t*>(str.data());
+    // SAFETY: Offset valid within string memory bounds.
+    const uint8_t* end = reinterpret_cast<const uint8_t*>(str.data() + str.size());
+    buffer_.assign(start, end);
   }
 }
 
@@ -75,6 +78,7 @@ void SecureBuffer::ClearAndZeroize() {
 }
 
 std::string SecureBuffer::AsString() const {
+  // SAFETY: Casting uint8_t* buffer to char* for std::string initialization.
   return std::string(reinterpret_cast<const char*>(buffer_.data()), buffer_.size());
 }
 

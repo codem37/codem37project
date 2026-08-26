@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codem37 // Vault & Credential Custody</title>
+  <link rel="stylesheet" href="vault.css">
+</head>
+<body>
+  <div class="cyber-app">
+    <!-- Header -->
+    <header class="vault-header">
+      <div class="vault-brand">
+        <div class="vault-shield-icon"></div>
+        <h1>Vault<span>Service</span></h1>
+      </div>
+      <div class="vault-controls">
+        <span class="vault-status-badge" id="lock-status-badge">LOCKED</span>
+        <button class="btn btn-primary" id="btn-toggle-lock">Unlock Vault</button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="vault-content">
+      <!-- Unlock Form Modal / Overlay -->
+      <section class="card glass lock-panel" id="lock-panel">
+        <div class="lock-graphic">🔒</div>
+        <h2>Hardware-Enclave / Master PIN Custody</h2>
+        <p class="subtext">Enter your Master PIN or authenticate via WebAuthn/FIDO2 to access your credentials.</p>
+        
+        <div class="pin-entry-container">
+          <input type="password" id="pin-input" placeholder="Enter Master PIN" maxlength="32">
+          <button class="btn btn-accent" id="btn-submit-pin">Authenticate</button>
+        </div>
+      </section>
+
+      <!-- Credentials Grid (Hidden until unlocked) -->
+      <section class="credentials-container hidden" id="credentials-section">
+        <div class="toolbar">
+          <h2>Stored Credentials (AES-256-GCM Envelope)</h2>
+          <button class="btn btn-outline" id="btn-add-credential">+ Add Entry</button>
+        </div>
+
+        <div class="credential-grid" id="credential-grid">
+          <!-- Item Card 1 -->
+          <div class="credential-card glass">
+            <div class="card-domain">github.com</div>
+            <div class="card-user">developer@codem37.io</div>
+            <div class="card-secret">••••••••••••••••</div>
+            <div class="card-actions">
+              <button class="btn-sm btn-outline">Copy User</button>
+              <button class="btn-sm btn-accent">Autofill</button>
+            </div>
+          </div>
+          <!-- Item Card 2 -->
+          <div class="credential-card glass">
+            <div class="card-domain">aws.amazon.com</div>
+            <div class="card-user">admin-deployer</div>
+            <div class="card-secret">••••••••••••••••</div>
+            <div class="card-actions">
+              <button class="btn-sm btn-outline">Copy User</button>
+              <button class="btn-sm btn-accent">Autofill</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="vault.js"></script>
+</body>
+</html>

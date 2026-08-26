@@ -59,7 +59,7 @@ def main():
         print("\n[-] CI Secure Cache Boundary Check FAILED.")
         sys.exit(1)
 
-    print("\n[✓] Secure local cache capability boundary verified: 0 generic crypto/key leaks found.")
+    print("\n[SUCCESS] Secure local cache capability boundary verified: 0 generic crypto/key leaks found.")
 
 if __name__ == "__main__":
     main()

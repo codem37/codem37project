@@ -42,7 +42,7 @@ def main():
         if not target_path.exists():
             failures.append(f"Missing required fuzz target: {target}")
         else:
-            print(f"    [✓] Found fuzz target: {target}")
+            print(f"    [+] Found fuzz target: {target}")
 
     # 2. Verify Mojo Interface Definitions
     print("\n[+] 2. Auditing Mojo Privileged Interfaces...")
@@ -51,7 +51,7 @@ def main():
         if not mojom_path.exists():
             failures.append(f"Missing required Mojo interface: {mojom}")
         else:
-            print(f"    [✓] Verified Mojo contract: {mojom}")
+            print(f"    [+] Verified Mojo contract: {mojom}")
 
     # 3. Verify Security Invariants
     print("\n[+] 3. Auditing Security Invariants & Release Gates...")
@@ -65,7 +65,7 @@ def main():
         "Gate 19-22: Supply-chain, dependency pinning, and release gates locked",
     ]
     for gate in gates:
-        print(f"    [✓] {gate}")
+        print(f"    [+] {gate}")
 
     if failures:
         print("\n[-] Security Invariant Verification FAILED:")
@@ -74,7 +74,7 @@ def main():
         sys.exit(1)
 
     print("\n" + "=" * 65)
-    print("  [✓] All 22 Phase 9 Release Gates and Security Invariants PASSED.")
+    print("  [SUCCESS] All 22 Phase 9 Release Gates and Security Invariants PASSED.")
     print("=" * 65)
 
 if __name__ == "__main__":

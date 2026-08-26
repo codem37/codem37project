@@ -61,7 +61,7 @@ def main():
         print("\n[-] CI Shield Security Check FAILED.")
         sys.exit(1)
 
-    print("\n[✓] Shield security verified: 0 dynamic eval/arbitrary script execution patterns found.")
+    print("\n[SUCCESS] Shield security verified: 0 dynamic eval/arbitrary script execution patterns found.")
 
 if __name__ == "__main__":
     main()

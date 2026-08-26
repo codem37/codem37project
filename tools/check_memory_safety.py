@@ -20,8 +20,16 @@ def check_cpp_file(file_path: Path):
             violations.append(f"Line {idx}: Forbidden raw owning 'delete' operator. Use std::unique_ptr.")
 
         # Check for reinterpret_cast without review marker
-        if "reinterpret_cast<" in line and "// SAFETY:" not in line and "SecureBuffer" not in str(file_path):
-            violations.append(f"Line {idx}: Unapproved reinterpret_cast without // SAFETY: rationale.")
+        if "reinterpret_cast<" in line:
+            has_safety = "// SAFETY:" in line
+            if not has_safety:
+                start_lookback = max(0, idx - 4)
+                for prev_idx in range(start_lookback, idx):
+                    if "// SAFETY:" in lines[prev_idx]:
+                        has_safety = True
+                        break
+            if not has_safety:
+                violations.append(f"Line {idx}: Unapproved reinterpret_cast without // SAFETY: rationale.")
 
     return violations
 
@@ -77,7 +85,7 @@ def main():
         print("\n[-] CI Memory Safety Check FAILED.")
         sys.exit(1)
 
-    print("\n[✓] All C++ and Rust sources passed memory safety and ownership checks.")
+    print("\n[SUCCESS] All C++ and Rust sources passed memory safety and ownership checks.")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codem37 // Settings & Privacy</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+  <div class="cyber-app">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-icon"></div>
+        <h2>codem<span>37</span></h2>
+      </div>
+      <nav class="nav-links">
+        <a href="#privacy" class="nav-item active"><span class="icon">🔒</span> Privacy & Data</a>
+        <a href="#shield" class="nav-item"><span class="icon">🛡️</span> Shield Blocker</a>
+        <a href="#performance" class="nav-item"><span class="icon">⚡</span> Performance</a>
+        <a href="#appearance" class="nav-item"><span class="icon">🎨</span> Appearance</a>
+        <a href="#about" class="nav-item"><span class="icon">ℹ️</span> System Info</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-panel">
+      <header class="top-bar">
+        <h1>Privacy & Local Data Architecture</h1>
+        <div class="status-pill verified">AES-256-GCM Encrypted at Rest</div>
+      </header>
+
+      <!-- Section: Secure Local Cache -->
+      <section class="card glass">
+        <div class="card-header">
+          <h3>Secure Local Cache (Profile Data)</h3>
+          <span class="badge">Browser Process Owned</span>
+        </div>
+        <p class="description">
+          Bookmarks, history, theme preferences, and browser settings are stored locally in an AES-256-GCM authenticated database (<code id="cache-path">~/.config/codem37/secure_cache.db</code>) and decrypted only transiently into RAM when accessed.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-box">
+            <span class="stat-value" id="stat-bookmarks">0</span>
+            <span class="stat-label">Encrypted Bookmarks</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value" id="stat-history">0</span>
+            <span class="stat-label">History Entries</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value text-accent" id="stat-ram-state">Active in RAM</span>
+            <span class="stat-label">Decrypted Memory Status</span>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="btn btn-warning" id="btn-clear-memory">
+            <span class="btn-icon">🧹</span> Clear Memory (Zeroize RAM)
+          </button>
+          <button class="btn btn-danger" id="btn-clear-history">
+            <span class="btn-icon">🗑️</span> Clear History
+          </button>
+          <button class="btn btn-danger-glow" id="btn-clear-all">
+            <span class="btn-icon">⚠️</span> Clear All Local Cache
+          </button>
+        </div>
+      </section>
+
+      <!-- Section: Content Shield Protection -->
+      <section class="card glass">
+        <div class="card-header">
+          <h3>Content Shield Engine</h3>
+          <span class="badge badge-accent">adblock-rust Active</span>
+        </div>
+        <div class="toggle-row">
+          <div>
+            <strong>Aggressive Tracker & Ad Blocking</strong>
+            <p class="subtext">Blocks tracking scripts, surveillance telemetry, and advertising requests.</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-shield-blocker" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div>
+            <strong>Cosmetic Filtering & Scriptlet Injection</strong>
+            <p class="subtext">Removes page clutter in Blink isolated worlds with zero main-world eval().</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="toggle-cosmetic" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>
