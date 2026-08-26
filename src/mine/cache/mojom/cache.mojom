@@ -1,0 +1,61 @@
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+module codem37.cache.mojom;
+
+import "url/mojom/url.mojom";
+
+enum ThemeMode {
+  kSystem,
+  kLight,
+  kDark,
+};
+
+struct BookmarkItem {
+  string id;
+  url.mojom.Url url;
+  string title;
+  int64 created_time_unix;
+};
+
+struct HistoryItem {
+  string id;
+  url.mojom.Url url;
+  string title;
+  int64 visit_time_unix;
+  int32 visit_count;
+};
+
+struct ThemeConfig {
+  ThemeMode mode;
+  string accent_color;
+  string custom_css;
+};
+
+// Capability-oriented Mojo interface for local encrypted cache operations.
+// Generic encrypt/decrypt and raw keys are strictly prohibited.
+interface SecureLocalCache {
+  // Bookmarks
+  GetBookmarks() => (array<BookmarkItem> items);
+  AddBookmark(url.mojom.Url url, string title) => (string id);
+  DeleteBookmark(string id) => (bool success);
+
+  // History
+  RecordHistory(url.mojom.Url url, string title) => (bool success);
+  QueryHistory(string search_term) => (array<HistoryItem> items);
+  ClearHistory() => (bool success);
+
+  // Theme & Preferences
+  GetTheme() => (ThemeConfig config);
+  SetTheme(ThemeConfig config) => (bool success);
+  GetSetting(string key) => (string? value);
+  SetSetting(string key, string value) => (bool success);
+
+  // Deterministic Memory & Storage Clearing
+  // Zeroizes and frees transient in-RAM plaintext cache buffers
+  ClearMemory() => (bool success);
+
+  // Deletes all on-disk AES-256-GCM encrypted records and clears memory
+  ClearAllCache() => (bool success);
+};

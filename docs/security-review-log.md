@@ -49,5 +49,18 @@ This document records formal security reviews and justifications for `unsafe` Ru
   - All official rule bundles require valid Ed25519 cryptographic signatures verified prior to parsing.
   - Scriptlets (`json-prune`, `set-constant`, `replace-fetch-response`) are data-driven actions executing exclusively in Blink isolated worlds at `document-start`; no `eval()`, arbitrary code strings, or main-world injections.
 
+### Entry SR-2026-006: Phase 7 Secure Local Data Cache & Identity Key Custody
+- **Date:** 2026-08-26
+- **Reviewer:** codem37 Lead Developer
+- **Component:** `src/mine/cache/`, `mojom::SecureLocalCache`
+- **Type:** Local Data Encryption, Memory Zeroization, & Mojo Boundaries
+- **Decision:** **APPROVED**
+- **Justification & Invariants:**
+  - `SecureLocalCacheService` manages local bookmarks, history, theme, and settings encrypted at rest with AES-256-GCM (unique 96-bit nonce per write).
+  - Transient plaintext records exist only in browser-process memory and are deterministically zeroized on `ClearMemory()`.
+  - WebUI receives only high-level capability operations; generic `encrypt`/`decrypt` and raw key exports over Mojo are prohibited.
+  - Standard Chromium FedCM and Storage Access API consent flows are preserved unmodified.
+
+
 
 
