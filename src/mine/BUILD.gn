@@ -104,6 +104,7 @@ source_set("mine_unittests") {
     "fetcher/segmented_fetch_unittest.cc",
     "migration/vault_data_migrator_unittest.cc",
     "protocols/mine_protocol_handler_unittest.cc",
+    "release/release_invariants_unittest.cc",
     "security/security_invariants_unittest.cc",
     "shield/shield_interceptor_unittest.cc",
     "shield/shield_service_unittest.cc",

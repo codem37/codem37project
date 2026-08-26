@@ -85,6 +85,19 @@ This document records formal security reviews and justifications for `unsafe` Ru
   - Dedicated libFuzzer targets exist for all untrusted input parsers with continuous ASan/UBSan testing.
   - All 22 Release Gates verified as hard blocking criteria before release.
 
+### Entry SR-2026-009: Phase 10 Release Engineering, Update Security & Key Isolation
+- **Date:** 2026-08-26
+- **Reviewer:** codem37 Lead Developer
+- **Component:** Release Infrastructure, Auto-Updater, Code Signing, Crashpad
+- **Type:** Update Verification, Downgrade Protection, & Hardware Key Isolation
+- **Decision:** **APPROVED**
+- **Justification & Invariants:**
+  - Production code signing credentials remain isolated in offline/hardware HSM infrastructure; the coding agent and PR CI runners have zero access to release signing secrets.
+  - Auto-updates require verified cryptographic signatures on both metadata manifests and binary packages, with monotonic version checks enforcing strict downgrade protection.
+  - Crashpad crash reporting is opt-in by default and automatically sanitizes minidumps (zero tokens, passwords, cookies, or full URLs).
+  - All 21 Phase 10 Release Acceptance Gates verified.
+
+
 
 
 
