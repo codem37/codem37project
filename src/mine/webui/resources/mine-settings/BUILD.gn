@@ -7,7 +7,7 @@ import("//ui/webui/resources/tools/build_webui.gni")
 build_webui("build") {
   grd_prefix = "mine_settings"
   static_files = [ "mine_settings.html" ]
-  ts_files = [
+  non_web_component_files = [
     "mine_settings.ts",
     "app.ts",
     "mojo_client.ts",
@@ -16,7 +16,7 @@ build_webui("build") {
     "components/bookmarks_manager.ts",
   ]
   mojo_files = [
-    "$root_gen_dir/src/mine/cache/mojom/cache.mojom-webui.ts",
+    "$root_gen_dir/mine/cache/mojom/cache.mojom-webui.ts",
   ]
-  mojo_files_deps = [ "//src/mine/cache/mojom:mojom_ts__generator" ]
+  mojo_files_deps = [ "//mine:mojom_ts__generator" ]
 }

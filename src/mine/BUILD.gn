@@ -13,6 +13,8 @@ mojom("mojom") {
     "vault/mojom/vault.mojom",
   ]
 
+  webui_module_path = "/"
+
   public_deps = [
     "//url/mojom:url_mojom_gurl",
   ]
@@ -52,6 +54,8 @@ source_set("mine_services") {
     "shield/shield_service_factory.h",
     "shield/shield_service_impl.cc",
     "shield/shield_service_impl.h",
+    "shield/shield_tab_observer.cc",
+    "shield/shield_tab_observer.h",
     "shield/shield_url_loader_interceptor.cc",
     "shield/shield_url_loader_interceptor.h",
     "vault/vault_service.h",
@@ -85,6 +89,10 @@ source_set("mine_webui") {
   deps = [
     ":mine_services",
     ":mojom",
+    "//mine/webui/resources/mine-settings:resources",
+    "//mine/webui/resources/downloads:resources",
+    "//mine/webui/resources/shield:resources",
+    "//mine/webui/resources/vault:resources",
     "//base",
     "//content/public/browser",
     "//ui/webui",
