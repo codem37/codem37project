@@ -1,0 +1,25 @@
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+group("codem37") {
+  deps = [
+    "//src/mine:mine_services",
+    "//src/mine:mine_webui",
+  ]
+}
+
+group("mine_unittests") {
+  testonly = true
+  deps = [
+    "//src/mine:mine_unittests",
+  ]
+}
+
+group("default") {
+  testonly = true
+  deps = [
+    ":codem37",
+    ":mine_unittests",
+  ]
+}

@@ -45,8 +45,16 @@ def ensure_depot_tools(root_dir: Path) -> None:
     # 1. Add tools paths to process PATH
     gn_dir = root_dir / "third_party" / "gn"
     ninja_dir = root_dir / "third_party" / "ninja"
+    llvm_bin = Path("C:/Program Files/LLVM/bin")
+    llvm_bin86 = Path("C:/Program Files (x86)/LLVM/bin")
 
-    os.environ["PATH"] = str(gn_dir) + os.pathsep + str(ninja_dir) + os.pathsep + str(local_dt) + os.pathsep + os.environ.get("PATH", "")
+    extra_paths = [str(gn_dir), str(ninja_dir), str(local_dt)]
+    if llvm_bin.exists():
+        extra_paths.append(str(llvm_bin))
+    if llvm_bin86.exists():
+        extra_paths.append(str(llvm_bin86))
+
+    os.environ["PATH"] = os.pathsep.join(extra_paths) + os.pathsep + os.environ.get("PATH", "")
     os.environ["DEPOT_TOOLS_WIN_TOOLCHAIN"] = "0"
     os.environ["DEPOT_TOOLS_UPDATE"] = "0"
 

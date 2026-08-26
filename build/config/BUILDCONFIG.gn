@@ -1,0 +1,46 @@
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+if (target_os == "") {
+  target_os = host_os
+}
+if (target_cpu == "") {
+  target_cpu = host_cpu
+}
+if (current_cpu == "") {
+  current_cpu = target_cpu
+}
+if (current_os == "") {
+  current_os = target_os
+}
+
+is_win = current_os == "win"
+is_linux = current_os == "linux"
+is_mac = current_os == "mac"
+is_android = current_os == "android"
+
+declare_args() {
+  is_debug = true
+  is_component_build = true
+  is_official_build = false
+  is_clang = true
+  use_custom_libcxx = true
+  treat_warnings_as_errors = false
+  cc_wrapper = ""
+
+  enable_nacl = false
+  use_thin_lto = false
+  google_api_key = ""
+  google_default_client_id = ""
+  google_default_client_secret = ""
+  use_official_google_api_keys = false
+  enable_remoting = false
+  enable_reporting = false
+  enable_hangout_services_extension = false
+  enable_widevine = true
+  proprietary_codecs = true
+  ffmpeg_branding = "Chrome"
+}
+
+set_default_toolchain("//build/toolchain/win:default")

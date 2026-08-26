@@ -1,0 +1,53 @@
+# Copyright (c) 2026 The codem37 Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+toolchain("default") {
+  tool("cc") {
+    command = "clang-cl /nologo /showIncludes {{defines}} {{include_dirs}} {{cflags}} {{cflags_c}} /c {{source}} /Fo{{output}}"
+    depsformat = "msvc"
+    description = "CC {{output}}"
+    outputs = [ "{{target_out_dir}}/{{target_output_name}}_{{source_name_part}}.obj" ]
+  }
+
+  tool("cxx") {
+    command = "clang-cl /nologo /showIncludes {{defines}} {{include_dirs}} {{cflags}} {{cflags_cc}} /c {{source}} /Fo{{output}}"
+    depsformat = "msvc"
+    description = "CXX {{output}}"
+    outputs = [ "{{target_out_dir}}/{{target_output_name}}_{{source_name_part}}.obj" ]
+  }
+
+  tool("alink") {
+    command = "lib.exe /nologo /OUT:{{output}} {{inputs}}"
+    description = "LIB {{output}}"
+    outputs = [ "{{target_out_dir}}/{{target_output_name}}.lib" ]
+    default_output_extension = ".lib"
+    default_output_dir = "{{target_out_dir}}"
+  }
+
+  tool("solink") {
+    command = "lld-link /nologo /DLL /OUT:{{output}} /IMPLIB:{{output}}.lib {{inputs}} {{ldflags}}"
+    description = "SOLINK {{output}}"
+    outputs = [ "{{root_out_dir}}/{{target_output_name}}.dll" ]
+    default_output_extension = ".dll"
+    default_output_dir = "{{root_out_dir}}"
+  }
+
+  tool("link") {
+    command = "lld-link /nologo /OUT:{{output}} {{inputs}} {{ldflags}}"
+    description = "LINK {{output}}"
+    outputs = [ "{{root_out_dir}}/{{target_output_name}}.exe" ]
+    default_output_extension = ".exe"
+    default_output_dir = "{{root_out_dir}}"
+  }
+
+  tool("stamp") {
+    command = "cmd.exe /c echo > {{output}}"
+    description = "STAMP {{output}}"
+  }
+
+  tool("copy") {
+    command = "cmd.exe /c copy /Y {{source}} {{output}}"
+    description = "COPY {{source}} {{output}}"
+  }
+}
