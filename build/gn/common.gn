@@ -1,0 +1,29 @@
+# codem37 - Common GN Argument Configuration
+# Shared across all build configurations. Security and privacy settings locked here.
+
+# Toolchain & Build Environment
+is_clang = true
+use_custom_libcxx = true
+treat_warnings_as_errors = true
+cc_wrapper = "sccache"
+
+# Target Architecture
+target_cpu = "x64"
+
+# Security Posture (LOCKED - Do not disable in release builds)
+enable_nacl = false
+use_thin_lto = false
+
+# Privacy & Telemetry Hardening (LOCKED)
+google_api_key = ""
+google_default_client_id = ""
+google_default_client_secret = ""
+use_official_google_api_keys = false
+enable_remoting = false
+enable_reporting = false
+enable_hangout_services_extension = false
+
+# Web & Media Capabilities
+enable_widevine = true
+proprietary_codecs = true
+ffmpeg_branding = "Chrome"

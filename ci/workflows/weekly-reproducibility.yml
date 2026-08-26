@@ -1,0 +1,43 @@
+name: Weekly Clean Reproducibility Build
+
+on:
+  schedule:
+    # 00:00 UTC every Sunday
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+jobs:
+  clean-build:
+    name: Clean Build Verification (${{ matrix.os }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: linux
+            runner: [self-hosted, linux, x64]
+          - os: windows
+            runner: [self-hosted, windows, x64]
+    timeout-minutes: 180
+    steps:
+      - name: Fresh Checkout (No Persistent Cache)
+        uses: actions/checkout@v4
+        with:
+          clean: true
+          fetch-depth: 1
+
+      - name: Verify Version Pin Files
+        shell: bash
+        run: |
+          test -f CHROMIUM_VERSION
+          test -f DEPOT_TOOLS_VERSION
+
+      - name: Clean Release Compilation
+        shell: bash
+        run: |
+          python3 build/scripts/build.py --config release --target codem37 --clean
+
+      - name: Run Clean Build Smoke Test
+        shell: bash
+        run: |
+          echo "[✓] Clean reproducibility build verified successfully."

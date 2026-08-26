@@ -1,0 +1,13 @@
+# codem37 - Release GN Arguments
+import("//build/gn/common.gn")
+
+is_debug = false
+dcheck_always_on = false
+symbol_level = 1
+is_component_build = false
+is_official_build = false
+
+# Optimization
+optimize_for_size = false
+blink_symbol_level = 0
+v8_symbol_level = 0

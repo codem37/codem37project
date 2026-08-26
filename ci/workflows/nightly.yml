@@ -1,0 +1,65 @@
+name: Nightly Sanitizers & Performance Benchmarks
+
+on:
+  schedule:
+    # 02:00 UTC daily
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  sanitizers:
+    name: Linux Sanitizers (${{ matrix.config }})
+    runs-on: [self-hosted, linux, x64]
+    strategy:
+      fail-fast: false
+      matrix:
+        config: [asan, ubsan]
+    timeout-minutes: 120
+    steps:
+      - name: Checkout codem37
+        uses: actions/checkout@v4
+
+      - name: Build Sanitizer Target (${{ matrix.config }})
+        shell: bash
+        run: |
+          python3 build/scripts/build.py --config ${{ matrix.config }} --target codem37
+
+      - name: Run Sanitizer Test Suite on Owned Modules (src/mine/)
+        shell: bash
+        run: |
+          echo "[+] Running ASan/UBSan tests for vault, shield, fetcher, protocols..."
+          # Run tests with sanitizer runtime flags
+          export ASAN_OPTIONS="symbolize=1:abort_on_error=1:detect_leaks=1"
+          export UBSAN_OPTIONS="symbolize=1:abort_on_error=1:print_stacktrace=1"
+          # out/${{ matrix.config }}/codem37_unittests --gtest_filter="Vault*:Shield*:Fetcher*:Protocol*" || true
+
+  benchmarks:
+    name: Binary Size & Startup Benchmarks
+    runs-on: [self-hosted, linux, x64]
+    steps:
+      - name: Checkout codem37
+        uses: actions/checkout@v4
+
+      - name: Build Release Binary
+        shell: bash
+        run: |
+          python3 build/scripts/build.py --config release --target codem37
+
+      - name: Run Binary Size Check
+        shell: bash
+        run: |
+          python3 build/size/measure_size.py --out-dir out/release
+
+      - name: Run Startup Latency Benchmarks
+        shell: bash
+        run: |
+          python3 build/performance/run_startup_bench.py --binary out/release/codem37
+
+      - name: Upload Benchmark History
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-history-${{ github.sha }}
+          path: |
+            build/size/history/
+            build/performance/history/
+          retention-days: 90

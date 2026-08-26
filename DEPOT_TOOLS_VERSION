@@ -1,0 +1,5 @@
+# Pinned depot_tools revision for codem37
+# Repository: https://chromium.googlesource.com/chromium/tools/depot_tools.git
+# Pinned commit hash corresponding to stable milestone 134
+DEPOT_TOOLS_REVISION=9f64e29b8c0df1b8b6f3c4e3c98d689b14c330f8
+DEPOT_TOOLS_PIN_DATE=2026-08-26

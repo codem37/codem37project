@@ -1,6 +1,5 @@
 # Depot tools & GN build outputs
 out/
-build/
 *.pyc
 __pycache__/
 

@@ -1,0 +1,8 @@
+# codem37 - AddressSanitizer (ASan) GN Arguments (Linux Nightly)
+import("//build/gn/common.gn")
+
+is_debug = false
+dcheck_always_on = true
+is_asan = true
+is_component_build = false
+symbol_level = 1

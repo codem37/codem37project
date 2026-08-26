@@ -1,0 +1,9 @@
+# codem37 - UndefinedBehaviorSanitizer (UBSan) GN Arguments (Linux Nightly)
+import("//build/gn/common.gn")
+
+is_debug = false
+dcheck_always_on = true
+is_ubsan = true
+is_ubsan_vptr = true
+is_component_build = false
+symbol_level = 1

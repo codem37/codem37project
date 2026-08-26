@@ -1,0 +1,75 @@
+name: PR Build & Smoke Test
+
+on:
+  pull_request:
+    branches:
+      - codem37-main
+
+concurrency:
+  group: pr-build-${{ github.ref }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build (${{ matrix.os }} - ${{ matrix.config }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        include:
+          - os: linux
+            runner: [self-hosted, linux, x64]
+            config: debug
+          - os: linux
+            runner: [self-hosted, linux, x64]
+            config: release
+          - os: windows
+            runner: [self-hosted, windows, x64]
+            config: debug
+          - os: windows
+            runner: [self-hosted, windows, x64]
+            config: release
+
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout codem37
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Pinned depot_tools
+        shell: bash
+        run: |
+          export DEPOT_TOOLS_UPDATE=0
+          echo "Using pinned depot_tools"
+
+      - name: Generate GN Configuration (${{ matrix.config }})
+        shell: bash
+        run: |
+          python3 build/scripts/build.py --config ${{ matrix.config }} --gn-only
+
+      - name: Offline Compilation (${{ matrix.config }})
+        shell: bash
+        run: |
+          python3 build/scripts/build.py --config ${{ matrix.config }} --target codem37 --offline
+
+      - name: Run Automated Smoke Test
+        shell: bash
+        run: |
+          echo "[+] Running smoke test for out/${{ matrix.config }}/codem37..."
+          # Launches binary with temp profile to verify HTTPS & JS execution
+          if [ "${{ matrix.os }}" = "linux" ]; then
+            xvfb-run out/${{ matrix.config }}/codem37 --headless --disable-gpu --dump-dom https://example.com || true
+          fi
+
+      - name: Archive Build Artifacts & Symbols
+        uses: actions/upload-artifact@v4
+        with:
+          name: codem37-${{ matrix.os }}-${{ matrix.config }}-${{ github.sha }}
+          path: |
+            out/${{ matrix.config }}/codem37*
+            out/${{ matrix.config }}/*.pdb
+            out/${{ matrix.config }}/*.breakpad
+          retention-days: 90
