@@ -2,10 +2,15 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-group("codem37") {
-  deps = [
-    "//src/mine:mine_services",
-    "//src/mine:mine_webui",
+executable("codem37") {
+  sources = [
+    "src/mine/app/codem37_main.cc",
+    "src/mine/compatibility/compatibility_override_manager.cc",
+    "src/mine/compatibility/compatibility_override_manager.h",
+    "src/mine/compatibility/user_agent_provider.cc",
+    "src/mine/compatibility/user_agent_provider.h",
+    "src/mine/crypto/secure_buffer.cc",
+    "src/mine/crypto/secure_buffer.h",
   ]
 }
 
