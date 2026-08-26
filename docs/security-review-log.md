@@ -56,10 +56,12 @@ This document records formal security reviews and justifications for `unsafe` Ru
 - **Type:** Local Data Encryption, Memory Zeroization, & Mojo Boundaries
 - **Decision:** **APPROVED**
 - **Justification & Invariants:**
-  - `SecureLocalCacheService` manages local bookmarks, history, theme, and settings encrypted at rest with AES-256-GCM (unique 96-bit nonce per write).
-  - Transient plaintext records exist only in browser-process memory and are deterministically zeroized on `ClearMemory()`.
+  - Security-sensitive state and cache encryption/decryption operations remain browser-process-owned. Ordinary browser data (bookmarks, history, theme, preferences) is managed by `SecureLocalCacheService` encrypted at rest with AES-256-GCM and decrypted only when required in browser-process memory.
+  - `VaultService` remains exclusively responsible for credentials, passwords, vault keys, PIN/Passkey/PRF, and future DPoP/DBSC key handles.
+  - The two distinct clearing operations are formally separated: `ClearMemory()` (zeroizes and frees transient in-RAM plaintext cache buffers without deleting on-disk records) and `ClearAllCache()` (deletes on-disk encrypted database and resets active memory).
   - WebUI receives only high-level capability operations; generic `encrypt`/`decrypt` and raw key exports over Mojo are prohibited.
   - Standard Chromium FedCM and Storage Access API consent flows are preserved unmodified.
+
 
 
 

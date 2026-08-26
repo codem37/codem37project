@@ -1,55 +1,81 @@
 # codem37 — Phase 7: Identity, FedCM/SAA, & Secure Local Data Cache Specification
 
-> **Governing Identity & Cache Principles:**
-> 1. **Local Encrypted Cache $\neq$ Cloud Sync**: There is no first-party codem37 account or cloud sync in v1. All browser state (Bookmarks, History, Theme, Preferences) is stored in a local AES-256-GCM encrypted cache and decrypted only transiently in browser-process memory.
-> 2. **`VaultService` vs. `SecureLocalCacheService` Separation**: Sensitive credentials (passwords, encryption keys, DPoP key handles) remain strictly owned by `VaultService`. Ordinary browser data is managed by `SecureLocalCacheService`.
-> 3. **Capability-Oriented Mojo**: WebUI renderers invoke high-level capability methods (`GetBookmarks`, `ClearHistory`, `ClearMemory`, `ClearAllCache`). Generic `encrypt(bytes)` or `decrypt(bytes)` methods and raw cryptographic keys are strictly prohibited from crossing IPC.
-> 4. **Standard Web Identity Unmodified**: Standard Chromium FedCM (Federated Credential Management) and Storage Access API (SAA) permission prompts, consent flows, and origin checks are inherited directly from upstream Chromium and never bypassed.
+> **Governing Identity & Cache Architecture:**
+> 
+> `chrome://mine-*` is a privileged interface, not a trusted security boundary. Bookmarks, history, theme, and browser preferences are owned by a browser-process `SecureLocalCacheService`; they are encrypted at rest with AES-256-GCM and decrypted only when needed in browser-process memory. `VaultService` remains exclusively responsible for credentials, passwords, and other high-value secrets. WebUI and renderers never receive cache encryption keys or generic encryption/decryption primitives. The application provides explicit profile-scoped controls to clear decrypted runtime data (`Clear Memory`) and to delete the encrypted local cache (`Clear Local Cache`).
+> 
+> Security-sensitive state and the cache encryption/decryption operations remain browser-process-owned. Ordinary browser data such as bookmarks, history, theme, and preferences is also managed by the browser process through `SecureLocalCacheService`, with encrypted-at-rest storage and controlled renderer access.
 
 ---
 
-## 1. Local Encrypted Data Architecture
+## 1. Browser Process Component Separation
 
 ```text
-Browser Profile Directory (<profile_dir>/)
+Browser Process
 │
-├── Secure Local Cache (secure_cache.db)
-│   ├── Bookmarks (AES-256-GCM Ciphertext)
-│   ├── History   (AES-256-GCM Ciphertext)
-│   ├── Theme     (AES-256-GCM Ciphertext)
-│   └── Settings  (AES-256-GCM Ciphertext)
+├── VaultService
+│   ├── Passwords
+│   ├── Credentials
+│   ├── Vault keys
+│   ├── PIN / Passkey / PRF
+│   └── Future DPoP / DBSC key handles
 │
-├── Password Vault (vault.db)
-│   ├── Passwords & Credentials
-│   ├── Credential Metadata
-│   └── Master Symmetric Key (Wrapped)
+├── SecureLocalCacheService
+│   ├── Bookmarks
+│   ├── History
+│   ├── Theme
+│   └── Browser preferences
 │
-└── Identity Security Storage
-    ├── DPoP Key Handles (P-256 / ES256)
-    └── Future DBSC Platform Handles
+└── IdentityService
+    ├── OAuth / OIDC (Web Compatibility)
+    ├── Future DPoP (RFC 9449 P-256/ES256)
+    └── Future DBSC
 ```
 
-### Encryption Parameters
-- **Cipher**: **AES-256-GCM** authenticated encryption with 128-bit authentication tag.
-- **Key Generation**: 256-bit cryptographic random key per profile.
-- **Nonce/IV**: 96-bit unique cryptographically random IV generated for every individual record/blob write (never reused).
-- **Tamper Protection**: Any modification to ciphertext or authentication tag immediately fails verification and rejects the record.
+---
+
+## 2. Local-Cache Lifecycle & Data Flow
+
+```text
+Encrypted local storage (<profile_dir>/secure_cache.db)
+        │
+        │ AES-256-GCM (random 256-bit key, unique 96-bit nonce per write)
+        ▼
+SecureLocalCacheService
+        │
+        │ decrypt only when required
+        ▼
+Browser-process runtime memory
+        │
+        ├── Bookmark data
+        ├── History data
+        ├── Theme state
+        └── Preference state
+        │
+        ▼
+WebUI receives only required values/results
+```
 
 ---
 
-## 2. Transient Memory & Zeroization Semantics
+## 3. The Two Distinct Clearing Operations
 
-- **Decrypted on Demand**: Encrypted records are read from disk and decrypted into transient browser-process memory only when requested.
-- **Deterministic Memory Clearing**:
-  - `ClearMemory()`: Explicitly zeroizes and frees all transient in-RAM plaintext cache buffers and releases active decryption keys from memory.
-  - `ClearAllCache()`: Deletes the on-disk encrypted records and wipes the in-memory cache completely.
-- **Acceptance Boundary**: The browser deterministically zeroizes its owned memory buffers using platform-appropriate secure memory primitives (`SecureZeroMemory` / `OPENSSL_cleanse` / `zeroize`).
+The application provides two separate, non-confusable lifecycle operations:
+
+1. **Clear Memory (`ClearMemory()`)**:
+   - Clears decrypted runtime cache state and releases/zeroizes browser-owned plaintext buffers and relevant temporary cryptographic material where the implementation allows deterministic clearing.
+   - **Does NOT delete the encrypted local database.**
+   - Subsequent requests reload and decrypt the encrypted local cache on demand.
+
+2. **Clear Local Cache (`ClearAllCache()`)**:
+   - Deletes the encrypted bookmark/history/theme/settings database file for the current profile.
+   - Clears its active decrypted memory simultaneously.
 
 ---
 
-## 3. WebUI Management (`chrome://mine-settings`)
+## 4. WebUI Management (`chrome://mine-settings`)
 
-The `chrome://mine-settings` page exposes a dedicated **Privacy & Data → Secure Local Cache** control panel:
+`chrome://mine-settings` exposes the control panel under **Privacy & Data → Secure Local Cache**:
 
 ```text
 Secure Local Data (AES-256-GCM Encrypted)
@@ -59,15 +85,15 @@ History         [ Encrypted on Disk ]
 Preferences     [ Encrypted on Disk ]
 Theme           [ Encrypted on Disk ]
 
-Active Memory State: [ Loaded / Cleared ]
+Active Runtime Memory State: [ Loaded / Cleared ]
 
-[ Clear Memory ]  [ Clear History ]  [ Clear All Local Cache ]
+[ Clear Memory ]      [ Clear History ]      [ Clear All Local Cache ]
 ```
 
 ---
 
-## 4. DPoP & DBSC Key Custody
+## 5. Standard Web Identity & Token Custody
 
-- **DPoP (RFC 9449)**: Asymmetric P-256 (ES256) keys generated and stored in the browser-process vault.
-- **Proof Generation**: The browser authentication service signs DPoP HTTP request proofs (`DPoP` header with `htu`, `htm`, `jti`, `iat`) internally; WebUI renderers never see or hold private keys.
-- **DBSC (Device Bound Session Credentials)**: Reserved for future hardware-backed token binding; browser process acts as sole cryptographic mediator.
+- **FedCM & Storage Access API (SAA)**: Preserved from upstream Chromium; native consent prompts and origin checks are never bypassed.
+- **DPoP (RFC 9449)**: Asymmetric P-256 (ES256) keys generated in `VaultService`; DPoP proofs attached directly by browser network authentication layer; private keys are never exported across Mojo to WebUI.
+- **DBSC (Device Bound Session Credentials)**: Reserved for future hardware-backed session binding; browser process acts as sole cryptographic mediator.
