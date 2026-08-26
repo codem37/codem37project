@@ -19,11 +19,7 @@ DEPOT_TOOLS_URL = "https://storage.googleapis.com/chrome-infra/depot_tools.zip"
 
 def ensure_depot_tools(root_dir: Path) -> Path:
     """Auto-detects or downloads and configures depot_tools if gn/ninja are missing."""
-    # 1. Check if gn and ninja already exist in PATH
-    if shutil.which("gn") and (shutil.which("ninja") or shutil.which("autoninja")):
-        return None
-
-    # 2. Check local depot_tools path
+    # 1. Check local depot_tools path
     local_dt = root_dir / "third_party" / "depot_tools"
     if not local_dt.exists():
         c_src_dt = Path("C:/src/depot_tools")
@@ -47,12 +43,23 @@ def ensure_depot_tools(root_dir: Path) -> Path:
         except Exception as e:
             print(f"[-] Automated download failed: {e}. Please ensure internet connectivity.", file=sys.stderr)
 
-    # 3. Add to PATH for this process
+    # 2. Add to PATH for this process
     dt_str = str(local_dt)
     os.environ["PATH"] = dt_str + os.pathsep + os.environ.get("PATH", "")
     os.environ["DEPOT_TOOLS_WIN_TOOLCHAIN"] = "0"
-    os.environ["DEPOT_TOOLS_UPDATE"] = "0"
 
+    # 3. Check if depot_tools requires self-initialization (gclient bootstrap)
+    init_marker = local_dt / "python3_bin_reldir.txt"
+    if sys.platform == "win32" and not init_marker.exists():
+        print("[+] Performing one-time depot_tools self-initialization (fetching Windows build binaries)...")
+        gclient_bat = local_dt / "gclient.bat"
+        if gclient_bat.exists():
+            init_env = os.environ.copy()
+            # Allow update for one-time bootstrap
+            init_env.pop("DEPOT_TOOLS_UPDATE", None)
+            subprocess.run([str(gclient_bat)], cwd=str(local_dt), env=init_env, shell=True)
+
+    os.environ["DEPOT_TOOLS_UPDATE"] = "0"
     return local_dt
 
 def main():
