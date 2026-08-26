@@ -45,10 +45,11 @@ def ensure_depot_tools(root_dir: Path) -> None:
     # 1. Add tools paths to process PATH
     gn_dir = root_dir / "third_party" / "gn"
     ninja_dir = root_dir / "third_party" / "ninja"
+    local_llvm_bin = root_dir / "third_party" / "llvm" / "bin"
     llvm_bin = Path("C:/Program Files/LLVM/bin")
     llvm_bin86 = Path("C:/Program Files (x86)/LLVM/bin")
 
-    extra_paths = [str(gn_dir), str(ninja_dir), str(local_dt)]
+    extra_paths = [str(gn_dir), str(ninja_dir), str(local_llvm_bin), str(local_dt)]
     if llvm_bin.exists():
         extra_paths.append(str(llvm_bin))
     if llvm_bin86.exists():
@@ -58,10 +59,11 @@ def ensure_depot_tools(root_dir: Path) -> None:
     os.environ["DEPOT_TOOLS_WIN_TOOLCHAIN"] = "0"
     os.environ["DEPOT_TOOLS_UPDATE"] = "0"
 
-    # 2. Check and install standalone gn and ninja binaries via CIPD if missing
+    # 2. Check and install standalone gn, ninja, and hermetic clang via CIPD if missing
     cipd_exe = local_dt / ("cipd.bat" if sys.platform == "win32" else "cipd")
     gn_exe = gn_dir / ("gn.exe" if sys.platform == "win32" else "gn")
     ninja_exe = ninja_dir / ("ninja.exe" if sys.platform == "win32" else "ninja")
+    clang_exe = local_llvm_bin / ("clang-cl.exe" if sys.platform == "win32" else "clang")
 
     if cipd_exe.exists():
         if not gn_exe.exists():
@@ -73,6 +75,11 @@ def ensure_depot_tools(root_dir: Path) -> None:
             print("[+] Fetching standalone Ninja binary via CIPD...")
             pkg = "infra/3pp/tools/ninja/windows-amd64" if sys.platform == "win32" else "infra/3pp/tools/ninja/linux-amd64"
             subprocess.run([str(cipd_exe), "install", pkg, "latest", "-root", str(ninja_dir)], shell=(sys.platform == "win32"))
+
+        if not clang_exe.exists() and not shutil.which("clang-cl") and not shutil.which("clang"):
+            print("[+] Fetching standalone hermetic Clang/LLVM toolchain via CIPD...")
+            pkg = "fuchsia/third_party/clang/windows-amd64" if sys.platform == "win32" else "fuchsia/third_party/clang/linux-amd64"
+            subprocess.run([str(cipd_exe), "install", pkg, "latest", "-root", str(root_dir / "third_party" / "llvm")], shell=(sys.platform == "win32"))
 
 def find_gn(root_dir: Path) -> str:
     gn_bin = root_dir / "third_party" / "gn" / ("gn.exe" if sys.platform == "win32" else "gn")
