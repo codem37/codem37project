@@ -15,7 +15,7 @@ enum DownloadState {
 };
 
 // Snapshot representation of an active download.
-// Renderers receive sanitized filenames and progress snapshots, never raw pointers or full paths.
+// Renderers receive sanitized filenames, speed, and progress snapshots, never raw pointers or full paths.
 struct DownloadItemSnapshot {
   uint64 download_id;
   url.mojom.Url url;
@@ -24,6 +24,9 @@ struct DownloadItemSnapshot {
   int64 received_bytes;
   DownloadState state;
   int32 percent_complete;
+  int64 current_speed_bps;
+  int64 estimated_time_remaining_sec;
+  bool is_segmented;
   int64 start_time_unix;
 };
 
@@ -36,16 +39,20 @@ interface MineFetcherObserver {
 
 // Control-plane Mojo interface for native download lifecycle management.
 interface MineFetcher {
-  // Register an observer to receive push notifications of download updates.
+  // Register an observer to receive push notifications of download updates (250ms coalesced).
   AddObserver(pending_remote<MineFetcherObserver> observer);
 
-  // List all active and recent downloads for the current profile.
-  ListActiveDownloads() => (array<DownloadItemSnapshot> downloads);
+  // One-shot state reconciliation on WebUI reconnect or tab load.
+  GetSnapshot() => (array<DownloadItemSnapshot> downloads);
 
-  // Control operations by opaque ID.
+  // Manual download initiation from WebUI control plane.
+  StartFromUrl(url.mojom.Url url, string? suggested_filename) => (uint64 download_id);
+
+  // Download lifecycle controls by opaque ID.
   Pause(uint64 download_id) => (bool success);
   Resume(uint64 download_id) => (bool success);
   Cancel(uint64 download_id) => (bool success);
+  Remove(uint64 download_id) => (bool success);
 
   // Triggers native OS file manager to display the file (browser process executes this).
   OpenContainingFolder(uint64 download_id) => (bool success);

@@ -10,12 +10,15 @@
 #include <string>
 #include <vector>
 
+#include "base/files/file_path.h"
 #include "base/memory/raw_ptr.h"
 #include "base/memory/weak_ptr.h"
 #include "base/sequence_checker.h"
+#include "base/timer/timer.h"
 #include "mojo/public/cpp/bindings/receiver_set.h"
 #include "mojo/public/cpp/bindings/remote_set.h"
 #include "src/mine/fetcher/fetcher_service.h"
+#include "src/mine/fetcher/segmented_fetch_producer.h"
 
 namespace content {
 class BrowserContext;
@@ -37,17 +40,23 @@ class FetcherServiceImpl : public FetcherService {
       const url::Origin& caller_origin) override;
 
   void StartSegmentedFetch(const GURL& url,
-                           size_t chunk_size_bytes,
+                           const base::FilePath& destination_path,
+                           uint64_t total_bytes,
+                           const std::string& etag,
                            FetchCompletionCallback callback) override;
   void CancelFetch(const GURL& url) override;
 
   // mojom::MineFetcher implementation:
   void AddObserver(
       mojo::PendingRemote<fetcher::mojom::MineFetcherObserver> observer) override;
-  void ListActiveDownloads(ListActiveDownloadsCallback callback) override;
+  void GetSnapshot(GetSnapshotCallback callback) override;
+  void StartFromUrl(const GURL& url,
+                    const std::optional<std::string>& suggested_filename,
+                    StartFromUrlCallback callback) override;
   void Pause(uint64_t download_id, PauseCallback callback) override;
   void Resume(uint64_t download_id, ResumeCallback callback) override;
   void Cancel(uint64_t download_id, CancelCallback callback) override;
+  void Remove(uint64_t download_id, RemoveCallback callback) override;
   void OpenContainingFolder(uint64_t download_id,
                             OpenContainingFolderCallback callback) override;
 
@@ -55,14 +64,19 @@ class FetcherServiceImpl : public FetcherService {
   void Shutdown() override;
 
  private:
+  void FlushCoalescedProgress();
+
   SEQUENCE_CHECKER(sequence_checker_);
 
   raw_ptr<content::BrowserContext> context_;
-  std::map<GURL, bool> active_fetches_;
   std::map<uint64_t, fetcher::mojom::DownloadItemSnapshotPtr> active_downloads_;
+  std::map<uint64_t, std::unique_ptr<SegmentedFetchProducer>> active_producers_;
 
   mojo::ReceiverSet<fetcher::mojom::MineFetcher, url::Origin> receivers_;
   mojo::RemoteSet<fetcher::mojom::MineFetcherObserver> observers_;
+
+  base::RepeatingTimer progress_timer_;
+  uint64_t next_download_id_ = 1;
 
   base::WeakPtrFactory<FetcherServiceImpl> weak_factory_{this};
 };

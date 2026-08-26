@@ -27,6 +27,8 @@ source_set("mine_services") {
     "fetcher/fetcher_service_factory.h",
     "fetcher/fetcher_service_impl.cc",
     "fetcher/fetcher_service_impl.h",
+    "fetcher/segmented_fetch_producer.cc",
+    "fetcher/segmented_fetch_producer.h",
     "migration/shield_data_migrator.cc",
     "migration/shield_data_migrator.h",
     "migration/vault_data_migrator.cc",
@@ -83,6 +85,7 @@ source_set("mine_unittests") {
   sources = [
     "fetcher/fetcher_download_manager_unittest.cc",
     "fetcher/fetcher_service_unittest.cc",
+    "fetcher/segmented_fetch_unittest.cc",
     "migration/vault_data_migrator_unittest.cc",
     "protocols/mine_protocol_handler_unittest.cc",
     "shield/shield_service_unittest.cc",

@@ -27,3 +27,15 @@ This document records formal security reviews and justifications for `unsafe` Ru
   - `mojom::MineFetcher` exposes only opaque numeric download IDs (`uint64 download_id`); renderers cannot directly manipulate C++ `DownloadItem` pointers or raw filesystem locations.
   - Custom scheme `codem37://` is restricted strictly to internal browser UI asset and WebUI routing; cross-origin web access and arbitrary script embedding are denied by default.
 
+### Entry SR-2026-004: Phase 5 Segmented Fetch & DownloadManager Authority
+- **Date:** 2026-08-26
+- **Reviewer:** codem37 Lead Developer
+- **Component:** `src/mine/fetcher/segmented_fetch_producer`, `mojom::MineFetcher`
+- **Type:** Architectural Authority & Reassembly Security Review
+- **Decision:** **APPROVED**
+- **Justification & Invariants:**
+  - `DownloadManager` remains the single authoritative external record of all download states.
+  - `SegmentedFetchProducer` writes directly to preallocated sparse destination file offsets using non-overlapping ranges; concurrent writes require no mutex locks.
+  - Resource consistency is strictly verified via `ETag` and `Content-Range`; mismatching responses are rejected before writing to disk.
+
+

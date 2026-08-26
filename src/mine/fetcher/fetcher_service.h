@@ -6,6 +6,7 @@
 #define CODEM37_SRC_MINE_FETCHER_FETCHER_SERVICE_H_
 
 #include <string>
+#include "base/files/file_path.h"
 #include "base/functional/callback.h"
 #include "components/keyed_service/core/keyed_service.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
@@ -34,7 +35,9 @@ class FetcherService : public KeyedService, public fetcher::mojom::MineFetcher {
       const url::Origin& caller_origin) = 0;
 
   virtual void StartSegmentedFetch(const GURL& url,
-                                   size_t chunk_size_bytes,
+                                   const base::FilePath& destination_path,
+                                   uint64_t total_bytes,
+                                   const std::string& etag,
                                    FetchCompletionCallback callback) = 0;
   virtual void CancelFetch(const GURL& url) = 0;
 };
