@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 codem37 Build & Launch Driver Script
-Automatically bootstraps build tools (depot_tools, gn, ninja) if missing,
+Automatically bootstraps build tools (depot_tools, gn, ninja via CIPD) if missing,
 generates GN configuration from versioned presets, compiles, and optionally launches the browser.
 """
 
@@ -17,9 +17,8 @@ from pathlib import Path
 VALID_CONFIGS = ["debug", "release", "component", "official", "asan", "ubsan"]
 DEPOT_TOOLS_URL = "https://storage.googleapis.com/chrome-infra/depot_tools.zip"
 
-def ensure_depot_tools(root_dir: Path) -> Path:
-    """Auto-detects or downloads and configures depot_tools if gn/ninja are missing."""
-    # 1. Check local depot_tools path
+def ensure_depot_tools(root_dir: Path) -> None:
+    """Auto-detects or downloads and configures depot_tools, gn, and ninja if missing."""
     local_dt = root_dir / "third_party" / "depot_tools"
     if not local_dt.exists():
         c_src_dt = Path("C:/src/depot_tools")
@@ -27,7 +26,7 @@ def ensure_depot_tools(root_dir: Path) -> Path:
             local_dt = c_src_dt
 
     if not local_dt.exists():
-        print("[+] Build tools (gn/ninja) not found. Automatically setting up depot_tools...")
+        print("[+] Build tools not found. Automatically setting up depot_tools...")
         local_dt.mkdir(parents=True, exist_ok=True)
         zip_path = local_dt / "depot_tools.zip"
 
@@ -43,24 +42,41 @@ def ensure_depot_tools(root_dir: Path) -> Path:
         except Exception as e:
             print(f"[-] Automated download failed: {e}. Please ensure internet connectivity.", file=sys.stderr)
 
-    # 2. Add to PATH for this process
-    dt_str = str(local_dt)
-    os.environ["PATH"] = dt_str + os.pathsep + os.environ.get("PATH", "")
+    # 1. Add tools paths to process PATH
+    gn_dir = root_dir / "third_party" / "gn"
+    ninja_dir = root_dir / "third_party" / "ninja"
+
+    os.environ["PATH"] = str(gn_dir) + os.pathsep + str(ninja_dir) + os.pathsep + str(local_dt) + os.pathsep + os.environ.get("PATH", "")
     os.environ["DEPOT_TOOLS_WIN_TOOLCHAIN"] = "0"
-
-    # 3. Check if depot_tools requires self-initialization (gclient bootstrap)
-    init_marker = local_dt / "python3_bin_reldir.txt"
-    if sys.platform == "win32" and not init_marker.exists():
-        print("[+] Performing one-time depot_tools self-initialization (fetching Windows build binaries)...")
-        gclient_bat = local_dt / "gclient.bat"
-        if gclient_bat.exists():
-            init_env = os.environ.copy()
-            # Allow update for one-time bootstrap
-            init_env.pop("DEPOT_TOOLS_UPDATE", None)
-            subprocess.run([str(gclient_bat)], cwd=str(local_dt), env=init_env, shell=True)
-
     os.environ["DEPOT_TOOLS_UPDATE"] = "0"
-    return local_dt
+
+    # 2. Check and install standalone gn and ninja binaries via CIPD if missing
+    cipd_exe = local_dt / ("cipd.bat" if sys.platform == "win32" else "cipd")
+    gn_exe = gn_dir / ("gn.exe" if sys.platform == "win32" else "gn")
+    ninja_exe = ninja_dir / ("ninja.exe" if sys.platform == "win32" else "ninja")
+
+    if cipd_exe.exists():
+        if not gn_exe.exists():
+            print("[+] Fetching standalone GN binary via CIPD...")
+            pkg = "gn/gn/windows-amd64" if sys.platform == "win32" else "gn/gn/linux-amd64"
+            subprocess.run([str(cipd_exe), "install", pkg, "latest", "-root", str(gn_dir)], shell=(sys.platform == "win32"))
+
+        if not ninja_exe.exists():
+            print("[+] Fetching standalone Ninja binary via CIPD...")
+            pkg = "infra/3pp/tools/ninja/windows-amd64" if sys.platform == "win32" else "infra/3pp/tools/ninja/linux-amd64"
+            subprocess.run([str(cipd_exe), "install", pkg, "latest", "-root", str(ninja_dir)], shell=(sys.platform == "win32"))
+
+def find_gn(root_dir: Path) -> str:
+    gn_bin = root_dir / "third_party" / "gn" / ("gn.exe" if sys.platform == "win32" else "gn")
+    if gn_bin.exists():
+        return str(gn_bin)
+    return shutil.which("gn") or "gn"
+
+def find_ninja(root_dir: Path) -> str:
+    ninja_bin = root_dir / "third_party" / "ninja" / ("ninja.exe" if sys.platform == "win32" else "ninja")
+    if ninja_bin.exists():
+        return str(ninja_bin)
+    return shutil.which("autoninja") or shutil.which("ninja") or "ninja"
 
 def main():
     parser = argparse.ArgumentParser(description="codem37 Build & Launch Driver")
@@ -141,12 +157,11 @@ def main():
         env["CODEM37_BUILD_OFFLINE"] = "1"
 
     # 1. Run GN gen
-    gn_exe = shutil.which("gn") or "gn"
-    gn_cmd = [gn_exe, "gen", str(out_dir)]
+    gn_cmd = [find_gn(root_dir), "gen", str(out_dir)]
     print(f"[+] Executing: {' '.join(gn_cmd)}")
     result = subprocess.run(gn_cmd, cwd=root_dir, env=env)
     if result.returncode != 0:
-        print("[-] GN generation failed! (Please ensure build tools are fully initialized)", file=sys.stderr)
+        print("[-] GN generation failed!", file=sys.stderr)
         sys.exit(result.returncode)
 
     if args.gn_only:
@@ -154,8 +169,7 @@ def main():
         return
 
     # 2. Run Ninja / autoninja
-    ninja_exe = shutil.which("autoninja") or shutil.which("ninja") or "ninja"
-    ninja_cmd = [ninja_exe, "-C", str(out_dir), args.target]
+    ninja_cmd = [find_ninja(root_dir), "-C", str(out_dir), args.target]
     print(f"[+] Executing: {' '.join(ninja_cmd)}")
     result = subprocess.run(ninja_cmd, cwd=root_dir, env=env)
     if result.returncode != 0:
