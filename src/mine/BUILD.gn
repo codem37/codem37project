@@ -18,7 +18,7 @@ mojom("mojom") {
   ]
 }
 
-# 2. Browser-Process Services (Vault, Shield, Fetcher, Protocols, Crypto, Migration, Cache)
+# 2. Browser-Process Services (Vault, Shield, Fetcher, Protocols, Crypto, Migration, Cache, Compatibility, Diagnostics)
 source_set("mine_services") {
   sources = [
     "cache/secure_local_cache_service.h",
@@ -26,8 +26,14 @@ source_set("mine_services") {
     "cache/secure_local_cache_service_factory.h",
     "cache/secure_local_cache_service_impl.cc",
     "cache/secure_local_cache_service_impl.h",
+    "compatibility/compatibility_override_manager.cc",
+    "compatibility/compatibility_override_manager.h",
+    "compatibility/user_agent_provider.cc",
+    "compatibility/user_agent_provider.h",
     "crypto/secure_buffer.cc",
     "crypto/secure_buffer.h",
+    "diagnostics/compatibility_diagnostics.cc",
+    "diagnostics/compatibility_diagnostics.h",
     "fetcher/fetcher_service.h",
     "fetcher/fetcher_service_factory.cc",
     "fetcher/fetcher_service_factory.h",
@@ -92,6 +98,7 @@ source_set("mine_unittests") {
 
   sources = [
     "cache/secure_local_cache_unittest.cc",
+    "compatibility/compatibility_unittest.cc",
     "fetcher/fetcher_download_manager_unittest.cc",
     "fetcher/fetcher_service_unittest.cc",
     "fetcher/segmented_fetch_unittest.cc",

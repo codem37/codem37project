@@ -62,6 +62,18 @@ This document records formal security reviews and justifications for `unsafe` Ru
   - WebUI receives only high-level capability operations; generic `encrypt`/`decrypt` and raw key exports over Mojo are prohibited.
   - Standard Chromium FedCM and Storage Access API consent flows are preserved unmodified.
 
+### Entry SR-2026-007: Phase 8 Truthful Compatibility & Override Security Invariants
+- **Date:** 2026-08-26
+- **Reviewer:** codem37 Lead Developer
+- **Component:** `src/mine/compatibility/`, `src/mine/diagnostics/`
+- **Type:** User-Agent Integrity, Non-Evasion Invariants, & DRM Security Boundaries
+- **Decision:** **APPROVED**
+- **Justification & Invariants:**
+  - User-Agent and Client Hints (`Sec-CH-UA`) truthfully represent the pinned Chromium milestone; deceptive browser spoofing and JA4 evasion are strictly prohibited.
+  - Compatibility overrides are versioned, signed, and time-bounded; overrides can never disable Site Isolation, sandboxing, certificate verification, or origin security.
+  - Widevine DRM follows official vendor licensing channels with graceful user notification when unprovisioned.
+
+
 
 
 
