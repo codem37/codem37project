@@ -1,0 +1,57 @@
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+module codem37.shield.mojom;
+
+import "url/mojom/url.mojom";
+
+struct FilterSubscription {
+  string id;
+  string title;
+  url.mojom.Url update_url;
+  bool is_enabled;
+  int64 rules_count;
+  int64 last_updated_unix;
+};
+
+struct ShieldSiteSetting {
+  string hostname;
+  bool shield_enabled;
+  bool cosmetic_filtering_enabled;
+  bool tracker_blocking_enabled;
+};
+
+struct ShieldTelemetry {
+  int64 total_requests_blocked;
+  int64 trackers_blocked;
+  int64 ads_blocked;
+};
+
+enum ShieldStatus {
+  kSuccess,
+  kInvalidRule,
+  kNotFound,
+  kUnauthorizedOrigin,
+  kInternalError,
+};
+
+// Interface exposed exclusively to chrome://shield WebUI.
+// Renderers never call this directly for matching decisions.
+interface ShieldService {
+  // Retrieve all configured filter subscriptions.
+  GetSubscriptions() => (array<FilterSubscription> subscriptions);
+
+  // Toggle or add a filter subscription.
+  SetSubscriptionEnabled(string subscription_id, bool enabled) => (ShieldStatus status);
+  AddSubscription(string title, url.mojom.Url update_url) => (ShieldStatus status, string? id);
+  RemoveSubscription(string subscription_id) => (ShieldStatus status);
+
+  // Per-site shield settings.
+  GetSiteSetting(string hostname) => (ShieldSiteSetting setting);
+  SetSiteShieldEnabled(string hostname, bool enabled) => (ShieldStatus status);
+
+  // Local shield blocking statistics.
+  GetTelemetry() => (ShieldTelemetry telemetry);
+  ResetTelemetry() => (ShieldStatus status);
+};

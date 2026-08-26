@@ -1,0 +1,71 @@
+// Copyright (c) 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+module codem37.vault.mojom;
+
+import "url/mojom/url.mojom";
+
+// Metadata for a credential entry. Plaintext passwords never appear here.
+struct VaultEntryMetadata {
+  string id;
+  url.mojom.Url site_url;
+  string username;
+  int64 created_time_unix;
+  int64 last_modified_unix;
+};
+
+// Input structure for creating or modifying a vault entry.
+struct VaultEntryInput {
+  url.mojom.Url site_url;
+  string username;
+  string password_plaintext;
+};
+
+// Result for a specific, single-entry autofill request.
+struct VaultAutofillCredential {
+  string username;
+  string password_plaintext;
+};
+
+enum VaultStatus {
+  kSuccess,
+  kLocked,
+  kInvalidPinOrPasskey,
+  kNotFound,
+  kUnauthorizedOrigin,
+  kInternalError,
+};
+
+// Interface exposed exclusively to chrome://vault WebUI and internal autofill.
+// Raw keys and bulk plaintext passwords NEVER cross this interface.
+interface VaultService {
+  // Query current unlock status.
+  IsUnlocked() => (bool is_unlocked);
+
+  // Authenticate and unlock the vault using user PIN or passkey assertion.
+  Unlock(string pin_or_passkey_assertion) => (VaultStatus status);
+
+  // Explicitly lock the vault and purge derived key material from memory.
+  Lock() => (VaultStatus status);
+
+  // Retrieve metadata for all stored vault entries.
+  ListEntriesMetadata() => (VaultStatus status, array<VaultEntryMetadata> entries);
+
+  // Retrieve plaintext credential for a SINGLE entry for targeted autofill injection.
+  // Must verify caller origin against entry.site_url.
+  GetCredentialForAutofill(string entry_id, url.mojom.Url target_origin)
+      => (VaultStatus status, VaultAutofillCredential? credential);
+
+  // Add a new credential entry.
+  AddEntry(VaultEntryInput input) => (VaultStatus status, string? created_id);
+
+  // Edit an existing credential entry.
+  EditEntry(string entry_id, VaultEntryInput input) => (VaultStatus status);
+
+  // Delete a credential entry.
+  DeleteEntry(string entry_id) => (VaultStatus status);
+
+  // Request a cryptographically secure random password generated in browser process.
+  GeneratePassword(uint32 length, bool include_symbols) => (string password);
+};
