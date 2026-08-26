@@ -1,0 +1,5 @@
+# Pinned Rust toolchain revision for codem37
+# Sourced directly from Chromium src/DEPS for stable milestone 134
+RUST_TOOLCHAIN_REVISION=1.85.0-nightly-2025-01-15
+RUST_CHANNEL=nightly
+PIN_DATE=2026-08-26

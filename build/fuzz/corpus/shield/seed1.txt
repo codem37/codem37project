@@ -1,0 +1,6 @@
+! Title: Sample Shield List
+! Version: 1.0
+||tracker.example.com^
+||ads.analytics-corp.net^
+##.sponsored-post-banner
+##div[id*="google_ads"]

@@ -1,0 +1,11 @@
+[package]
+name = "codem37_shield_core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cxx = "1.0"
+thiserror = "2.0"
+
+[lib]
+crate-type = ["staticlib", "rlib"]
