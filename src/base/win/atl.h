@@ -40,14 +40,14 @@ class CComMultiThreadModel {};
 template <class ThreadModel>
 class CComObjectRootEx {
 public:
-  ULONG InternalAddRef() { return 1; }
-  ULONG InternalRelease() { return 1; }
+  ULONG m_dwRef = 0;
+  ULONG InternalAddRef() { return ++m_dwRef; }
+  ULONG InternalRelease() { return --m_dwRef; }
 };
 
 template <class Base>
 class CComObject : public Base {
 public:
-  ULONG m_refCount = 0;
   CComObject() = default;
   virtual ~CComObject() = default;
 
@@ -56,24 +56,17 @@ public:
     *pp = new CComObject<Base>();
     return S_OK;
   }
-
-  STDMETHOD_(ULONG, AddRef)() override {
-    return ++m_refCount;
-  }
-
-  STDMETHOD_(ULONG, Release)() override {
-    ULONG res = --m_refCount;
-    if (res == 0) delete this;
-    return res;
-  }
-
-  STDMETHOD(QueryInterface)(REFIID riid, void** ppvObject) override {
-    return this->_InternalQueryInterface(riid, ppvObject);
-  }
 };
 
-#define BEGIN_COM_MAP(x) \
-  HRESULT _InternalQueryInterface(REFIID riid, void** ppv) { \
+#define BEGIN_COM_MAP(className) \
+public: \
+  STDMETHOD_(ULONG, AddRef)() override { return ++this->m_dwRef; } \
+  STDMETHOD_(ULONG, Release)() override { \
+    ULONG res = --this->m_dwRef; \
+    if (res == 0) delete this; \
+    return res; \
+  } \
+  STDMETHOD(QueryInterface)(REFIID riid, void** ppv) override { \
     if (!ppv) return E_POINTER; \
     if (riid == IID_IUnknown) { \
       *ppv = this; \
@@ -100,11 +93,13 @@ public:
     return E_NOINTERFACE; \
   }
 
+class CComModule;
+inline CComModule* _pAtlModule = nullptr;
+
 class CComModule {
 public:
   CComModule() { _pAtlModule = this; }
 };
-inline CComModule* _pAtlModule = nullptr;
 
 namespace ATL {
   using ::CComSingleThreadModel;
