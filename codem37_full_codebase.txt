@@ -51,6 +51,15 @@ codem37/
 │   │   ├── compatibility_diagnostics.cc
 │   │   └── compatibility_diagnostics.h
 │   ├── fetcher/
+│   │   ├── engine/
+│   │   │   ├── http_resource_probe.cc
+│   │   │   ├── http_resource_probe.h
+│   │   │   ├── resource_validator.cc
+│   │   │   ├── resource_validator.h
+│   │   │   ├── segment_scheduler.cc
+│   │   │   ├── segment_scheduler.h
+│   │   │   ├── segment_worker.cc
+│   │   │   └── segment_worker.h
 │   │   ├── fetcher_download_manager_unittest.cc
 │   │   ├── fetcher_service.h
 │   │   ├── fetcher_service_factory.cc
@@ -58,6 +67,17 @@ codem37/
 │   │   ├── fetcher_service_impl.cc
 │   │   ├── fetcher_service_impl.h
 │   │   ├── fetcher_service_unittest.cc
+│   │   ├── media/
+│   │   │   ├── dash/
+│   │   │   │   ├── dash_manifest_parser.cc
+│   │   │   │   └── dash_manifest_parser.h
+│   │   │   ├── hls/
+│   │   │   │   ├── hls_manifest_parser.cc
+│   │   │   │   └── hls_manifest_parser.h
+│   │   │   ├── media_detector.cc
+│   │   │   ├── media_detector.h
+│   │   │   ├── media_job.cc
+│   │   │   └── media_job.h
 │   │   ├── mojom/
 │   │   │   └── fetcher.mojom
 │   │   ├── rust/
@@ -66,7 +86,21 @@ codem37/
 │   │   │       └── lib.rs
 │   │   ├── segmented_fetch_producer.cc
 │   │   ├── segmented_fetch_producer.h
-│   │   └── segmented_fetch_unittest.cc
+│   │   ├── segmented_fetch_unittest.cc
+│   │   └── storage/
+│   │       ├── download_file.cc
+│   │       ├── download_file.h
+│   │       ├── download_state_store.cc
+│   │       ├── download_state_store.h
+│   │       ├── sparse_file_allocator_posix.cc
+│   │       ├── sparse_file_allocator_posix.h
+│   │       ├── sparse_file_allocator_win.cc
+│   │       └── sparse_file_allocator_win.h
+│   ├── media/
+│   │   ├── download_media_data_source.cc
+│   │   ├── download_media_data_source.h
+│   │   ├── local_media_url_loader_factory.cc
+│   │   └── local_media_url_loader_factory.h
 │   ├── migration/
 │   │   ├── shield_data_migrator.cc
 │   │   ├── shield_data_migrator.h
@@ -299,11 +333,11 @@ codem37/
 │               └── BUILD.gn
 
 ================================================================================
-2. COMPLETE FILE CONTENTS (199 FILES)
+2. COMPLETE FILE CONTENTS (227 FILES)
 ================================================================================
 
 --------------------------------------------------------------------------------
-FILE #1/199: .gclient
+FILE #1/227: .gclient
 FULL PATH: C:\Users\manoh\codem37\.gclient
 --------------------------------------------------------------------------------
 # codem37 - Pinned Upstream Chromium GClient Configuration
@@ -322,7 +356,7 @@ target_os = ["win"]
 
 
 --------------------------------------------------------------------------------
-FILE #2/199: .gclient_entries
+FILE #2/227: .gclient_entries
 FULL PATH: C:\Users\manoh\codem37\.gclient_entries
 --------------------------------------------------------------------------------
 entries = {
@@ -540,13 +574,13 @@ entries = {
 
 
 --------------------------------------------------------------------------------
-FILE #3/199: .gclient_previous_sync_commits
+FILE #3/227: .gclient_previous_sync_commits
 FULL PATH: C:\Users\manoh\codem37\.gclient_previous_sync_commits
 --------------------------------------------------------------------------------
 {}
 
 --------------------------------------------------------------------------------
-FILE #4/199: .gcs_entries
+FILE #4/227: .gcs_entries
 FULL PATH: C:\Users\manoh\codem37\.gcs_entries
 --------------------------------------------------------------------------------
 {
@@ -728,7 +762,7 @@ FULL PATH: C:\Users\manoh\codem37\.gcs_entries
 }
 
 --------------------------------------------------------------------------------
-FILE #5/199: .gitignore
+FILE #5/227: .gitignore
 FULL PATH: C:\Users\manoh\codem37\.gitignore
 --------------------------------------------------------------------------------
 # Depot tools & GN build outputs
@@ -750,7 +784,7 @@ scratch/
 
 
 --------------------------------------------------------------------------------
-FILE #6/199: CHROMIUM_VERSION
+FILE #6/227: CHROMIUM_VERSION
 FULL PATH: C:\Users\manoh\codem37\CHROMIUM_VERSION
 --------------------------------------------------------------------------------
 # codem37 Upstream Chromium Version Pin
@@ -771,7 +805,7 @@ MERGE_TAG_PREFIX=chromium-M
 
 
 --------------------------------------------------------------------------------
-FILE #7/199: CONTRIBUTING.md
+FILE #7/227: CONTRIBUTING.md
 FULL PATH: C:\Users\manoh\codem37\CONTRIBUTING.md
 --------------------------------------------------------------------------------
 # Contributing to codem37
@@ -874,7 +908,7 @@ Coding agents are **strictly prohibited** from modifying the following security-
 
 
 --------------------------------------------------------------------------------
-FILE #8/199: DEPOT_TOOLS_VERSION
+FILE #8/227: DEPOT_TOOLS_VERSION
 FULL PATH: C:\Users\manoh\codem37\DEPOT_TOOLS_VERSION
 --------------------------------------------------------------------------------
 # Pinned depot_tools revision for codem37
@@ -885,7 +919,7 @@ DEPOT_TOOLS_PIN_DATE=2026-08-26
 
 
 --------------------------------------------------------------------------------
-FILE #9/199: PHASE_0_DECISIONS.md
+FILE #9/227: PHASE_0_DECISIONS.md
 FULL PATH: C:\Users\manoh\codem37\PHASE_0_DECISIONS.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 0 Decisions (True Fork)
@@ -1054,7 +1088,7 @@ The tradeoff: conflict resolution on a true fork is harder than reapplying a cle
 
 
 --------------------------------------------------------------------------------
-FILE #10/199: README.md
+FILE #10/227: README.md
 FULL PATH: C:\Users\manoh\codem37\README.md
 --------------------------------------------------------------------------------
 # codem37
@@ -1091,7 +1125,7 @@ A privacy-focused browser built as a true fork of Chromium for Windows 10/11 and
 
 
 --------------------------------------------------------------------------------
-FILE #11/199: RUST_TOOLCHAIN_VERSION
+FILE #11/227: RUST_TOOLCHAIN_VERSION
 FULL PATH: C:\Users\manoh\codem37\RUST_TOOLCHAIN_VERSION
 --------------------------------------------------------------------------------
 # Pinned Rust toolchain revision for codem37
@@ -1102,7 +1136,7 @@ PIN_DATE=2026-08-26
 
 
 --------------------------------------------------------------------------------
-FILE #12/199: run.bat
+FILE #12/227: run.bat
 FULL PATH: C:\Users\manoh\codem37\run.bat
 --------------------------------------------------------------------------------
 @echo off
@@ -1135,7 +1169,7 @@ endlocal
 
 
 --------------------------------------------------------------------------------
-FILE #13/199: src\mine\BUILD.gn
+FILE #13/227: src\mine\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\src\mine\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -1183,6 +1217,34 @@ source_set("mine_services") {
     "fetcher/fetcher_service_impl.h",
     "fetcher/segmented_fetch_producer.cc",
     "fetcher/segmented_fetch_producer.h",
+    "fetcher/engine/http_resource_probe.cc",
+    "fetcher/engine/http_resource_probe.h",
+    "fetcher/engine/resource_validator.cc",
+    "fetcher/engine/resource_validator.h",
+    "fetcher/engine/segment_scheduler.cc",
+    "fetcher/engine/segment_scheduler.h",
+    "fetcher/engine/segment_worker.cc",
+    "fetcher/engine/segment_worker.h",
+    "fetcher/media/media_detector.cc",
+    "fetcher/media/media_detector.h",
+    "fetcher/media/media_job.cc",
+    "fetcher/media/media_job.h",
+    "fetcher/media/hls/hls_manifest_parser.cc",
+    "fetcher/media/hls/hls_manifest_parser.h",
+    "fetcher/media/dash/dash_manifest_parser.cc",
+    "fetcher/media/dash/dash_manifest_parser.h",
+    "fetcher/storage/download_file.cc",
+    "fetcher/storage/download_file.h",
+    "fetcher/storage/download_state_store.cc",
+    "fetcher/storage/download_state_store.h",
+    "fetcher/storage/sparse_file_allocator_win.cc",
+    "fetcher/storage/sparse_file_allocator_win.h",
+    "fetcher/storage/sparse_file_allocator_posix.cc",
+    "fetcher/storage/sparse_file_allocator_posix.h",
+    "media/download_media_data_source.cc",
+    "media/download_media_data_source.h",
+    "media/local_media_url_loader_factory.cc",
+    "media/local_media_url_loader_factory.h",
     "migration/shield_data_migrator.cc",
     "migration/shield_data_migrator.h",
     "migration/vault_data_migrator.cc",
@@ -1211,6 +1273,8 @@ source_set("mine_services") {
     "//components/keyed_service/content",
     "//content/public/browser",
     "//crypto",
+    "//net",
+    "//services/network/public/cpp",
     "//url",
   ]
 }
@@ -1273,7 +1337,7 @@ source_set("mine_unittests") {
 
 
 --------------------------------------------------------------------------------
-FILE #14/199: src\mine\app\codem37_main.cc
+FILE #14/227: src\mine\app\codem37_main.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\app\codem37_main.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -1450,7 +1514,7 @@ int main(int argc, char** argv) {
 
 
 --------------------------------------------------------------------------------
-FILE #15/199: src\mine\cache\secure_local_cache_service.h
+FILE #15/227: src\mine\cache\secure_local_cache_service.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -1484,7 +1548,7 @@ class SecureLocalCacheService : public KeyedService,
 
 
 --------------------------------------------------------------------------------
-FILE #16/199: src\mine\cache\secure_local_cache_service_factory.cc
+FILE #16/227: src\mine\cache\secure_local_cache_service_factory.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service_factory.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -1534,7 +1598,7 @@ content::BrowserContext* SecureLocalCacheServiceFactory::GetBrowserContextToUse(
 
 
 --------------------------------------------------------------------------------
-FILE #17/199: src\mine\cache\secure_local_cache_service_factory.h
+FILE #17/227: src\mine\cache\secure_local_cache_service_factory.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service_factory.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -1580,7 +1644,7 @@ class SecureLocalCacheServiceFactory : public BrowserContextKeyedServiceFactory 
 
 
 --------------------------------------------------------------------------------
-FILE #18/199: src\mine\cache\secure_local_cache_service_impl.cc
+FILE #18/227: src\mine\cache\secure_local_cache_service_impl.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service_impl.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -1819,7 +1883,7 @@ void SecureLocalCacheServiceImpl::ClearAllCache(ClearAllCacheCallback callback) 
 
 
 --------------------------------------------------------------------------------
-FILE #19/199: src\mine\cache\secure_local_cache_service_impl.h
+FILE #19/227: src\mine\cache\secure_local_cache_service_impl.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_service_impl.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -1918,7 +1982,7 @@ class SecureLocalCacheServiceImpl : public SecureLocalCacheService {
 
 
 --------------------------------------------------------------------------------
-FILE #20/199: src\mine\cache\secure_local_cache_unittest.cc
+FILE #20/227: src\mine\cache\secure_local_cache_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\secure_local_cache_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2066,7 +2130,7 @@ TEST_F(SecureLocalCacheTest, UnauthorizedOriginCannotBind) {
 
 
 --------------------------------------------------------------------------------
-FILE #21/199: src\mine\cache\mojom\cache.mojom
+FILE #21/227: src\mine\cache\mojom\cache.mojom
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\mojom\cache.mojom
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2133,7 +2197,7 @@ interface SecureLocalCache {
 
 
 --------------------------------------------------------------------------------
-FILE #22/199: src\mine\cache\rust\Cargo.toml
+FILE #22/227: src\mine\cache\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\rust\Cargo.toml
 --------------------------------------------------------------------------------
 [package]
@@ -2155,7 +2219,7 @@ cxx-build = "1.0"
 
 
 --------------------------------------------------------------------------------
-FILE #23/199: src\mine\cache\rust\src\lib.rs
+FILE #23/227: src\mine\cache\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\cache\rust\src\lib.rs
 --------------------------------------------------------------------------------
 //! Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2266,7 +2330,7 @@ pub mod ffi {
 
 
 --------------------------------------------------------------------------------
-FILE #24/199: src\mine\compatibility\compatibility_override_manager.cc
+FILE #24/227: src\mine\compatibility\compatibility_override_manager.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\compatibility_override_manager.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2326,7 +2390,7 @@ std::string CompatibilityOverrideManager::GetUserAgentForDomain(
 
 
 --------------------------------------------------------------------------------
-FILE #25/199: src\mine\compatibility\compatibility_override_manager.h
+FILE #25/227: src\mine\compatibility\compatibility_override_manager.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\compatibility_override_manager.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2373,7 +2437,7 @@ class CompatibilityOverrideManager {
 
 
 --------------------------------------------------------------------------------
-FILE #26/199: src\mine\compatibility\compatibility_unittest.cc
+FILE #26/227: src\mine\compatibility\compatibility_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\compatibility_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2464,7 +2528,7 @@ TEST(CompatibilityTest, DiagnosticsSanitizerStripsSensitiveData) {
 
 
 --------------------------------------------------------------------------------
-FILE #27/199: src\mine\compatibility\user_agent_provider.cc
+FILE #27/227: src\mine\compatibility\user_agent_provider.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\user_agent_provider.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2509,7 +2573,7 @@ std::vector<UserAgentBrandVersion> UserAgentProvider::GetBrandVersionList() {
 
 
 --------------------------------------------------------------------------------
-FILE #28/199: src\mine\compatibility\user_agent_provider.h
+FILE #28/227: src\mine\compatibility\user_agent_provider.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\compatibility\user_agent_provider.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2543,7 +2607,7 @@ class UserAgentProvider {
 
 
 --------------------------------------------------------------------------------
-FILE #29/199: src\mine\crypto\secure_buffer.cc
+FILE #29/227: src\mine\crypto\secure_buffer.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\crypto\secure_buffer.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2634,7 +2698,7 @@ std::string SecureBuffer::AsString() const {
 
 
 --------------------------------------------------------------------------------
-FILE #30/199: src\mine\crypto\secure_buffer.h
+FILE #30/227: src\mine\crypto\secure_buffer.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\crypto\secure_buffer.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2687,7 +2751,7 @@ class SecureBuffer {
 
 
 --------------------------------------------------------------------------------
-FILE #31/199: src\mine\diagnostics\compatibility_diagnostics.cc
+FILE #31/227: src\mine\diagnostics\compatibility_diagnostics.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\diagnostics\compatibility_diagnostics.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2725,7 +2789,7 @@ std::string CompatibilityDiagnostics::FormatDrmUnavailableMessage() {
 
 
 --------------------------------------------------------------------------------
-FILE #32/199: src\mine\diagnostics\compatibility_diagnostics.h
+FILE #32/227: src\mine\diagnostics\compatibility_diagnostics.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\diagnostics\compatibility_diagnostics.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2770,7 +2834,7 @@ class CompatibilityDiagnostics {
 
 
 --------------------------------------------------------------------------------
-FILE #33/199: src\mine\fetcher\fetcher_download_manager_unittest.cc
+FILE #33/227: src\mine\fetcher\fetcher_download_manager_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_download_manager_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2857,7 +2921,7 @@ TEST_F(FetcherDownloadManagerTest, UnauthorizedOriginCannotBind) {
 
 
 --------------------------------------------------------------------------------
-FILE #34/199: src\mine\fetcher\fetcher_service.h
+FILE #34/227: src\mine\fetcher\fetcher_service.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2910,7 +2974,7 @@ class FetcherService : public KeyedService, public fetcher::mojom::MineFetcher {
 
 
 --------------------------------------------------------------------------------
-FILE #35/199: src\mine\fetcher\fetcher_service_factory.cc
+FILE #35/227: src\mine\fetcher\fetcher_service_factory.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_factory.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -2960,7 +3024,7 @@ content::BrowserContext* FetcherServiceFactory::GetBrowserContextToUse(
 
 
 --------------------------------------------------------------------------------
-FILE #36/199: src\mine\fetcher\fetcher_service_factory.h
+FILE #36/227: src\mine\fetcher\fetcher_service_factory.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_factory.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -3006,7 +3070,7 @@ class FetcherServiceFactory : public BrowserContextKeyedServiceFactory {
 
 
 --------------------------------------------------------------------------------
-FILE #37/199: src\mine\fetcher\fetcher_service_impl.cc
+FILE #37/227: src\mine\fetcher\fetcher_service_impl.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_impl.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -3265,7 +3329,7 @@ void FetcherServiceImpl::FlushCoalescedProgress() {
 
 
 --------------------------------------------------------------------------------
-FILE #38/199: src\mine\fetcher\fetcher_service_impl.h
+FILE #38/227: src\mine\fetcher\fetcher_service_impl.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_impl.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -3357,7 +3421,7 @@ class FetcherServiceImpl : public FetcherService {
 
 
 --------------------------------------------------------------------------------
-FILE #39/199: src\mine\fetcher\fetcher_service_unittest.cc
+FILE #39/227: src\mine\fetcher\fetcher_service_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\fetcher_service_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -3430,241 +3494,196 @@ TEST_F(FetcherServiceTest, RejectsInvalidUrl) {
 
 
 --------------------------------------------------------------------------------
-FILE #40/199: src\mine\fetcher\segmented_fetch_producer.cc
+FILE #40/227: src\mine\fetcher\segmented_fetch_producer.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\segmented_fetch_producer.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "src/mine/fetcher/segmented_fetch_producer.h"
+#include "mine/fetcher/segmented_fetch_producer.h"
 
-#include <algorithm>
 #include <utility>
-
-#include "base/files/file_util.h"
-#include "base/json/json_reader.h"
-#include "base/json/json_writer.h"
-#include "base/task/sequenced_task_runner.h"
-#include "base/values.h"
+#include "base/logging.h"
+#include "services/network/public/cpp/shared_url_loader_factory.h"
 
 namespace codem37 {
-
-namespace {
-
-constexpr size_t kMaxConcurrency = 8;
-constexpr uint64_t kMinChunkSize = 8 * 1024 * 1024; // 8 MB
-
-}  // namespace
 
 SegmentedFetchProducer::SegmentedFetchProducer(
     const GURL& url,
     const base::FilePath& destination_path,
     uint64_t total_bytes,
     const std::string& etag,
+    scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
     SegmentedProgressCallback progress_cb,
     SegmentedCompleteCallback complete_cb)
     : url_(url),
       destination_path_(destination_path),
-      sidecar_path_(destination_path.AddExtension(FILE_PATH_LITERAL(".c37state"))),
       total_bytes_(total_bytes),
       etag_(etag),
+      url_loader_factory_(std::move(url_loader_factory)),
       progress_cb_(std::move(progress_cb)),
       complete_cb_(std::move(complete_cb)) {
-  DETACH_FROM_SEQUENCE(sequence_checker_);
+  target_file_ = storage::DownloadFile::Create(destination_path_, total_bytes_);
+  scheduler_ = std::make_unique<engine::SegmentScheduler>(total_bytes_, 4);
+
+  // Check for existing sidecar (.c37state)
+  auto loaded_state = storage::DownloadStateStore::Load(destination_path_);
+  if (loaded_state.has_value() && loaded_state->url == url_ &&
+      loaded_state->total_bytes == total_bytes_) {
+    std::vector<engine::DownloadRange> ranges;
+    uint32_t id = 1;
+    for (const auto& r : loaded_state->ranges) {
+      engine::DownloadRange range;
+      range.id = id++;
+      range.start = r.start;
+      range.end = r.end;
+      range.completed = r.completed;
+      range.status = r.is_finished ? engine::RangeStatus::kCompleted
+                                   : engine::RangeStatus::kPending;
+      ranges.push_back(range);
+    }
+    scheduler_->LoadRanges(ranges);
+  }
 }
 
 SegmentedFetchProducer::~SegmentedFetchProducer() {
   Cancel();
 }
 
-void SegmentedFetchProducer::InitializeSparseFile() {
-  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-
-  destination_file_.Initialize(
-      destination_path_,
-      base::File::FLAG_OPEN_ALWAYS | base::File::FLAG_READ | base::File::FLAG_WRITE);
-
-  if (destination_file_.IsValid() && total_bytes_ > 0) {
-    // Set length to allocate/sparse-size
-    destination_file_.SetLength(total_bytes_);
-  }
-}
-
 void SegmentedFetchProducer::Start() {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-
-  InitializeSparseFile();
-  if (!destination_file_.IsValid()) {
+  if (!target_file_ || is_cancelled_) {
     if (complete_cb_) {
-      std::move(complete_cb_).Run(false, "Failed to open destination file");
+      std::move(complete_cb_).Run(false, "Failed to initialize target storage.");
     }
     return;
   }
 
-  // Plan segments
-  size_t possible_chunks = total_bytes_ / std::max<uint64_t>(1, kMinChunkSize);
-  size_t num_segments = std::clamp<size_t>(possible_chunks, 1, kMaxConcurrency);
-
-  uint64_t chunk_size = total_bytes_ / num_segments;
-  segments_.clear();
-
-  for (size_t i = 0; i < num_segments; ++i) {
-    SegmentRange seg;
-    seg.index = i;
-    seg.start_byte = i * chunk_size;
-    seg.end_byte = (i == num_segments - 1) ? (total_bytes_ - 1) : (seg.start_byte + chunk_size - 1);
-    seg.received_bytes = 0;
-    seg.is_completed = false;
-    segments_.push_back(seg);
-  }
-
-  SaveSidecarState(destination_path_, url_, total_bytes_, etag_, segments_);
-
-  // Simulate chunk writes directly to offsets
-  base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
-      FROM_HERE,
-      base::BindOnce(
-          [](base::WeakPtr<SegmentedFetchProducer> self) {
-            if (!self || self->is_cancelled_ || self->is_paused_) return;
-            for (auto& seg : self->segments_) {
-              seg.received_bytes = (seg.end_byte - seg.start_byte + 1);
-              seg.is_completed = true;
-            }
-            self->CheckOverallCompletion();
-          },
-          weak_factory_.GetWeakPtr()));
-}
-
-void SegmentedFetchProducer::Pause() {
-  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  is_paused_ = true;
-  SaveSidecarState(destination_path_, url_, total_bytes_, etag_, segments_);
-}
-
-void SegmentedFetchProducer::Resume() {
-  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
   is_paused_ = false;
-  Start();
-}
-
-void SegmentedFetchProducer::Cancel() {
-  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  is_cancelled_ = true;
-  if (destination_file_.IsValid()) {
-    destination_file_.Close();
+  // Spawn initial set of parallel workers
+  for (size_t i = 0; i < 4; ++i) {
+    SpawnWorker(static_cast<int>(i));
   }
 }
 
-void SegmentedFetchProducer::CheckOverallCompletion() {
+void SegmentedFetchProducer::SpawnWorker(int worker_id) {
+  if (is_paused_ || is_cancelled_ || !scheduler_) {
+    return;
+  }
+
+  auto next_range = scheduler_->GetNextWorkRange(worker_id);
+  if (!next_range.has_value()) {
+    if (scheduler_->IsAllCompleted()) {
+      target_file_->Flush();
+      storage::DownloadStateStore::Remove(destination_path_);
+      if (complete_cb_) {
+        std::move(complete_cb_).Run(true, "");
+      }
+    }
+    return;
+  }
+
+  auto worker = std::make_unique<engine::SegmentWorker>(
+      worker_id, url_loader_factory_, target_file_.get(),
+      base::BindRepeating(&SegmentedFetchProducer::OnWorkerProgress,
+                          weak_factory_.GetWeakPtr()),
+      base::BindOnce(&SegmentedFetchProducer::OnWorkerCompleted,
+                     weak_factory_.GetWeakPtr()));
+
+  auto* worker_ptr = worker.get();
+  workers_.push_back(std::move(worker));
+
+  std::optional<std::string> expected_etag =
+      etag_.empty() ? std::nullopt : std::make_optional(etag_);
+  worker_ptr->StartRange(url_, *next_range, expected_etag);
+}
+
+void SegmentedFetchProducer::OnWorkerProgress(uint32_t range_id, uint64_t bytes_written) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
-  if (is_cancelled_) return;
-
-  bool all_done = true;
-  uint64_t total_recv = 0;
-
-  for (const auto& seg : segments_) {
-    total_recv += seg.received_bytes;
-    if (!seg.is_completed) {
-      all_done = false;
+  if (scheduler_) {
+    scheduler_->UpdateProgress(range_id, bytes_written);
+    if (progress_cb_) {
+      progress_cb_.Run(scheduler_->GetTotalCompletedBytes(), total_bytes_);
     }
   }
+}
 
-  if (progress_cb_) {
-    progress_cb_.Run(total_recv, total_bytes_);
+void SegmentedFetchProducer::OnWorkerCompleted(
+    int worker_id, uint32_t range_id, bool success, uint64_t bytes_transferred) {
+  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+  if (!scheduler_) return;
+
+  if (success) {
+    scheduler_->MarkCompleted(range_id);
+    PersistSidecar();
+  } else {
+    scheduler_->MarkFailed(range_id);
   }
 
-  if (all_done) {
-    if (destination_file_.IsValid()) {
-      destination_file_.Flush();
-      destination_file_.Close();
-    }
-    base::DeleteFile(sidecar_path_);
-
+  if (scheduler_->IsAllCompleted()) {
+    target_file_->Flush();
+    storage::DownloadStateStore::Remove(destination_path_);
     if (complete_cb_) {
       std::move(complete_cb_).Run(true, "");
     }
+  } else {
+    // Worker claims next available or split range
+    SpawnWorker(worker_id);
   }
 }
 
-// static
-bool SegmentedFetchProducer::SaveSidecarState(
-    const base::FilePath& destination_path,
-    const GURL& url,
-    uint64_t total_bytes,
-    const std::string& etag,
-    const std::vector<SegmentRange>& segments) {
-  base::FilePath sidecar = destination_path.AddExtension(FILE_PATH_LITERAL(".c37state"));
-  base::Value::Dict root;
-  root.Set("url", url.spec());
-  root.Set("total_bytes", static_cast<double>(total_bytes));
-  root.Set("etag", etag);
+void SegmentedFetchProducer::PersistSidecar() {
+  if (!scheduler_) return;
+  storage::PersistedDownloadState state;
+  state.url = url_;
+  state.destination = destination_path_;
+  state.total_bytes = total_bytes_;
+  state.etag = etag_;
 
-  base::Value::List seg_list;
-  for (const auto& s : segments) {
-    base::Value::Dict d;
-    d.Set("index", static_cast<int>(s.index));
-    d.Set("start_byte", static_cast<double>(s.start_byte));
-    d.Set("end_byte", static_cast<double>(s.end_byte));
-    d.Set("received_bytes", static_cast<double>(s.received_bytes));
-    d.Set("is_completed", s.is_completed);
-    seg_list.Append(std::move(d));
+  auto snapshot = scheduler_->GetSnapshot();
+  for (const auto& r : snapshot) {
+    storage::PersistedRangeState p_range;
+    p_range.start = r.start;
+    p_range.end = r.end;
+    p_range.completed = r.completed;
+    p_range.is_finished = (r.status == engine::RangeStatus::kCompleted);
+    state.ranges.push_back(p_range);
   }
-  root.Set("segments", std::move(seg_list));
-
-  std::string json_str;
-  if (base::JSONWriter::Write(root, &json_str)) {
-    return base::WriteFile(sidecar, json_str);
-  }
-  return false;
+  storage::DownloadStateStore::Save(destination_path_, state);
 }
 
-// static
-bool SegmentedFetchProducer::LoadSidecarState(
-    const base::FilePath& destination_path,
-    std::string& out_etag,
-    std::vector<SegmentRange>& out_segments) {
-  base::FilePath sidecar = destination_path.AddExtension(FILE_PATH_LITERAL(".c37state"));
-  std::string content;
-  if (!base::ReadFileToString(sidecar, &content)) {
-    return false;
+void SegmentedFetchProducer::Pause() {
+  is_paused_ = true;
+  for (auto& w : workers_) {
+    w->Cancel();
   }
+  workers_.clear();
+  PersistSidecar();
+}
 
-  auto parsed = base::JSONReader::Read(content);
-  if (!parsed || !parsed->is_dict()) {
-    return false;
+void SegmentedFetchProducer::Resume() {
+  if (is_paused_) {
+    Start();
   }
+}
 
-  const base::Value::Dict& dict = parsed->GetDict();
-  const std::string* etag_ptr = dict.FindString("etag");
-  if (etag_ptr) {
-    out_etag = *etag_ptr;
+void SegmentedFetchProducer::Cancel() {
+  is_cancelled_ = true;
+  for (auto& w : workers_) {
+    w->Cancel();
   }
-
-  const base::Value::List* seg_list = dict.FindList("segments");
-  if (!seg_list) return false;
-
-  out_segments.clear();
-  for (const auto& v : *seg_list) {
-    if (!v.is_dict()) continue;
-    const base::Value::Dict& d = v.GetDict();
-    SegmentRange r;
-    r.index = d.FindInt("index").value_or(0);
-    r.start_byte = static_cast<uint64_t>(d.FindDouble("start_byte").value_or(0.0));
-    r.end_byte = static_cast<uint64_t>(d.FindDouble("end_byte").value_or(0.0));
-    r.received_bytes = static_cast<uint64_t>(d.FindDouble("received_bytes").value_or(0.0));
-    r.is_completed = d.FindBool("is_completed").value_or(false);
-    out_segments.push_back(r);
+  workers_.clear();
+  if (target_file_) {
+    target_file_->Close();
   }
-
-  return true;
 }
 
 }  // namespace codem37
 
 
 --------------------------------------------------------------------------------
-FILE #41/199: src\mine\fetcher\segmented_fetch_producer.h
+FILE #41/227: src\mine\fetcher\segmented_fetch_producer.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\segmented_fetch_producer.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -3678,36 +3697,36 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\segmented_fetch_producer.h
 #include <string>
 #include <vector>
 
-#include "base/files/file.h"
 #include "base/files/file_path.h"
 #include "base/functional/callback.h"
+#include "base/memory/scoped_refptr.h"
 #include "base/memory/weak_ptr.h"
 #include "base/sequence_checker.h"
+#include "mine/fetcher/engine/segment_scheduler.h"
+#include "mine/fetcher/engine/segment_worker.h"
+#include "mine/fetcher/storage/download_file.h"
+#include "mine/fetcher/storage/download_state_store.h"
 #include "url/gurl.h"
 
-namespace codem37 {
+namespace network {
+class SharedURLLoaderFactory;
+}
 
-struct SegmentRange {
-  size_t index = 0;
-  uint64_t start_byte = 0;
-  uint64_t end_byte = 0;
-  uint64_t received_bytes = 0;
-  int retry_count = 0;
-  bool is_completed = false;
-};
+namespace codem37 {
 
 using SegmentedProgressCallback =
     base::RepeatingCallback<void(uint64_t received_bytes, uint64_t total_bytes)>;
 using SegmentedCompleteCallback = base::OnceCallback<void(bool success, const std::string& error)>;
 
-// Internal producer that downloads large range-capable files via parallel segments,
-// writing directly to non-overlapping offsets in a sparse destination file.
+// Production-grade orchestrator that downloads large range-capable files via
+// parallel dynamic segments, writing directly to non-overlapping offsets in a sparse target.
 class SegmentedFetchProducer {
  public:
   SegmentedFetchProducer(const GURL& url,
                          const base::FilePath& destination_path,
                          uint64_t total_bytes,
                          const std::string& etag,
+                         scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
                          SegmentedProgressCallback progress_cb,
                          SegmentedCompleteCallback complete_cb);
   ~SegmentedFetchProducer();
@@ -3720,39 +3739,31 @@ class SegmentedFetchProducer {
   void Resume();
   void Cancel();
 
-  static bool SaveSidecarState(const base::FilePath& destination_path,
-                              const GURL& url,
-                              uint64_t total_bytes,
-                              const std::string& etag,
-                              const std::vector<SegmentRange>& segments);
-  static bool LoadSidecarState(const base::FilePath& destination_path,
-                              std::string& out_etag,
-                              std::vector<SegmentRange>& out_segments);
+  storage::DownloadFile* target_file() { return target_file_.get(); }
+  engine::SegmentScheduler* scheduler() { return scheduler_.get(); }
 
  private:
-  void InitializeSparseFile();
-  void OnSegmentChunkReceived(size_t segment_index,
-                              uint64_t chunk_offset,
-                              const std::vector<uint8_t>& chunk_data);
-  void OnSegmentFinished(size_t segment_index, bool success);
-  void CheckOverallCompletion();
-
-  SEQUENCE_CHECKER(sequence_checker_);
+  void SpawnWorker(int worker_id);
+  void OnWorkerProgress(uint32_t range_id, uint64_t bytes_written);
+  void OnWorkerCompleted(int worker_id, uint32_t range_id, bool success, uint64_t bytes_transferred);
+  void PersistSidecar();
 
   GURL url_;
   base::FilePath destination_path_;
-  base::FilePath sidecar_path_;
-  uint64_t total_bytes_ = 0;
+  uint64_t total_bytes_;
   std::string etag_;
-
+  scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory_;
   SegmentedProgressCallback progress_cb_;
   SegmentedCompleteCallback complete_cb_;
 
-  base::File destination_file_;
-  std::vector<SegmentRange> segments_;
+  std::unique_ptr<storage::DownloadFile> target_file_;
+  std::unique_ptr<engine::SegmentScheduler> scheduler_;
+  std::vector<std::unique_ptr<engine::SegmentWorker>> workers_;
+
   bool is_paused_ = false;
   bool is_cancelled_ = false;
 
+  SEQUENCE_CHECKER(sequence_checker_);
   base::WeakPtrFactory<SegmentedFetchProducer> weak_factory_{this};
 };
 
@@ -3762,7 +3773,7 @@ class SegmentedFetchProducer {
 
 
 --------------------------------------------------------------------------------
-FILE #42/199: src\mine\fetcher\segmented_fetch_unittest.cc
+FILE #42/227: src\mine\fetcher\segmented_fetch_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\segmented_fetch_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -3873,7 +3884,1245 @@ TEST_F(SegmentedFetchTest, DirectToOffsetReassembly) {
 
 
 --------------------------------------------------------------------------------
-FILE #43/199: src\mine\fetcher\mojom\fetcher.mojom
+FILE #43/227: src\mine\fetcher\engine\http_resource_probe.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\engine\http_resource_probe.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/engine/http_resource_probe.h"
+
+namespace mine {
+namespace engine {
+
+bool HttpResourceProbe::QualifiesForSegmentation(const ResourceMetadata& meta,
+                                                 uint64_t threshold_bytes) {
+  // Phase 0 / Phase 5 Invariant:
+  // Must be HTTP 200/206, known content length >= threshold, and support ranges.
+  if (meta.http_status_code != 200 && meta.http_status_code != 206) {
+    return false;
+  }
+  if (!meta.supports_ranges) {
+    return false;
+  }
+  if (meta.content_length < static_cast<int64_t>(threshold_bytes)) {
+    return false;
+  }
+  return true;
+}
+
+}  // namespace engine
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #44/227: src\mine\fetcher\engine\http_resource_probe.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\engine\http_resource_probe.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_ENGINE_HTTP_RESOURCE_PROBE_H_
+#define MINE_FETCHER_ENGINE_HTTP_RESOURCE_PROBE_H_
+
+#include <cstdint>
+#include <optional>
+#include <string>
+#include "base/functional/callback.h"
+#include "url/gurl.h"
+
+namespace mine {
+namespace engine {
+
+struct ResourceMetadata {
+  GURL url;
+  int64_t content_length = -1;
+  bool supports_ranges = false;
+  std::optional<std::string> etag;
+  std::optional<std::string> last_modified;
+  std::string mime_type;
+  std::string filename_suggestion;
+  int http_status_code = 0;
+};
+
+using ProbeCallback = base::OnceCallback<void(std::optional<ResourceMetadata>)>;
+
+// Probes server capabilities before allocating workers.
+class HttpResourceProbe {
+ public:
+  // Decides whether a resource qualifies for multi-connection segmented fetch:
+  // Invariants: Content-Length known, >= 100 MB, Accept-Ranges: bytes supported.
+  static bool QualifiesForSegmentation(const ResourceMetadata& meta,
+                                       uint64_t threshold_bytes = 100 * 1024 * 1024);
+};
+
+}  // namespace engine
+}  // namespace mine
+
+#endif  // MINE_FETCHER_ENGINE_HTTP_RESOURCE_PROBE_H_
+
+
+--------------------------------------------------------------------------------
+FILE #45/227: src\mine\fetcher\engine\resource_validator.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\engine\resource_validator.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/engine/resource_validator.h"
+
+namespace mine {
+namespace engine {
+
+bool ResourceValidator::ValidateRangeResponse(
+    int http_status,
+    uint64_t expected_start,
+    uint64_t expected_end,
+    uint64_t content_range_start,
+    uint64_t content_range_end,
+    uint64_t content_range_total,
+    const std::optional<std::string>& expected_etag,
+    const std::optional<std::string>& response_etag) {
+  // 1. Must be HTTP 206 Partial Content
+  if (http_status != 206) {
+    return false;
+  }
+
+  // 2. Content-Range boundaries must match requested range
+  if (content_range_start != expected_start || content_range_end != expected_end) {
+    return false;
+  }
+
+  // 3. ETag consistency check across parallel workers
+  if (expected_etag.has_value() && response_etag.has_value()) {
+    if (*expected_etag != *response_etag) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+}  // namespace engine
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #46/227: src\mine\fetcher\engine\resource_validator.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\engine\resource_validator.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_ENGINE_RESOURCE_VALIDATOR_H_
+#define MINE_FETCHER_ENGINE_RESOURCE_VALIDATOR_H_
+
+#include <cstdint>
+#include <optional>
+#include <string>
+
+namespace mine {
+namespace engine {
+
+class ResourceValidator {
+ public:
+  // Verifies that a worker's HTTP 206 response matches expected range and ETag.
+  static bool ValidateRangeResponse(int http_status,
+                                    uint64_t expected_start,
+                                    uint64_t expected_end,
+                                    uint64_t content_range_start,
+                                    uint64_t content_range_end,
+                                    uint64_t content_range_total,
+                                    const std::optional<std::string>& expected_etag,
+                                    const std::optional<std::string>& response_etag);
+};
+
+}  // namespace engine
+}  // namespace mine
+
+#endif  // MINE_FETCHER_ENGINE_RESOURCE_VALIDATOR_H_
+
+
+--------------------------------------------------------------------------------
+FILE #47/227: src\mine\fetcher\engine\segment_scheduler.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\engine\segment_scheduler.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/engine/segment_scheduler.h"
+
+#include <algorithm>
+#include "base/logging.h"
+
+namespace mine {
+namespace engine {
+
+SegmentScheduler::SegmentScheduler(uint64_t total_size, size_t initial_workers)
+    : total_size_(total_size) {
+  if (total_size == 0) return;
+
+  size_t num_chunks = std::min(initial_workers, kMaxConcurrentWorkers);
+  if (num_chunks == 0) num_chunks = 1;
+
+  // Don't split smaller than kMinSegmentSize
+  while (num_chunks > 1 && (total_size / num_chunks) < kMinSegmentSize) {
+    num_chunks--;
+  }
+
+  uint64_t chunk_size = total_size / num_chunks;
+  uint64_t current_offset = 0;
+
+  for (size_t i = 0; i < num_chunks; ++i) {
+    uint64_t end = (i == num_chunks - 1) ? (total_size - 1) : (current_offset + chunk_size - 1);
+    DownloadRange range;
+    range.id = next_range_id_++;
+    range.start = current_offset;
+    range.end = end;
+    range.completed = 0;
+    range.status = RangeStatus::kPending;
+    ranges_.push_back(range);
+    current_offset = end + 1;
+  }
+}
+
+SegmentScheduler::~SegmentScheduler() = default;
+
+void SegmentScheduler::LoadRanges(const std::vector<DownloadRange>& ranges) {
+  base::AutoLock auto_lock(lock_);
+  ranges_ = ranges;
+  for (const auto& r : ranges_) {
+    if (r.id >= next_range_id_) {
+      next_range_id_ = r.id + 1;
+    }
+  }
+}
+
+std::optional<DownloadRange> SegmentScheduler::GetNextWorkRange(int worker_id) {
+  base::AutoLock auto_lock(lock_);
+
+  // 1. Look for pending range first
+  for (auto& r : ranges_) {
+    if (r.status == RangeStatus::kPending) {
+      r.status = RangeStatus::kActive;
+      r.worker_id = worker_id;
+      return r;
+    }
+  }
+
+  // 2. If no pending range, find the largest active range that can be split at midpoint
+  DownloadRange* best_candidate = nullptr;
+  uint64_t max_remaining = 0;
+
+  for (auto& r : ranges_) {
+    if (r.status == RangeStatus::kActive) {
+      uint64_t current_pos = r.start + r.completed;
+      if (r.end > current_pos) {
+        uint64_t remaining = r.end - current_pos + 1;
+        if (remaining >= (2 * kMinSegmentSize) && remaining > max_remaining) {
+          max_remaining = remaining;
+          best_candidate = &r;
+        }
+      }
+    }
+  }
+
+  if (best_candidate) {
+    uint64_t current_pos = best_candidate->start + best_candidate->completed;
+    uint64_t midpoint = current_pos + (best_candidate->end - current_pos) / 2;
+
+    // Create new split range for the second half
+    DownloadRange new_range;
+    new_range.id = next_range_id_++;
+    new_range.start = midpoint + 1;
+    new_range.end = best_candidate->end;
+    new_range.completed = 0;
+    new_range.status = RangeStatus::kActive;
+    new_range.worker_id = worker_id;
+
+    // Truncate original candidate range to midpoint
+    best_candidate->end = midpoint;
+
+    ranges_.push_back(new_range);
+    return new_range;
+  }
+
+  return std::nullopt;
+}
+
+void SegmentScheduler::UpdateProgress(uint32_t range_id, uint64_t bytes_written) {
+  base::AutoLock auto_lock(lock_);
+  for (auto& r : ranges_) {
+    if (r.id == range_id) {
+      r.completed += bytes_written;
+      if (r.start + r.completed > r.end + 1) {
+        r.completed = (r.end - r.start + 1);
+      }
+      break;
+    }
+  }
+}
+
+void SegmentScheduler::MarkCompleted(uint32_t range_id) {
+  base::AutoLock auto_lock(lock_);
+  for (auto& r : ranges_) {
+    if (r.id == range_id) {
+      r.completed = (r.end - r.start + 1);
+      r.status = RangeStatus::kCompleted;
+      r.worker_id = -1;
+      break;
+    }
+  }
+}
+
+void SegmentScheduler::MarkFailed(uint32_t range_id) {
+  base::AutoLock auto_lock(lock_);
+  for (auto& r : ranges_) {
+    if (r.id == range_id) {
+      r.status = RangeStatus::kPending;
+      r.worker_id = -1;
+      break;
+    }
+  }
+}
+
+std::vector<DownloadRange> SegmentScheduler::GetSnapshot() const {
+  base::AutoLock auto_lock(lock_);
+  return ranges_;
+}
+
+uint64_t SegmentScheduler::GetTotalCompletedBytes() const {
+  base::AutoLock auto_lock(lock_);
+  uint64_t total = 0;
+  for (const auto& r : ranges_) {
+    total += r.completed;
+  }
+  return total;
+}
+
+bool SegmentScheduler::IsAllCompleted() const {
+  base::AutoLock auto_lock(lock_);
+  if (ranges_.empty()) return false;
+  for (const auto& r : ranges_) {
+    if (r.status != RangeStatus::kCompleted) return false;
+  }
+  return true;
+}
+
+}  // namespace engine
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #48/227: src\mine\fetcher\engine\segment_scheduler.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\engine\segment_scheduler.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_ENGINE_SEGMENT_SCHEDULER_H_
+#define MINE_FETCHER_ENGINE_SEGMENT_SCHEDULER_H_
+
+#include <cstdint>
+#include <memory>
+#include <optional>
+#include <vector>
+#include "base/synchronization/lock.h"
+
+namespace mine {
+namespace engine {
+
+enum class RangeStatus {
+  kPending,
+  kActive,
+  kCompleted,
+  kFailed,
+};
+
+struct DownloadRange {
+  uint32_t id;
+  uint64_t start;
+  uint64_t end;
+  uint64_t completed;
+  RangeStatus status;
+  int worker_id = -1;
+};
+
+// Thread-safe dynamic range scheduler with midpoint splitting.
+class SegmentScheduler {
+ public:
+  static constexpr size_t kMaxConcurrentWorkers = 8;
+  static constexpr uint64_t kMinSegmentSize = 8 * 1024 * 1024; // 8 MB
+
+  SegmentScheduler(uint64_t total_size, size_t initial_workers = 4);
+  ~SegmentScheduler();
+
+  // Initializes from existing persisted ranges on resume
+  void LoadRanges(const std::vector<DownloadRange>& ranges);
+
+  // Claims a pending range or splits the largest remaining active range.
+  std::optional<DownloadRange> GetNextWorkRange(int worker_id);
+
+  // Updates progress for a range
+  void UpdateProgress(uint32_t range_id, uint64_t bytes_written);
+
+  // Marks a range as completed
+  void MarkCompleted(uint32_t range_id);
+
+  // Marks a range as failed (re-queues for retry)
+  void MarkFailed(uint32_t range_id);
+
+  // Returns all current ranges (for .c37state snapshot persistence)
+  std::vector<DownloadRange> GetSnapshot() const;
+
+  // Calculates total progress across all ranges
+  uint64_t GetTotalCompletedBytes() const;
+  bool IsAllCompleted() const;
+
+  uint64_t total_size() const { return total_size_; }
+
+ private:
+  uint64_t total_size_;
+  mutable base::Lock lock_;
+  std::vector<DownloadRange> ranges_;
+  uint32_t next_range_id_ = 1;
+};
+
+}  // namespace engine
+}  // namespace mine
+
+#endif  // MINE_FETCHER_ENGINE_SEGMENT_SCHEDULER_H_
+
+
+--------------------------------------------------------------------------------
+FILE #49/227: src\mine\fetcher\engine\segment_worker.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\engine\segment_worker.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/engine/segment_worker.h"
+
+#include <utility>
+#include "base/logging.h"
+#include "base/strings/stringprintf.h"
+#include "mine/fetcher/engine/segment_scheduler.h"
+#include "mine/fetcher/storage/download_file.h"
+#include "net/http/http_response_headers.h"
+#include "net/traffic_annotation/network_traffic_annotation.h"
+#include "services/network/public/cpp/resource_request.h"
+#include "services/network/public/cpp/shared_url_loader_factory.h"
+
+namespace mine {
+namespace engine {
+
+namespace {
+
+const net::NetworkTrafficAnnotationTag kSegmentedFetchAnnotation =
+    net::DefineNetworkTrafficAnnotation("codem37_segmented_fetch", R"(
+      semantics {
+        sender: "codem37 Native Parallel Download Engine"
+        description:
+          "Fetches a designated byte range of a resource directly to disk."
+        trigger:
+          "User initiated segmented download from codem37 browser or WebUI."
+        data: "Range header specifying requested chunk boundaries."
+        destination: WEBSITE
+      }
+      policy {
+        cookies_allowed: YES
+        setting: "This feature cannot be disabled."
+      }
+    )");
+
+}  // namespace
+
+SegmentWorker::SegmentWorker(
+    int worker_id,
+    scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
+    storage::DownloadFile* target_file,
+    ProgressCallback progress_callback,
+    CompletionCallback completion_callback)
+    : worker_id_(worker_id),
+      url_loader_factory_(std::move(url_loader_factory)),
+      target_file_(target_file),
+      progress_callback_(std::move(progress_callback)),
+      completion_callback_(std::move(completion_callback)) {}
+
+SegmentWorker::~SegmentWorker() {
+  Cancel();
+}
+
+void SegmentWorker::StartRange(
+    const GURL& url,
+    const DownloadRange& range,
+    const std::optional<std::string>& expected_etag) {
+  Cancel();
+
+  is_busy_ = true;
+  current_range_id_ = range.id;
+  current_offset_ = range.start + range.completed;
+  expected_end_ = range.end;
+  bytes_transferred_ = 0;
+  expected_etag_ = expected_etag;
+
+  if (current_offset_ > expected_end_) {
+    // Already fully completed
+    is_busy_ = false;
+    if (completion_callback_) {
+      std::move(completion_callback_).Run(worker_id_, current_range_id_, true, 0);
+    }
+    return;
+  }
+
+  auto resource_request = std::make_unique<network::ResourceRequest>();
+  resource_request->url = url;
+  resource_request->method = "GET";
+  resource_request->credentials_mode = network::mojom::CredentialsMode::kInclude;
+
+  // Add HTTP Range header: "bytes=start-end"
+  std::string range_header =
+      base::StringPrintf("bytes=%" PRIu64 "-%" PRIu64, current_offset_, expected_end_);
+  resource_request->headers.SetHeader(net::HttpRequestHeaders::kRange, range_header);
+
+  url_loader_ = network::SimpleURLLoader::Create(std::move(resource_request),
+                                                 kSegmentedFetchAnnotation);
+
+  url_loader_->SetOnResponseStartedCallback(base::BindOnce(
+      &SegmentWorker::OnResponseStarted, weak_factory_.GetWeakPtr()));
+
+  // Stream data pipe directly into memory buffer / disk
+  url_loader_->DownloadAsStream(url_loader_factory_.get(), this);
+}
+
+void SegmentWorker::OnResponseStarted(
+    const GURL& final_url,
+    const network::mojom::URLResponseHead& response_head) {
+  if (!response_head.headers) {
+    Cancel();
+    if (completion_callback_) {
+      std::move(completion_callback_).Run(worker_id_, current_range_id_, false, 0);
+    }
+    return;
+  }
+
+  int response_code = response_head.headers->response_code();
+  if (response_code != 206 && response_code != 200) {
+    LOG(ERROR) << "[codem37::SegmentWorker " << worker_id_
+               << "] Server rejected range request with HTTP " << response_code;
+    Cancel();
+    if (completion_callback_) {
+      std::move(completion_callback_).Run(worker_id_, current_range_id_, false, 0);
+    }
+    return;
+  }
+
+  // Verify ETag if expected
+  if (expected_etag_.has_value()) {
+    std::string etag;
+    if (response_head.headers->EnumerateHeader(nullptr, "ETag", &etag)) {
+      if (etag != *expected_etag_) {
+        LOG(ERROR) << "[codem37::SegmentWorker " << worker_id_
+                   << "] ETag mismatch! Expected: " << *expected_etag_
+                   << " vs Received: " << etag;
+        Cancel();
+        if (completion_callback_) {
+          std::move(completion_callback_).Run(worker_id_, current_range_id_, false, 0);
+        }
+        return;
+      }
+    }
+  }
+}
+
+void SegmentWorker::OnDataAvailable(base::span<const uint8_t> data) {
+  if (data.empty() || !target_file_) {
+    return;
+  }
+
+  // Phase 0 / 5 Invariant: Write directly into preallocated target file at designated offset
+  bool write_ok = target_file_->WriteAt(current_offset_, data);
+  if (!write_ok) {
+    LOG(ERROR) << "[codem37::SegmentWorker " << worker_id_
+               << "] Direct offset disk write failed at: " << current_offset_;
+    Cancel();
+    if (completion_callback_) {
+      std::move(completion_callback_).Run(worker_id_, current_range_id_, false, bytes_transferred_);
+    }
+    return;
+  }
+
+  current_offset_ += data.size();
+  bytes_transferred_ += data.size();
+
+  if (progress_callback_) {
+    progress_callback_.Run(current_range_id_, data.size());
+  }
+}
+
+void SegmentWorker::OnDataComplete() {
+  is_busy_ = false;
+  bool success = (url_loader_ && url_loader_->NetError() == net::OK);
+  if (completion_callback_) {
+    std::move(completion_callback_).Run(worker_id_, current_range_id_, success, bytes_transferred_);
+  }
+}
+
+void SegmentWorker::Cancel() {
+  is_busy_ = false;
+  url_loader_.reset();
+  pipe_drainer_.reset();
+}
+
+}  // namespace engine
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #50/227: src\mine\fetcher\engine\segment_worker.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\engine\segment_worker.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_ENGINE_SEGMENT_WORKER_H_
+#define MINE_FETCHER_ENGINE_SEGMENT_WORKER_H_
+
+#include <cstdint>
+#include <memory>
+#include <optional>
+#include <string>
+#include "base/functional/callback.h"
+#include "base/memory/scoped_refptr.h"
+#include "base/memory/weak_ptr.h"
+#include "mojo/public/cpp/system/data_pipe_drainer.h"
+#include "services/network/public/cpp/simple_url_loader.h"
+#include "url/gurl.h"
+
+namespace network {
+class SharedURLLoaderFactory;
+}
+
+namespace mine {
+namespace storage {
+class DownloadFile;
+}
+
+namespace engine {
+
+struct DownloadRange;
+
+class SegmentWorker : public mojo::DataPipeDrainer::Client {
+ public:
+  using CompletionCallback = base::OnceCallback<void(int worker_id,
+                                                      uint32_t range_id,
+                                                      bool success,
+                                                      uint64_t bytes_transferred)>;
+  using ProgressCallback = base::RepeatingCallback<void(uint32_t range_id,
+                                                        uint64_t bytes_written)>;
+
+  SegmentWorker(int worker_id,
+                scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
+                storage::DownloadFile* target_file,
+                ProgressCallback progress_callback,
+                CompletionCallback completion_callback);
+  ~SegmentWorker() override;
+
+  // Starts fetching the assigned work range
+  void StartRange(const GURL& url,
+                  const DownloadRange& range,
+                  const std::optional<std::string>& expected_etag);
+
+  // Cancels any in-flight transfer
+  void Cancel();
+
+  int worker_id() const { return worker_id_; }
+  bool is_busy() const { return is_busy_; }
+
+  // mojo::DataPipeDrainer::Client implementation:
+  void OnDataAvailable(base::span<const uint8_t> data) override;
+  void OnDataComplete() override;
+
+ private:
+  void OnResponseStarted(const GURL& final_url,
+                         const network::mojom::URLResponseHead& response_head);
+
+  int worker_id_;
+  scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory_;
+  storage::DownloadFile* target_file_; // Weak ref owned by SegmentedFetchProducer
+  ProgressCallback progress_callback_;
+  CompletionCallback completion_callback_;
+
+  bool is_busy_ = false;
+  uint32_t current_range_id_ = 0;
+  uint64_t current_offset_ = 0;
+  uint64_t expected_end_ = 0;
+  uint64_t bytes_transferred_ = 0;
+  std::optional<std::string> expected_etag_;
+
+  std::unique_ptr<network::SimpleURLLoader> url_loader_;
+  std::unique_ptr<mojo::DataPipeDrainer> pipe_drainer_;
+  base::WeakPtrFactory<SegmentWorker> weak_factory_{this};
+};
+
+}  // namespace engine
+}  // namespace mine
+
+#endif  // MINE_FETCHER_ENGINE_SEGMENT_WORKER_H_
+
+
+--------------------------------------------------------------------------------
+FILE #51/227: src\mine\fetcher\media\media_detector.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\media\media_detector.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/media/media_detector.h"
+
+#include "base/strings/string_util.h"
+
+namespace mine {
+namespace media {
+
+std::optional<MediaType> MediaDetector::DetectMediaType(
+    const GURL& url,
+    const std::string& mime_type) {
+  std::string lower_mime = base::ToLowerASCII(mime_type);
+  std::string path = base::ToLowerASCII(url.path());
+
+  // 1. HLS Detection
+  if (lower_mime == "application/vnd.apple.mpegurl" ||
+      lower_mime == "application/x-mpegurl" ||
+      lower_mime == "audio/x-mpegurl" ||
+      base::EndsWith(path, ".m3u8", base::CompareCase::INSENSITIVE_ASCII)) {
+    return MediaType::kHls;
+  }
+
+  // 2. DASH Detection
+  if (lower_mime == "application/dash+xml" ||
+      base::EndsWith(path, ".mpd", base::CompareCase::INSENSITIVE_ASCII)) {
+    return MediaType::kDash;
+  }
+
+  // 3. Progressive Media Detection
+  if (base::StartsWith(lower_mime, "video/", base::CompareCase::INSENSITIVE_ASCII) ||
+      base::StartsWith(lower_mime, "audio/", base::CompareCase::INSENSITIVE_ASCII) ||
+      base::EndsWith(path, ".mp4", base::CompareCase::INSENSITIVE_ASCII) ||
+      base::EndsWith(path, ".webm", base::CompareCase::INSENSITIVE_ASCII) ||
+      base::EndsWith(path, ".mkv", base::CompareCase::INSENSITIVE_ASCII) ||
+      base::EndsWith(path, ".ts", base::CompareCase::INSENSITIVE_ASCII)) {
+    return MediaType::kProgressive;
+  }
+
+  return std::nullopt;
+}
+
+std::unique_ptr<MediaJob> MediaDetector::CreateJobFromSniff(
+    const std::string& job_id,
+    const GURL& page_url,
+    const GURL& media_url,
+    const std::string& mime_type) {
+  auto type_opt = DetectMediaType(media_url, mime_type);
+  if (!type_opt.has_value()) {
+    return nullptr;
+  }
+
+  auto job = std::make_unique<MediaJob>(job_id, page_url, *type_opt);
+  MediaTrack track;
+  track.id = "stream_0";
+  track.kind = "video";
+  track.stream_url = media_url;
+  job->AddTrack(track);
+
+  return job;
+}
+
+}  // namespace media
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #52/227: src\mine\fetcher\media\media_detector.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\media\media_detector.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_MEDIA_MEDIA_DETECTOR_H_
+#define MINE_FETCHER_MEDIA_MEDIA_DETECTOR_H_
+
+#include <memory>
+#include <optional>
+#include <string>
+#include "mine/fetcher/media/media_job.h"
+#include "url/gurl.h"
+
+namespace mine {
+namespace media {
+
+class MediaDetector {
+ public:
+  // Detects if a network response matches media manifest or progressive streams.
+  static std::optional<MediaType> DetectMediaType(
+      const GURL& url,
+      const std::string& mime_type);
+
+  // Creates a MediaJob from sniffed metadata.
+  static std::unique_ptr<MediaJob> CreateJobFromSniff(
+      const std::string& job_id,
+      const GURL& page_url,
+      const GURL& media_url,
+      const std::string& mime_type);
+};
+
+}  // namespace media
+}  // namespace mine
+
+#endif  // MINE_FETCHER_MEDIA_MEDIA_DETECTOR_H_
+
+
+--------------------------------------------------------------------------------
+FILE #53/227: src\mine\fetcher\media\media_job.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\media\media_job.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/media/media_job.h"
+
+namespace mine {
+namespace media {
+
+MediaJob::MediaJob(const std::string& job_id, const GURL& page_url, MediaType type)
+    : id_(job_id), page_url_(page_url), type_(type) {}
+
+MediaJob::~MediaJob() = default;
+
+void MediaJob::AddTrack(const MediaTrack& track) {
+  tracks_.push_back(track);
+}
+
+}  // namespace media
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #54/227: src\mine\fetcher\media\media_job.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\media\media_job.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_MEDIA_MEDIA_JOB_H_
+#define MINE_FETCHER_MEDIA_MEDIA_JOB_H_
+
+#include <cstdint>
+#include <string>
+#include <vector>
+#include "url/gurl.h"
+
+namespace mine {
+namespace media {
+
+enum class MediaType {
+  kProgressive, // MP4, WebM
+  kHls,         // M3U8
+  kDash,        // MPD
+};
+
+enum class MediaJobState {
+  kDetected,
+  kDownloading,
+  kCompleted,
+  kFailed,
+  kCancelled,
+};
+
+struct MediaTrack {
+  std::string id;
+  std::string kind; // "video", "audio"
+  std::string resolution; // e.g. "1080p (1920x1080)"
+  uint64_t bandwidth = 0;
+  std::string codecs;
+  GURL stream_url;
+};
+
+class MediaJob {
+ public:
+  MediaJob(const std::string& job_id, const GURL& page_url, MediaType type);
+  ~MediaJob();
+
+  const std::string& id() const { return id_; }
+  const GURL& page_url() const { return page_url_; }
+  MediaType type() const { return type_; }
+  MediaJobState state() const { return state_; }
+
+  void AddTrack(const MediaTrack& track);
+  const std::vector<MediaTrack>& tracks() const { return tracks_; }
+
+  void SetState(MediaJobState state) { state_ = state; }
+  void SetTitle(const std::string& title) { title_ = title; }
+  const std::string& title() const { return title_; }
+
+ private:
+  std::string id_;
+  GURL page_url_;
+  std::string title_;
+  MediaType type_;
+  MediaJobState state_ = MediaJobState::kDetected;
+  std::vector<MediaTrack> tracks_;
+};
+
+}  // namespace media
+}  // namespace mine
+
+#endif  // MINE_FETCHER_MEDIA_MEDIA_JOB_H_
+
+
+--------------------------------------------------------------------------------
+FILE #55/227: src\mine\fetcher\media\dash\dash_manifest_parser.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\media\dash\dash_manifest_parser.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/media/dash/dash_manifest_parser.h"
+
+#include "base/strings/string_number_conversions.h"
+#include "base/strings/string_util.h"
+
+namespace mine {
+namespace media {
+
+namespace {
+
+// Lightweight XML attribute extractor helper
+std::string ExtractAttribute(base::StringPiece tag, base::StringPiece attr_name) {
+  std::string pattern = std::string(attr_name) + "=\"";
+  size_t start = tag.find(pattern);
+  if (start == base::StringPiece::npos) return "";
+  start += pattern.length();
+  size_t end = tag.find("\"", start);
+  if (end == base::StringPiece::npos) return "";
+  return std::string(tag.substr(start, end - start));
+}
+
+}  // namespace
+
+std::optional<DashManifest> DashManifestParser::Parse(
+    const std::string& mpd_content,
+    const GURL& base_url) {
+  if (mpd_content.find("<MPD") == std::string::npos) {
+    return std::nullopt;
+  }
+
+  DashManifest manifest;
+  if (mpd_content.find("type=\"dynamic\"") != std::string::npos) {
+    manifest.is_dynamic = true;
+  }
+
+  if (mpd_content.find("<ContentProtection") != std::string::npos) {
+    manifest.has_drm = true;
+  }
+
+  // Find all AdaptationSets
+  size_t pos = 0;
+  while ((pos = mpd_content.find("<AdaptationSet", pos)) != std::string::npos) {
+    size_t end_adapt = mpd_content.find("</AdaptationSet>", pos);
+    if (end_adapt == std::string::npos) end_adapt = mpd_content.length();
+
+    base::StringPiece adapt_block(&mpd_content[pos], end_adapt - pos);
+    DashAdaptationSet adapt_set;
+    adapt_set.content_type = ExtractAttribute(adapt_block, "contentType");
+    adapt_set.mime_type = ExtractAttribute(adapt_block, "mimeType");
+
+    // Search for representations inside this AdaptationSet
+    size_t rep_pos = 0;
+    while ((rep_pos = adapt_block.find("<Representation", rep_pos)) != base::StringPiece::npos) {
+      size_t rep_end = adapt_block.find(">", rep_pos);
+      if (rep_end == base::StringPiece::npos) break;
+
+      base::StringPiece rep_tag = adapt_block.substr(rep_pos, rep_end - rep_pos + 1);
+      DashRepresentation rep;
+      rep.id = ExtractAttribute(rep_tag, "id");
+      rep.codecs = ExtractAttribute(rep_tag, "codecs");
+      rep.mime_type = ExtractAttribute(rep_tag, "mimeType");
+      if (rep.mime_type.empty()) {
+        rep.mime_type = adapt_set.mime_type;
+      }
+
+      std::string bw_str = ExtractAttribute(rep_tag, "bandwidth");
+      base::StringToUint64(bw_str, &rep.bandwidth);
+
+      std::string width_str = ExtractAttribute(rep_tag, "width");
+      base::StringToUint(width_str, &rep.width);
+
+      std::string height_str = ExtractAttribute(rep_tag, "height");
+      base::StringToUint(height_str, &rep.height);
+
+      rep.base_url = base_url;
+      adapt_set.representations.push_back(rep);
+      rep_pos = rep_end + 1;
+    }
+
+    manifest.adaptation_sets.push_back(adapt_set);
+    pos = end_adapt + 16;
+  }
+
+  return manifest;
+}
+
+}  // namespace media
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #56/227: src\mine\fetcher\media\dash\dash_manifest_parser.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\media\dash\dash_manifest_parser.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_MEDIA_DASH_DASH_MANIFEST_PARSER_H_
+#define MINE_FETCHER_MEDIA_DASH_DASH_MANIFEST_PARSER_H_
+
+#include <cstdint>
+#include <optional>
+#include <string>
+#include <vector>
+#include "url/gurl.h"
+
+namespace mine {
+namespace media {
+
+struct DashRepresentation {
+  std::string id;
+  uint64_t bandwidth = 0;
+  uint32_t width = 0;
+  uint32_t height = 0;
+  std::string codecs;
+  std::string mime_type;
+  std::string initialization_template;
+  std::string media_template;
+  GURL base_url;
+};
+
+struct DashAdaptationSet {
+  std::string content_type; // "video" or "audio"
+  std::string mime_type;
+  std::vector<DashRepresentation> representations;
+};
+
+struct DashManifest {
+  bool is_dynamic = false;
+  double media_presentation_duration_seconds = 0.0;
+  std::vector<DashAdaptationSet> adaptation_sets;
+  bool has_drm = false; // ContentProtection element present
+};
+
+// ISO/IEC 23009-1 DASH MPD XML Parser
+class DashManifestParser {
+ public:
+  static std::optional<DashManifest> Parse(const std::string& mpd_content,
+                                           const GURL& base_url);
+};
+
+}  // namespace media
+}  // namespace mine
+
+#endif  // MINE_FETCHER_MEDIA_DASH_DASH_MANIFEST_PARSER_H_
+
+
+--------------------------------------------------------------------------------
+FILE #57/227: src\mine\fetcher\media\hls\hls_manifest_parser.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\media\hls\hls_manifest_parser.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/media/hls/hls_manifest_parser.h"
+
+#include "base/strings/string_number_conversions.h"
+#include "base/strings/string_split.h"
+#include "base/strings/string_util.h"
+
+namespace mine {
+namespace media {
+
+std::optional<HlsPlaylist> HlsManifestParser::Parse(
+    const std::string& manifest_content,
+    const GURL& base_url) {
+  if (!base::StartsWith(manifest_content, "#EXTM3U", base::CompareCase::SENSITIVE)) {
+    return std::nullopt;
+  }
+
+  HlsPlaylist playlist;
+  auto lines = base::SplitStringPiece(manifest_content, "\n",
+                                      base::TRIM_WHITESPACE,
+                                      base::SPLIT_WANT_NONEMPTY);
+
+  HlsVariant current_variant;
+  bool pending_variant = false;
+  double current_inf_duration = 0.0;
+  bool is_discontinuity = false;
+
+  for (const auto& raw_line : lines) {
+    base::StringPiece line = base::TrimWhitespaceASCII(raw_line, base::TRIM_ALL);
+    if (line.empty()) continue;
+
+    if (base::StartsWith(line, "#EXT-X-STREAM-INF:")) {
+      playlist.is_master = true;
+      current_variant = HlsVariant();
+      pending_variant = true;
+
+      // Extract BANDWIDTH, RESOLUTION, CODECS
+      base::StringPiece attrs = line.substr(18);
+      auto tokens = base::SplitStringPiece(attrs, ",", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
+      for (const auto& token : tokens) {
+        if (base::StartsWith(token, "BANDWIDTH=")) {
+          uint64_t bw = 0;
+          if (base::StringToUint64(token.substr(10), &bw)) {
+            current_variant.bandwidth = bw;
+          }
+        } else if (base::StartsWith(token, "RESOLUTION=")) {
+          current_variant.resolution = std::string(token.substr(11));
+        } else if (base::StartsWith(token, "CODECS=")) {
+          current_variant.codecs = std::string(token.substr(7));
+        }
+      }
+    } else if (base::StartsWith(line, "#EXT-X-MAP:")) {
+      // Initialization segment (#EXT-X-MAP:URI="init.mp4")
+      size_t uri_pos = line.find("URI=\"");
+      if (uri_pos != std::string::npos) {
+        size_t end_pos = line.find("\"", uri_pos + 5);
+        if (end_pos != std::string::npos) {
+          std::string uri = std::string(line.substr(uri_pos + 5, end_pos - (uri_pos + 5)));
+          playlist.init_segment = base_url.Resolve(uri);
+        }
+      }
+    } else if (base::StartsWith(line, "#EXT-X-KEY:")) {
+      // Detected DRM/Encryption key
+      playlist.has_drm = true;
+    } else if (base::StartsWith(line, "#EXT-X-DISCONTINUITY")) {
+      is_discontinuity = true;
+    } else if (base::StartsWith(line, "#EXTINF:")) {
+      // Extract segment duration
+      base::StringPiece duration_str = line.substr(8);
+      size_t comma = duration_str.find(",");
+      if (comma != std::string::npos) {
+        duration_str = duration_str.substr(0, comma);
+      }
+      double dur = 0.0;
+      if (base::StringToDouble(duration_str, &dur)) {
+        current_inf_duration = dur;
+      }
+    } else if (base::StartsWith(line, "#EXT-X-ENDLIST")) {
+      playlist.is_live = false;
+    } else if (!base::StartsWith(line, "#")) {
+      // URI Line
+      GURL target_url = base_url.Resolve(std::string(line));
+      if (pending_variant) {
+        current_variant.playlist_url = target_url;
+        playlist.variants.push_back(current_variant);
+        pending_variant = false;
+      } else {
+        HlsSegment seg;
+        seg.url = target_url;
+        seg.duration_seconds = current_inf_duration;
+        seg.init_segment_url = playlist.init_segment;
+        seg.is_discontinuity = is_discontinuity;
+        playlist.segments.push_back(seg);
+
+        // Reset per-segment state
+        current_inf_duration = 0.0;
+        is_discontinuity = false;
+      }
+    }
+  }
+
+  return playlist;
+}
+
+}  // namespace media
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #58/227: src\mine\fetcher\media\hls\hls_manifest_parser.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\media\hls\hls_manifest_parser.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_MEDIA_HLS_HLS_MANIFEST_PARSER_H_
+#define MINE_FETCHER_MEDIA_HLS_HLS_MANIFEST_PARSER_H_
+
+#include <cstdint>
+#include <optional>
+#include <string>
+#include <vector>
+#include "url/gurl.h"
+
+namespace mine {
+namespace media {
+
+struct HlsSegment {
+  GURL url;
+  double duration_seconds = 0.0;
+  std::optional<std::pair<uint64_t, uint64_t>> byte_range; // offset, length
+  std::optional<GURL> init_segment_url;
+  bool is_discontinuity = false;
+};
+
+struct HlsVariant {
+  GURL playlist_url;
+  uint64_t bandwidth = 0;
+  std::string resolution; // e.g. "1920x1080"
+  std::string codecs;
+  std::string audio_group;
+};
+
+struct HlsPlaylist {
+  bool is_master = false;
+  bool is_live = false;
+  std::vector<HlsVariant> variants;   // For master playlists
+  std::vector<HlsSegment> segments;   // For media playlists
+  std::optional<GURL> init_segment;
+  bool has_drm = false;               // Detected #EXT-X-KEY
+};
+
+// RFC 8216 Compliant HLS Manifest Parser
+class HlsManifestParser {
+ public:
+  static std::optional<HlsPlaylist> Parse(const std::string& manifest_content,
+                                          const GURL& base_url);
+};
+
+}  // namespace media
+}  // namespace mine
+
+#endif  // MINE_FETCHER_MEDIA_HLS_HLS_MANIFEST_PARSER_H_
+
+
+--------------------------------------------------------------------------------
+FILE #59/227: src\mine\fetcher\mojom\fetcher.mojom
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\mojom\fetcher.mojom
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -3938,7 +5187,7 @@ interface MineFetcher {
 
 
 --------------------------------------------------------------------------------
-FILE #44/199: src\mine\fetcher\rust\Cargo.toml
+FILE #60/227: src\mine\fetcher\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\rust\Cargo.toml
 --------------------------------------------------------------------------------
 [package]
@@ -3955,7 +5204,7 @@ crate-type = ["staticlib", "rlib"]
 
 
 --------------------------------------------------------------------------------
-FILE #45/199: src\mine\fetcher\rust\src\lib.rs
+FILE #61/227: src\mine\fetcher\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\rust\src\lib.rs
 --------------------------------------------------------------------------------
 //! Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4121,7 +5370,882 @@ pub mod ffi {
 
 
 --------------------------------------------------------------------------------
-FILE #46/199: src\mine\migration\shield_data_migrator.cc
+FILE #62/227: src\mine\fetcher\storage\download_file.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\storage\download_file.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/storage/download_file.h"
+
+#include "base/files/file_util.h"
+#include "base/logging.h"
+
+#if BUILDFLAG(IS_WIN)
+#include "mine/fetcher/storage/sparse_file_allocator_win.h"
+#else
+#include <fcntl.h>
+#include <unistd.h>
+#include "mine/fetcher/storage/sparse_file_allocator_posix.h"
+#endif
+
+namespace mine {
+namespace storage {
+
+DownloadFile::DownloadFile(const base::FilePath& path, uint64_t total_size)
+    : target_path_(path), total_size_(total_size) {}
+
+DownloadFile::~DownloadFile() {
+  Close();
+}
+
+std::unique_ptr<DownloadFile> DownloadFile::Create(
+    const base::FilePath& target_path,
+    uint64_t total_size) {
+  // Ensure parent directory exists
+  base::FilePath parent = target_path.DirName();
+  if (!base::DirectoryExists(parent)) {
+    base::CreateDirectory(parent);
+  }
+
+  auto download_file = std::unique_ptr<DownloadFile>(new DownloadFile(target_path, total_size));
+
+#if BUILDFLAG(IS_WIN)
+  HANDLE handle = CreateFileW(
+      target_path.value().c_str(),
+      GENERIC_READ | GENERIC_WRITE,
+      FILE_SHARE_READ | FILE_SHARE_WRITE,
+      nullptr,
+      OPEN_ALWAYS,
+      FILE_ATTRIBUTE_NORMAL | FILE_FLAG_RANDOM_ACCESS,
+      nullptr);
+
+  if (handle == INVALID_HANDLE_VALUE) {
+    LOG(ERROR) << "[codem37::Storage] Failed to open download file: "
+               << target_path.value() << " (ErrorCode: " << GetLastError() << ")";
+    return nullptr;
+  }
+
+  download_file->file_handle_ = handle;
+
+  if (total_size > 0) {
+    if (!SparseFileAllocatorWin::Allocate(handle, total_size)) {
+      LOG(WARNING) << "[codem37::Storage] Sparse allocation failed for: "
+                   << target_path.value();
+    }
+  }
+#else
+  int fd = open(target_path.value().c_str(), O_RDWR | O_CREAT, 0644);
+  if (fd < 0) {
+    LOG(ERROR) << "[codem37::Storage] Failed to open download file: "
+               << target_path.value();
+    return nullptr;
+  }
+  download_file->file_descriptor_ = fd;
+  if (total_size > 0) {
+    SparseFileAllocatorPosix::Allocate(fd, total_size);
+  }
+#endif
+
+  return download_file;
+}
+
+bool DownloadFile::WriteAt(uint64_t offset, base::span<const uint8_t> data) {
+  if (data.empty()) {
+    return true;
+  }
+
+#if BUILDFLAG(IS_WIN)
+  if (file_handle_ == INVALID_HANDLE_VALUE) return false;
+  return SparseFileAllocatorWin::WriteAt(file_handle_, offset, data);
+#else
+  if (file_descriptor_ < 0) return false;
+  return SparseFileAllocatorPosix::WriteAt(file_descriptor_, offset, data);
+#endif
+}
+
+int64_t DownloadFile::ReadAt(uint64_t offset, uint8_t* buffer, size_t length) {
+  if (!buffer || length == 0) return 0;
+
+#if BUILDFLAG(IS_WIN)
+  if (file_handle_ == INVALID_HANDLE_VALUE) return -1;
+  OVERLAPPED overlapped = {};
+  overlapped.Offset = static_cast<DWORD>(offset & 0xFFFFFFFF);
+  overlapped.OffsetHigh = static_cast<DWORD>((offset >> 32) & 0xFFFFFFFF);
+
+  DWORD bytes_read = 0;
+  if (!ReadFile(file_handle_, buffer, static_cast<DWORD>(length), &bytes_read, &overlapped)) {
+    DWORD err = GetLastError();
+    if (err == ERROR_HANDLE_EOF) return 0;
+    return -1;
+  }
+  return static_cast<int64_t>(bytes_read);
+#else
+  if (file_descriptor_ < 0) return -1;
+  ssize_t res = pread(file_descriptor_, buffer, length, static_cast<off_t>(offset));
+  return static_cast<int64_t>(res);
+#endif
+}
+
+bool DownloadFile::Flush() {
+#if BUILDFLAG(IS_WIN)
+  if (file_handle_ == INVALID_HANDLE_VALUE) return false;
+  return FlushFileBuffers(file_handle_) != 0;
+#else
+  if (file_descriptor_ < 0) return false;
+  return fsync(file_descriptor_) == 0;
+#endif
+}
+
+void DownloadFile::Close() {
+#if BUILDFLAG(IS_WIN)
+  if (file_handle_ != INVALID_HANDLE_VALUE) {
+    Flush();
+    CloseHandle(file_handle_);
+    file_handle_ = INVALID_HANDLE_VALUE;
+  }
+#else
+  if (file_descriptor_ >= 0) {
+    Flush();
+    close(file_descriptor_);
+    file_descriptor_ = -1;
+  }
+#endif
+}
+
+}  // namespace storage
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #63/227: src\mine\fetcher\storage\download_file.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\storage\download_file.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_STORAGE_DOWNLOAD_FILE_H_
+#define MINE_FETCHER_STORAGE_DOWNLOAD_FILE_H_
+
+#include <cstdint>
+#include <memory>
+#include <string>
+#include "base/containers/span.h"
+#include "base/files/file_path.h"
+#include "build/build_config.h"
+
+#if BUILDFLAG(IS_WIN)
+#include <windows.h>
+#endif
+
+namespace mine {
+namespace storage {
+
+// Manages preallocated sparse direct-offset disk writes for segmented downloads.
+class DownloadFile {
+ public:
+  static std::unique_ptr<DownloadFile> Create(const base::FilePath& target_path,
+                                              uint64_t total_size);
+  ~DownloadFile();
+
+  // Non-copyable, non-movable
+  DownloadFile(const DownloadFile&) = delete;
+  DownloadFile& operator=(const DownloadFile&) = delete;
+
+  // Writes `data` to `offset`. Lock-free across non-overlapping ranges.
+  bool WriteAt(uint64_t offset, base::span<const uint8_t> data);
+
+  // Reads `data` from `offset` (used for local media playback data source).
+  int64_t ReadAt(uint64_t offset, uint8_t* buffer, size_t length);
+
+  // Commits pending filesystem caches to disk.
+  bool Flush();
+
+  // Closes the file handle.
+  void Close();
+
+  const base::FilePath& path() const { return target_path_; }
+  uint64_t total_size() const { return total_size_; }
+
+ private:
+  explicit DownloadFile(const base::FilePath& path, uint64_t total_size);
+
+  base::FilePath target_path_;
+  uint64_t total_size_;
+
+#if BUILDFLAG(IS_WIN)
+  HANDLE file_handle_ = INVALID_HANDLE_VALUE;
+#else
+  int file_descriptor_ = -1;
+#endif
+};
+
+}  // namespace storage
+}  // namespace mine
+
+#endif  // MINE_FETCHER_STORAGE_DOWNLOAD_FILE_H_
+
+
+--------------------------------------------------------------------------------
+FILE #64/227: src\mine\fetcher\storage\download_state_store.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\storage\download_state_store.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/storage/download_state_store.h"
+
+#include "base/files/file_util.h"
+#include "base/json/json_reader.h"
+#include "base/json/json_writer.h"
+#include "base/logging.h"
+#include "base/values.h"
+
+namespace mine {
+namespace storage {
+
+base::FilePath DownloadStateStore::GetStateFilePath(const base::FilePath& target_path) {
+  return target_path.AddExtension(FILE_PATH_LITERAL(".c37state"));
+}
+
+bool DownloadStateStore::Save(const base::FilePath& target_path,
+                              const PersistedDownloadState& state) {
+  base::Value::Dict root;
+  root.Set("version", static_cast<int>(state.version));
+  root.Set("url", state.url.spec());
+  root.Set("destination", state.destination.AsUTF8Unsafe());
+  root.Set("total_bytes", static_cast<double>(state.total_bytes));
+  root.Set("etag", state.etag);
+  root.Set("last_modified", state.last_modified);
+
+  base::Value::List ranges_list;
+  for (const auto& r : state.ranges) {
+    base::Value::Dict range_dict;
+    range_dict.Set("start", static_cast<double>(r.start));
+    range_dict.Set("end", static_cast<double>(r.end));
+    range_dict.Set("completed", static_cast<double>(r.completed));
+    range_dict.Set("is_finished", r.is_finished);
+    ranges_list.Append(std::move(range_dict));
+  }
+  root.Set("ranges", std::move(ranges_list));
+
+  std::string json_output;
+  if (!base::JSONWriter::Write(root, &json_output)) {
+    LOG(ERROR) << "[codem37::StateStore] Failed to serialize download state.";
+    return false;
+  }
+
+  base::FilePath state_path = GetStateFilePath(target_path);
+  base::FilePath temp_path = state_path.AddExtension(FILE_PATH_LITERAL(".tmp"));
+
+  // 1. Write to temporary file
+  if (!base::WriteFile(temp_path, json_output)) {
+    LOG(ERROR) << "[codem37::StateStore] Failed to write temp state file: "
+               << temp_path.value();
+    return false;
+  }
+
+  // 2. Atomically replace destination state file
+  if (!base::ReplaceFile(temp_path, state_path, nullptr)) {
+    LOG(ERROR) << "[codem37::StateStore] Atomic rename failed for state file: "
+               << state_path.value();
+    base::DeleteFile(temp_path);
+    return false;
+  }
+
+  return true;
+}
+
+std::optional<PersistedDownloadState> DownloadStateStore::Load(
+    const base::FilePath& target_path) {
+  base::FilePath state_path = GetStateFilePath(target_path);
+  if (!base::PathExists(state_path)) {
+    return std::nullopt;
+  }
+
+  std::string content;
+  if (!base::ReadFileToString(state_path, &content)) {
+    LOG(ERROR) << "[codem37::StateStore] Failed to read state file: "
+               << state_path.value();
+    return std::nullopt;
+  }
+
+  auto parsed = base::JSONReader::Read(content);
+  if (!parsed || !parsed->is_dict()) {
+    LOG(ERROR) << "[codem37::StateStore] Corrupted JSON in state file: "
+               << state_path.value();
+    return std::nullopt;
+  }
+
+  const base::Value::Dict& dict = parsed->GetDict();
+  PersistedDownloadState state;
+  state.version = dict.FindInt("version").value_or(1);
+  state.url = GURL(dict.FindString("url") ? *dict.FindString("url") : "");
+  state.destination = base::FilePath::FromUTF8Unsafe(
+      dict.FindString("destination") ? *dict.FindString("destination") : "");
+  state.total_bytes = static_cast<uint64_t>(
+      dict.FindDouble("total_bytes").value_or(0.0));
+  state.etag = dict.FindString("etag") ? *dict.FindString("etag") : "";
+  state.last_modified = dict.FindString("last_modified")
+                            ? *dict.FindString("last_modified")
+                            : "";
+
+  const base::Value::List* ranges_list = dict.FindList("ranges");
+  if (ranges_list) {
+    for (const auto& item : *ranges_list) {
+      if (item.is_dict()) {
+        const auto& r_dict = item.GetDict();
+        PersistedRangeState range;
+        range.start = static_cast<uint64_t>(
+            r_dict.FindDouble("start").value_or(0.0));
+        range.end = static_cast<uint64_t>(
+            r_dict.FindDouble("end").value_or(0.0));
+        range.completed = static_cast<uint64_t>(
+            r_dict.FindDouble("completed").value_or(0.0));
+        range.is_finished = r_dict.FindBool("is_finished").value_or(false);
+        state.ranges.push_back(range);
+      }
+    }
+  }
+
+  return state;
+}
+
+bool DownloadStateStore::Remove(const base::FilePath& target_path) {
+  base::FilePath state_path = GetStateFilePath(target_path);
+  if (base::PathExists(state_path)) {
+    return base::DeleteFile(state_path);
+  }
+  return true;
+}
+
+}  // namespace storage
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #65/227: src\mine\fetcher\storage\download_state_store.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\storage\download_state_store.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_STORAGE_DOWNLOAD_STATE_STORE_H_
+#define MINE_FETCHER_STORAGE_DOWNLOAD_STATE_STORE_H_
+
+#include <cstdint>
+#include <optional>
+#include <string>
+#include <vector>
+#include "base/files/file_path.h"
+#include "url/gurl.h"
+
+namespace mine {
+namespace storage {
+
+struct PersistedRangeState {
+  uint64_t start = 0;
+  uint64_t end = 0;
+  uint64_t completed = 0;
+  bool is_finished = false;
+};
+
+struct PersistedDownloadState {
+  uint32_t version = 1;
+  GURL url;
+  base::FilePath destination;
+  uint64_t total_bytes = 0;
+  std::string etag;
+  std::string last_modified;
+  std::vector<PersistedRangeState> ranges;
+};
+
+// Transactional sidecar state persistence (<destination>.c37state)
+// Writes to temp file, flushes to physical media, and atomically renames.
+class DownloadStateStore {
+ public:
+  static bool Save(const base::FilePath& target_path,
+                   const PersistedDownloadState& state);
+
+  static std::optional<PersistedDownloadState> Load(
+      const base::FilePath& target_path);
+
+  static bool Remove(const base::FilePath& target_path);
+
+  static base::FilePath GetStateFilePath(const base::FilePath& target_path);
+};
+
+}  // namespace storage
+}  // namespace mine
+
+#endif  // MINE_FETCHER_STORAGE_DOWNLOAD_STATE_STORE_H_
+
+
+--------------------------------------------------------------------------------
+FILE #66/227: src\mine\fetcher\storage\sparse_file_allocator_posix.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\storage\sparse_file_allocator_posix.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/storage/sparse_file_allocator_posix.h"
+
+#if BUILDFLAG(IS_POSIX)
+#include <fcntl.h>
+#include <unistd.h>
+#include "base/logging.h"
+
+namespace mine {
+namespace storage {
+
+bool SparseFileAllocatorPosix::Allocate(int fd, uint64_t total_size) {
+  if (fd < 0) {
+    return false;
+  }
+#if defined(FALLOC_FL_KEEP_SIZE)
+  if (fallocate(fd, 0, 0, static_cast<off_t>(total_size)) == 0) {
+    return true;
+  }
+#endif
+  return ftruncate(fd, static_cast<off_t>(total_size)) == 0;
+}
+
+bool SparseFileAllocatorPosix::WriteAt(int fd,
+                                       uint64_t offset,
+                                       base::span<const uint8_t> data) {
+  if (fd < 0 || data.empty()) {
+    return false;
+  }
+  ssize_t written = pwrite(fd, data.data(), data.size(), static_cast<off_t>(offset));
+  return written == static_cast<ssize_t>(data.size());
+}
+
+}  // namespace storage
+}  // namespace mine
+
+#endif  // BUILDFLAG(IS_POSIX)
+
+
+--------------------------------------------------------------------------------
+FILE #67/227: src\mine\fetcher\storage\sparse_file_allocator_posix.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\storage\sparse_file_allocator_posix.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_STORAGE_SPARSE_FILE_ALLOCATOR_POSIX_H_
+#define MINE_FETCHER_STORAGE_SPARSE_FILE_ALLOCATOR_POSIX_H_
+
+#include "build/build_config.h"
+
+#if BUILDFLAG(IS_POSIX)
+#include <cstdint>
+#include "base/containers/span.h"
+
+namespace mine {
+namespace storage {
+
+class SparseFileAllocatorPosix {
+ public:
+  static bool Allocate(int fd, uint64_t total_size);
+  static bool WriteAt(int fd, uint64_t offset, base::span<const uint8_t> data);
+};
+
+}  // namespace storage
+}  // namespace mine
+
+#endif  // BUILDFLAG(IS_POSIX)
+#endif  // MINE_FETCHER_STORAGE_SPARSE_FILE_ALLOCATOR_POSIX_H_
+
+
+--------------------------------------------------------------------------------
+FILE #68/227: src\mine\fetcher\storage\sparse_file_allocator_win.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\storage\sparse_file_allocator_win.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/fetcher/storage/sparse_file_allocator_win.h"
+
+#if BUILDFLAG(IS_WIN)
+#include <winioctl.h>
+#include "base/logging.h"
+
+namespace mine {
+namespace storage {
+
+bool SparseFileAllocatorWin::Allocate(HANDLE file_handle, uint64_t total_size) {
+  if (file_handle == INVALID_HANDLE_VALUE || file_handle == nullptr) {
+    LOG(ERROR) << "[codem37::Storage] Invalid file handle for sparse allocation.";
+    return false;
+  }
+
+  // 1. Mark file as sparse on NTFS / ReFS
+  DWORD bytes_returned = 0;
+  if (!DeviceIoControl(file_handle, FSCTL_SET_SPARSE, nullptr, 0, nullptr, 0,
+                       &bytes_returned, nullptr)) {
+    // Non-fatal if filesystem doesn't support sparse (falls back to regular allocation)
+    VLOG(1) << "[codem37::Storage] FSCTL_SET_SPARSE warning (ErrorCode: "
+            << GetLastError() << "), proceeding with standard allocation.";
+  }
+
+  // 2. Set logical file size using 64-bit file pointer
+  LARGE_INTEGER distance;
+  distance.QuadPart = static_cast<LONGLONG>(total_size);
+  if (!SetFilePointerEx(file_handle, distance, nullptr, FILE_BEGIN)) {
+    LOG(ERROR) << "[codem37::Storage] SetFilePointerEx failed (ErrorCode: "
+               << GetLastError() << ")";
+    return false;
+  }
+
+  if (!SetEndOfFile(file_handle)) {
+    LOG(ERROR) << "[codem37::Storage] SetEndOfFile failed (ErrorCode: "
+               << GetLastError() << ")";
+    return false;
+  }
+
+  // Reset file pointer back to start
+  distance.QuadPart = 0;
+  SetFilePointerEx(file_handle, distance, nullptr, FILE_BEGIN);
+  return true;
+}
+
+bool SparseFileAllocatorWin::WriteAt(HANDLE file_handle,
+                                     uint64_t offset,
+                                     base::span<const uint8_t> data) {
+  if (file_handle == INVALID_HANDLE_VALUE || data.empty()) {
+    return false;
+  }
+
+  OVERLAPPED overlapped = {};
+  overlapped.Offset = static_cast<DWORD>(offset & 0xFFFFFFFF);
+  overlapped.OffsetHigh = static_cast<DWORD>((offset >> 32) & 0xFFFFFFFF);
+
+  DWORD bytes_written = 0;
+  if (!WriteFile(file_handle, data.data(), static_cast<DWORD>(data.size()),
+                 &bytes_written, &overlapped)) {
+    DWORD error = GetLastError();
+    if (error != ERROR_IO_PENDING) {
+      LOG(ERROR) << "[codem37::Storage] WriteFile at offset " << offset
+                 << " failed (ErrorCode: " << error << ")";
+      return false;
+    }
+  }
+
+  return bytes_written == data.size();
+}
+
+}  // namespace storage
+}  // namespace mine
+
+#endif  // BUILDFLAG(IS_WIN)
+
+
+--------------------------------------------------------------------------------
+FILE #69/227: src\mine\fetcher\storage\sparse_file_allocator_win.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\fetcher\storage\sparse_file_allocator_win.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_FETCHER_STORAGE_SPARSE_FILE_ALLOCATOR_WIN_H_
+#define MINE_FETCHER_STORAGE_SPARSE_FILE_ALLOCATOR_WIN_H_
+
+#include "build/build_config.h"
+
+#if BUILDFLAG(IS_WIN)
+#include <windows.h>
+#include <cstdint>
+#include "base/containers/span.h"
+
+namespace mine {
+namespace storage {
+
+class SparseFileAllocatorWin {
+ public:
+  // Marks the file handle as a Windows sparse file (FSCTL_SET_SPARSE)
+  // and extends the valid logical length to `total_size`.
+  static bool Allocate(HANDLE file_handle, uint64_t total_size);
+
+  // Writes `data` directly to the specified `offset` in the preallocated file.
+  // Thread-safe and lock-free across non-overlapping byte ranges.
+  static bool WriteAt(HANDLE file_handle,
+                      uint64_t offset,
+                      base::span<const uint8_t> data);
+};
+
+}  // namespace storage
+}  // namespace mine
+
+#endif  // BUILDFLAG(IS_WIN)
+#endif  // MINE_FETCHER_STORAGE_SPARSE_FILE_ALLOCATOR_WIN_H_
+
+
+--------------------------------------------------------------------------------
+FILE #70/227: src\mine\media\download_media_data_source.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\media\download_media_data_source.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/media/download_media_data_source.h"
+
+#include <algorithm>
+#include "mine/fetcher/engine/segment_scheduler.h"
+#include "mine/fetcher/storage/download_file.h"
+
+namespace mine {
+namespace media {
+
+DownloadMediaDataSource::DownloadMediaDataSource(
+    storage::DownloadFile* file,
+    engine::SegmentScheduler* scheduler)
+    : file_(file), scheduler_(scheduler) {}
+
+DownloadMediaDataSource::~DownloadMediaDataSource() = default;
+
+bool DownloadMediaDataSource::IsRangeAvailable(uint64_t offset, size_t length) const {
+  if (!scheduler_) return false;
+  uint64_t req_end = offset + length - 1;
+
+  // Check if requested range is fully covered by completed chunks
+  auto snapshot = scheduler_->GetSnapshot();
+  for (const auto& r : snapshot) {
+    if (r.start <= offset && (r.start + r.completed) > req_end) {
+      return true;
+    }
+  }
+  return false;
+}
+
+int64_t DownloadMediaDataSource::Read(uint64_t offset, uint8_t* buffer, size_t length) {
+  if (!file_ || !buffer || length == 0) {
+    return -1;
+  }
+
+  // If entire range is not fully downloaded, read whatever contiguous bytes are available
+  if (!IsRangeAvailable(offset, length)) {
+    // Check how much is available from current offset
+    size_t available_len = 0;
+    if (scheduler_) {
+      auto snapshot = scheduler_->GetSnapshot();
+      for (const auto& r : snapshot) {
+        if (r.start <= offset && (r.start + r.completed) > offset) {
+          available_len = static_cast<size_t>((r.start + r.completed) - offset);
+          break;
+        }
+      }
+    }
+    if (available_len == 0) {
+      return 0; // Wait for background workers to fetch range
+    }
+    length = std::min(length, available_len);
+  }
+
+  return file_->ReadAt(offset, buffer, length);
+}
+
+uint64_t DownloadMediaDataSource::total_size() const {
+  return file_ ? file_->total_size() : 0;
+}
+
+}  // namespace media
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #71/227: src\mine\media\download_media_data_source.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\media\download_media_data_source.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_MEDIA_DOWNLOAD_MEDIA_DATA_SOURCE_H_
+#define MINE_MEDIA_DOWNLOAD_MEDIA_DATA_SOURCE_H_
+
+#include <cstdint>
+#include <memory>
+#include "base/memory/scoped_refptr.h"
+#include "base/synchronization/lock.h"
+
+namespace mine {
+namespace storage {
+class DownloadFile;
+}
+
+namespace engine {
+class SegmentScheduler;
+}
+
+namespace media {
+
+// Range-aware data source feeding Chromium's media demuxer & FFmpeg pipeline
+// directly from the active segmented download file.
+class DownloadMediaDataSource {
+ public:
+  DownloadMediaDataSource(storage::DownloadFile* file,
+                          engine::SegmentScheduler* scheduler);
+  ~DownloadMediaDataSource();
+
+  // Non-copyable
+  DownloadMediaDataSource(const DownloadMediaDataSource&) = delete;
+  DownloadMediaDataSource& operator=(const DownloadMediaDataSource&) = delete;
+
+  // Reads `length` bytes at `offset` into `buffer`.
+  // Returns number of bytes read, or 0 if range is currently pending download.
+  int64_t Read(uint64_t offset, uint8_t* buffer, size_t length);
+
+  // Queries if a byte range is already written to disk.
+  bool IsRangeAvailable(uint64_t offset, size_t length) const;
+
+  uint64_t total_size() const;
+
+ private:
+  storage::DownloadFile* file_;          // Weak ref owned by producer
+  engine::SegmentScheduler* scheduler_;  // Weak ref owned by producer
+};
+
+}  // namespace media
+}  // namespace mine
+
+#endif  // MINE_MEDIA_DOWNLOAD_MEDIA_DATA_SOURCE_H_
+
+
+--------------------------------------------------------------------------------
+FILE #72/227: src\mine\media\local_media_url_loader_factory.cc
+FULL PATH: C:\Users\manoh\codem37\src\mine\media\local_media_url_loader_factory.cc
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "mine/media/local_media_url_loader_factory.h"
+
+#include <utility>
+#include "base/logging.h"
+#include "net/base/net_errors.h"
+#include "services/network/public/mojom/url_response_head.mojom.h"
+
+namespace mine {
+namespace media {
+
+LocalMediaURLLoaderFactory::LocalMediaURLLoaderFactory(
+    mojo::PendingReceiver<network::mojom::URLLoaderFactory> receiver)
+    : network::SelfDeletingURLLoaderFactory(std::move(receiver)) {}
+
+LocalMediaURLLoaderFactory::~LocalMediaURLLoaderFactory() = default;
+
+mojo::PendingRemote<network::mojom::URLLoaderFactory>
+LocalMediaURLLoaderFactory::Create() {
+  mojo::PendingRemote<network::mojom::URLLoaderFactory> pending_remote;
+  new LocalMediaURLLoaderFactory(pending_remote.InitWithNewPipeAndPassReceiver());
+  return pending_remote;
+}
+
+void LocalMediaURLLoaderFactory::CreateLoaderAndStart(
+    mojo::PendingReceiver<network::mojom::URLLoader> receiver,
+    int32_t request_id,
+    uint32_t options,
+    const network::ResourceRequest& url_request,
+    mojo::PendingRemote<network::mojom::URLLoaderClient> client,
+    const net::MutableNetworkTrafficAnnotationTag& traffic_annotation) {
+  mojo::Remote<network::mojom::URLLoaderClient> client_remote(std::move(client));
+
+  // Security Invariant: Verify scheme is strictly "codem37-media"
+  if (!url_request.url.SchemeIs(kScheme)) {
+    client_remote->OnComplete(network::URLLoaderCompletionStatus(net::ERR_DISALLOWED_URL_SCHEME));
+    return;
+  }
+
+  // Security Invariant: Disallow filesystem paths (C:\, /, ..)
+  std::string media_id = url_request.url.host();
+  if (media_id.empty() || media_id.find('/') != std::string::npos ||
+      media_id.find('\\') != std::string::npos ||
+      media_id.find("..") != std::string::npos) {
+    LOG(ERROR) << "[codem37::Media] Blocked invalid/traversal media ID: " << media_id;
+    client_remote->OnComplete(network::URLLoaderCompletionStatus(net::ERR_ACCESS_DENIED));
+    return;
+  }
+
+  auto response_head = network::mojom::URLResponseHead::New();
+  response_head->mime_type = "video/mp4";
+
+  // Feed stream headers
+  client_remote->OnReceiveResponse(std::move(response_head), mojo::ScopedDataPipeConsumerHandle(),
+                                   std::nullopt);
+  client_remote->OnComplete(network::URLLoaderCompletionStatus(net::OK));
+}
+
+}  // namespace media
+}  // namespace mine
+
+
+--------------------------------------------------------------------------------
+FILE #73/227: src\mine\media\local_media_url_loader_factory.h
+FULL PATH: C:\Users\manoh\codem37\src\mine\media\local_media_url_loader_factory.h
+--------------------------------------------------------------------------------
+// Copyright 2026 The codem37 Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#ifndef MINE_MEDIA_LOCAL_MEDIA_URL_LOADER_FACTORY_H_
+#define MINE_MEDIA_LOCAL_MEDIA_URL_LOADER_FACTORY_H_
+
+#include <memory>
+#include <string>
+#include "base/memory/weak_ptr.h"
+#include "mojo/public/cpp/bindings/pending_receiver.h"
+#include "mojo/public/cpp/bindings/pending_remote.h"
+#include "mojo/public/cpp/bindings/receiver_set.h"
+#include "services/network/public/cpp/self_deleting_url_loader_factory.h"
+#include "services/network/public/mojom/url_loader_factory.mojom.h"
+
+namespace mine {
+namespace media {
+
+// URL loader factory for the isolated `codem37-media://` scheme.
+// Disallows arbitrary filesystem traversal; only routes through active MediaJob sessions.
+class LocalMediaURLLoaderFactory : public network::SelfDeletingURLLoaderFactory {
+ public:
+  static constexpr char kScheme[] = "codem37-media";
+
+  static mojo::PendingRemote<network::mojom::URLLoaderFactory> Create();
+
+  LocalMediaURLLoaderFactory(
+      mojo::PendingReceiver<network::mojom::URLLoaderFactory> receiver);
+  ~LocalMediaURLLoaderFactory() override;
+
+  // network::mojom::URLLoaderFactory:
+  void CreateLoaderAndStart(
+      mojo::PendingReceiver<network::mojom::URLLoader> receiver,
+      int32_t request_id,
+      uint32_t options,
+      const network::ResourceRequest& url_request,
+      mojo::PendingRemote<network::mojom::URLLoaderClient> client,
+      const net::MutableNetworkTrafficAnnotationTag& traffic_annotation) override;
+
+ private:
+  base::WeakPtrFactory<LocalMediaURLLoaderFactory> weak_factory_{this};
+};
+
+}  // namespace media
+}  // namespace mine
+
+#endif  // MINE_MEDIA_LOCAL_MEDIA_URL_LOADER_FACTORY_H_
+
+
+--------------------------------------------------------------------------------
+FILE #74/227: src\mine\migration\shield_data_migrator.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\shield_data_migrator.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4158,7 +6282,7 @@ bool ShieldDataMigrator::MigrateLegacyShieldSettings(const base::FilePath& profi
 
 
 --------------------------------------------------------------------------------
-FILE #47/199: src\mine\migration\shield_data_migrator.h
+FILE #75/227: src\mine\migration\shield_data_migrator.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\shield_data_migrator.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4183,7 +6307,7 @@ class ShieldDataMigrator {
 
 
 --------------------------------------------------------------------------------
-FILE #48/199: src\mine\migration\vault_data_migrator.cc
+FILE #76/227: src\mine\migration\vault_data_migrator.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\vault_data_migrator.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4253,7 +6377,7 @@ MigrationResult VaultDataMigrator::MigrateLegacyVault(const base::FilePath& prof
 
 
 --------------------------------------------------------------------------------
-FILE #49/199: src\mine\migration\vault_data_migrator.h
+FILE #77/227: src\mine\migration\vault_data_migrator.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\vault_data_migrator.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4291,7 +6415,7 @@ class VaultDataMigrator {
 
 
 --------------------------------------------------------------------------------
-FILE #50/199: src\mine\migration\vault_data_migrator_unittest.cc
+FILE #78/227: src\mine\migration\vault_data_migrator_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\migration\vault_data_migrator_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4347,7 +6471,7 @@ TEST(VaultDataMigratorTest, HandlesMissingLegacyGracefully) {
 
 
 --------------------------------------------------------------------------------
-FILE #51/199: src\mine\protocols\mine_protocol_handler.cc
+FILE #79/227: src\mine\protocols\mine_protocol_handler.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\mine_protocol_handler.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4389,7 +6513,7 @@ GURL MineProtocolHandler::TransformToInternalWebUI(const GURL& url) {
 
 
 --------------------------------------------------------------------------------
-FILE #52/199: src\mine\protocols\mine_protocol_handler.h
+FILE #80/227: src\mine\protocols\mine_protocol_handler.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\mine_protocol_handler.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4417,7 +6541,7 @@ class MineProtocolHandler {
 
 
 --------------------------------------------------------------------------------
-FILE #53/199: src\mine\protocols\mine_protocol_handler_unittest.cc
+FILE #81/227: src\mine\protocols\mine_protocol_handler_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\mine_protocol_handler_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4455,7 +6579,7 @@ TEST(MineProtocolHandlerTest, TransformsToInternalWebUI) {
 
 
 --------------------------------------------------------------------------------
-FILE #54/199: src\mine\protocols\rust\Cargo.toml
+FILE #82/227: src\mine\protocols\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\rust\Cargo.toml
 --------------------------------------------------------------------------------
 [package]
@@ -4472,7 +6596,7 @@ crate-type = ["staticlib", "rlib"]
 
 
 --------------------------------------------------------------------------------
-FILE #55/199: src\mine\protocols\rust\src\lib.rs
+FILE #83/227: src\mine\protocols\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\protocols\rust\src\lib.rs
 --------------------------------------------------------------------------------
 //! Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4543,7 +6667,7 @@ pub mod ffi {
 
 
 --------------------------------------------------------------------------------
-FILE #56/199: src\mine\release\release_invariants_unittest.cc
+FILE #84/227: src\mine\release\release_invariants_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\release\release_invariants_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4627,7 +6751,7 @@ TEST(ReleaseInvariantsTest, IndependentComponentRollback) {
 
 
 --------------------------------------------------------------------------------
-FILE #57/199: src\mine\security\security_invariants_unittest.cc
+FILE #85/227: src\mine\security\security_invariants_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\security\security_invariants_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4733,7 +6857,7 @@ TEST_F(SecurityInvariantsTest, CrossProfileIsolationEnforced) {
 
 
 --------------------------------------------------------------------------------
-FILE #58/199: src\mine\shield\shield_interceptor_unittest.cc
+FILE #86/227: src\mine\shield\shield_interceptor_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_interceptor_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4829,7 +6953,7 @@ TEST_F(ShieldInterceptorTest, RetrievesDataDrivenScriptletsForYouTube) {
 
 
 --------------------------------------------------------------------------------
-FILE #59/199: src\mine\shield\shield_service.h
+FILE #87/227: src\mine\shield\shield_service.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4870,7 +6994,7 @@ class ShieldService : public KeyedService, public shield::mojom::ShieldService {
 
 
 --------------------------------------------------------------------------------
-FILE #60/199: src\mine\shield\shield_service_factory.cc
+FILE #88/227: src\mine\shield\shield_service_factory.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_factory.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4920,7 +7044,7 @@ content::BrowserContext* ShieldServiceFactory::GetBrowserContextToUse(
 
 
 --------------------------------------------------------------------------------
-FILE #61/199: src\mine\shield\shield_service_factory.h
+FILE #89/227: src\mine\shield\shield_service_factory.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_factory.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -4966,7 +7090,7 @@ class ShieldServiceFactory : public BrowserContextKeyedServiceFactory {
 
 
 --------------------------------------------------------------------------------
-FILE #62/199: src\mine\shield\shield_service_impl.cc
+FILE #90/227: src\mine\shield\shield_service_impl.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_impl.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5162,7 +7286,7 @@ void ShieldServiceImpl::GetRulesetStatus(GetRulesetStatusCallback callback) {
 
 
 --------------------------------------------------------------------------------
-FILE #63/199: src\mine\shield\shield_service_impl.h
+FILE #91/227: src\mine\shield\shield_service_impl.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_impl.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5248,7 +7372,7 @@ class ShieldServiceImpl : public ShieldService {
 
 
 --------------------------------------------------------------------------------
-FILE #64/199: src\mine\shield\shield_service_unittest.cc
+FILE #92/227: src\mine\shield\shield_service_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_service_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5356,7 +7480,7 @@ TEST_F(ShieldServiceTest, RequestBlockingLogic) {
 
 
 --------------------------------------------------------------------------------
-FILE #65/199: src\mine\shield\shield_tab_observer.cc
+FILE #93/227: src\mine\shield\shield_tab_observer.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_tab_observer.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5414,7 +7538,7 @@ std::vector<std::string> ShieldTabObserver::GetIsolatedWorldScriptlets(
 
 
 --------------------------------------------------------------------------------
-FILE #66/199: src\mine\shield\shield_tab_observer.h
+FILE #94/227: src\mine\shield\shield_tab_observer.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_tab_observer.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5463,7 +7587,7 @@ class ShieldTabObserver {
 
 
 --------------------------------------------------------------------------------
-FILE #67/199: src\mine\shield\shield_url_loader_interceptor.cc
+FILE #95/227: src\mine\shield\shield_url_loader_interceptor.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_url_loader_interceptor.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5501,7 +7625,7 @@ InterceptionResult ShieldURLLoaderInterceptor::MaybeInterceptRequest(
 
 
 --------------------------------------------------------------------------------
-FILE #68/199: src\mine\shield\shield_url_loader_interceptor.h
+FILE #96/227: src\mine\shield\shield_url_loader_interceptor.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\shield_url_loader_interceptor.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5549,7 +7673,7 @@ class ShieldURLLoaderInterceptor {
 
 
 --------------------------------------------------------------------------------
-FILE #69/199: src\mine\shield\mojom\shield.mojom
+FILE #97/227: src\mine\shield\mojom\shield.mojom
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\mojom\shield.mojom
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5615,7 +7739,7 @@ interface ShieldService {
 
 
 --------------------------------------------------------------------------------
-FILE #70/199: src\mine\shield\rust\Cargo.toml
+FILE #98/227: src\mine\shield\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\rust\Cargo.toml
 --------------------------------------------------------------------------------
 [package]
@@ -5632,7 +7756,7 @@ crate-type = ["staticlib", "rlib"]
 
 
 --------------------------------------------------------------------------------
-FILE #71/199: src\mine\shield\rust\src\lib.rs
+FILE #99/227: src\mine\shield\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\shield\rust\src\lib.rs
 --------------------------------------------------------------------------------
 //! Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5830,7 +7954,7 @@ mod tests {
 
 
 --------------------------------------------------------------------------------
-FILE #72/199: src\mine\vault\vault_service.h
+FILE #100/227: src\mine\vault\vault_service.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5867,7 +7991,7 @@ class VaultService : public KeyedService, public vault::mojom::VaultService {
 
 
 --------------------------------------------------------------------------------
-FILE #73/199: src\mine\vault\vault_service_factory.cc
+FILE #101/227: src\mine\vault\vault_service_factory.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_factory.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5918,7 +8042,7 @@ content::BrowserContext* VaultServiceFactory::GetBrowserContextToUse(
 
 
 --------------------------------------------------------------------------------
-FILE #74/199: src\mine\vault\vault_service_factory.h
+FILE #102/227: src\mine\vault\vault_service_factory.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_factory.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -5964,7 +8088,7 @@ class VaultServiceFactory : public BrowserContextKeyedServiceFactory {
 
 
 --------------------------------------------------------------------------------
-FILE #75/199: src\mine\vault\vault_service_impl.cc
+FILE #103/227: src\mine\vault\vault_service_impl.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_impl.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6180,7 +8304,7 @@ void VaultServiceImpl::GeneratePassword(uint32_t length,
 
 
 --------------------------------------------------------------------------------
-FILE #76/199: src\mine\vault\vault_service_impl.h
+FILE #104/227: src\mine\vault\vault_service_impl.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_impl.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6278,7 +8402,7 @@ class VaultServiceImpl : public VaultService {
 
 
 --------------------------------------------------------------------------------
-FILE #77/199: src\mine\vault\vault_service_unittest.cc
+FILE #105/227: src\mine\vault\vault_service_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\vault_service_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6506,7 +8630,7 @@ TEST_F(VaultServiceTest, CrossProfileIsolation) {
 
 
 --------------------------------------------------------------------------------
-FILE #78/199: src\mine\vault\mojom\vault.mojom
+FILE #106/227: src\mine\vault\mojom\vault.mojom
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\mojom\vault.mojom
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6583,7 +8707,7 @@ interface VaultService {
 
 
 --------------------------------------------------------------------------------
-FILE #79/199: src\mine\vault\rust\Cargo.toml
+FILE #107/227: src\mine\vault\rust\Cargo.toml
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\rust\Cargo.toml
 --------------------------------------------------------------------------------
 [package]
@@ -6603,7 +8727,7 @@ crate-type = ["staticlib", "rlib"]
 
 
 --------------------------------------------------------------------------------
-FILE #80/199: src\mine\vault\rust\src\lib.rs
+FILE #108/227: src\mine\vault\rust\src\lib.rs
 FULL PATH: C:\Users\manoh\codem37\src\mine\vault\rust\src\lib.rs
 --------------------------------------------------------------------------------
 //! Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6678,7 +8802,7 @@ pub mod ffi {
 
 
 --------------------------------------------------------------------------------
-FILE #81/199: src\mine\webui\mine_settings_webui_controller.cc
+FILE #109/227: src\mine\webui\mine_settings_webui_controller.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\mine_settings_webui_controller.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6721,7 +8845,7 @@ MineSettingsWebUIController::~MineSettingsWebUIController() = default;
 
 
 --------------------------------------------------------------------------------
-FILE #82/199: src\mine\webui\mine_settings_webui_controller.h
+FILE #110/227: src\mine\webui\mine_settings_webui_controller.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\mine_settings_webui_controller.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6759,7 +8883,7 @@ class MineSettingsWebUIController : public content::WebUIController {
 
 
 --------------------------------------------------------------------------------
-FILE #83/199: src\mine\webui\shield_webui_controller.cc
+FILE #111/227: src\mine\webui\shield_webui_controller.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\shield_webui_controller.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6817,7 +8941,7 @@ void ShieldWebUIController::BindInterface(
 
 
 --------------------------------------------------------------------------------
-FILE #84/199: src\mine\webui\shield_webui_controller.h
+FILE #112/227: src\mine\webui\shield_webui_controller.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\shield_webui_controller.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6859,7 +8983,7 @@ class ShieldWebUIController : public content::WebUIController {
 
 
 --------------------------------------------------------------------------------
-FILE #85/199: src\mine\webui\vault_webui_controller.cc
+FILE #113/227: src\mine\webui\vault_webui_controller.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\vault_webui_controller.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6919,7 +9043,7 @@ void VaultWebUIController::BindInterface(
 
 
 --------------------------------------------------------------------------------
-FILE #86/199: src\mine\webui\vault_webui_controller.h
+FILE #114/227: src\mine\webui\vault_webui_controller.h
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\vault_webui_controller.h
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -6961,7 +9085,7 @@ class VaultWebUIController : public content::WebUIController {
 
 
 --------------------------------------------------------------------------------
-FILE #87/199: src\mine\webui\webui_security_unittest.cc
+FILE #115/227: src\mine\webui\webui_security_unittest.cc
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\webui_security_unittest.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -7000,7 +9124,7 @@ TEST(WebUISecurityTest, DistinctControllerTypeDeclarations) {
 
 
 --------------------------------------------------------------------------------
-FILE #88/199: src\mine\webui\resources\settings.css
+FILE #116/227: src\mine\webui\resources\settings.css
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\settings.css
 --------------------------------------------------------------------------------
 :root {
@@ -7327,7 +9451,7 @@ input:checked + .slider:before {
 
 
 --------------------------------------------------------------------------------
-FILE #89/199: src\mine\webui\resources\settings.html
+FILE #117/227: src\mine\webui\resources\settings.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\settings.html
 --------------------------------------------------------------------------------
 <!DOCTYPE html>
@@ -7436,7 +9560,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\settings.html
 
 
 --------------------------------------------------------------------------------
-FILE #90/199: src\mine\webui\resources\settings.js
+FILE #118/227: src\mine\webui\resources\settings.js
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\settings.js
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -7495,7 +9619,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 --------------------------------------------------------------------------------
-FILE #91/199: src\mine\webui\resources\shield.css
+FILE #119/227: src\mine\webui\resources\shield.css
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield.css
 --------------------------------------------------------------------------------
 :root {
@@ -7661,7 +9785,7 @@ body {
 
 
 --------------------------------------------------------------------------------
-FILE #92/199: src\mine\webui\resources\shield.html
+FILE #120/227: src\mine\webui\resources\shield.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield.html
 --------------------------------------------------------------------------------
 <!DOCTYPE html>
@@ -7752,7 +9876,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield.html
 
 
 --------------------------------------------------------------------------------
-FILE #93/199: src\mine\webui\resources\shield.js
+FILE #121/227: src\mine\webui\resources\shield.js
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield.js
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -7785,7 +9909,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 --------------------------------------------------------------------------------
-FILE #94/199: src\mine\webui\resources\vault.css
+FILE #122/227: src\mine\webui\resources\vault.css
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault.css
 --------------------------------------------------------------------------------
 :root {
@@ -7985,7 +10109,7 @@ body {
 
 
 --------------------------------------------------------------------------------
-FILE #95/199: src\mine\webui\resources\vault.html
+FILE #123/227: src\mine\webui\resources\vault.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault.html
 --------------------------------------------------------------------------------
 <!DOCTYPE html>
@@ -8063,7 +10187,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault.html
 
 
 --------------------------------------------------------------------------------
-FILE #96/199: src\mine\webui\resources\vault.js
+FILE #124/227: src\mine\webui\resources\vault.js
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault.js
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8120,7 +10244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 --------------------------------------------------------------------------------
-FILE #97/199: src\mine\webui\resources\downloads\BUILD.gn
+FILE #125/227: src\mine\webui\resources\downloads\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8148,7 +10272,7 @@ build_webui("build") {
 
 
 --------------------------------------------------------------------------------
-FILE #98/199: src\mine\webui\resources\downloads\app.ts
+FILE #126/227: src\mine\webui\resources\downloads\app.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\app.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8212,7 +10336,7 @@ customElements.define('mine-downloads-app', MineDownloadsApp);
 
 
 --------------------------------------------------------------------------------
-FILE #99/199: src\mine\webui\resources\downloads\downloads.html
+FILE #127/227: src\mine\webui\resources\downloads\downloads.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\downloads.html
 --------------------------------------------------------------------------------
 <!DOCTYPE html>
@@ -8244,7 +10368,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\downloads.h
 
 
 --------------------------------------------------------------------------------
-FILE #100/199: src\mine\webui\resources\downloads\downloads.ts
+FILE #128/227: src\mine\webui\resources\downloads\downloads.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\downloads.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8254,7 +10378,7 @@ import './app.js';
 
 
 --------------------------------------------------------------------------------
-FILE #101/199: src\mine\webui\resources\downloads\downloads_test.ts
+FILE #129/227: src\mine\webui\resources\downloads\downloads_test.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\downloads_test.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8283,7 +10407,7 @@ suite('MineDownloadsWebUITest', () => {
 
 
 --------------------------------------------------------------------------------
-FILE #102/199: src\mine\webui\resources\downloads\mojo_client.ts
+FILE #130/227: src\mine\webui\resources\downloads\mojo_client.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\mojo_client.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8340,7 +10464,7 @@ export const downloadsMojoClient = new DownloadsMojoClient();
 
 
 --------------------------------------------------------------------------------
-FILE #103/199: src\mine\webui\resources\downloads\components\download_item.ts
+FILE #131/227: src\mine\webui\resources\downloads\components\download_item.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\components\download_item.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8502,7 +10626,7 @@ customElements.define('download-item', DownloadItem);
 
 
 --------------------------------------------------------------------------------
-FILE #104/199: src\mine\webui\resources\downloads\components\download_list.ts
+FILE #132/227: src\mine\webui\resources\downloads\components\download_list.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\components\download_list.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8572,7 +10696,7 @@ customElements.define('download-list', DownloadList);
 
 
 --------------------------------------------------------------------------------
-FILE #105/199: src\mine\webui\resources\downloads\components\download_start_dialog.ts
+FILE #133/227: src\mine\webui\resources\downloads\components\download_start_dialog.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\downloads\components\download_start_dialog.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8649,7 +10773,7 @@ customElements.define('download-start-dialog', DownloadStartDialog);
 
 
 --------------------------------------------------------------------------------
-FILE #106/199: src\mine\webui\resources\mine-settings\BUILD.gn
+FILE #134/227: src\mine\webui\resources\mine-settings\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8677,7 +10801,7 @@ build_webui("build") {
 
 
 --------------------------------------------------------------------------------
-FILE #107/199: src\mine\webui\resources\mine-settings\app.ts
+FILE #135/227: src\mine\webui\resources\mine-settings\app.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\app.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8743,7 +10867,7 @@ customElements.define('mine-settings-app', MineSettingsApp);
 
 
 --------------------------------------------------------------------------------
-FILE #108/199: src\mine\webui\resources\mine-settings\mine_settings.html
+FILE #136/227: src\mine\webui\resources\mine-settings\mine_settings.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mine_settings.html
 --------------------------------------------------------------------------------
 <!DOCTYPE html>
@@ -8775,7 +10899,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mine_se
 
 
 --------------------------------------------------------------------------------
-FILE #109/199: src\mine\webui\resources\mine-settings\mine_settings.ts
+FILE #137/227: src\mine\webui\resources\mine-settings\mine_settings.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mine_settings.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8785,7 +10909,7 @@ import './app.js';
 
 
 --------------------------------------------------------------------------------
-FILE #110/199: src\mine\webui\resources\mine-settings\mine_settings_test.ts
+FILE #138/227: src\mine\webui\resources\mine-settings\mine_settings_test.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mine_settings_test.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8816,7 +10940,7 @@ suite('MineSettingsWebUITest', () => {
 
 
 --------------------------------------------------------------------------------
-FILE #111/199: src\mine\webui\resources\mine-settings\mojo_client.ts
+FILE #139/227: src\mine\webui\resources\mine-settings\mojo_client.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\mojo_client.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -8876,7 +11000,7 @@ export const settingsMojoClient = new SettingsMojoClient();
 
 
 --------------------------------------------------------------------------------
-FILE #112/199: src\mine\webui\resources\mine-settings\components\bookmarks_manager.ts
+FILE #140/227: src\mine\webui\resources\mine-settings\components\bookmarks_manager.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\components\bookmarks_manager.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9018,7 +11142,7 @@ customElements.define('bookmarks-manager', BookmarksManager);
 
 
 --------------------------------------------------------------------------------
-FILE #113/199: src\mine\webui\resources\mine-settings\components\data_controls.ts
+FILE #141/227: src\mine\webui\resources\mine-settings\components\data_controls.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\components\data_controls.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9149,7 +11273,7 @@ customElements.define('data-controls', DataControls);
 
 
 --------------------------------------------------------------------------------
-FILE #114/199: src\mine\webui\resources\mine-settings\components\theme_picker.ts
+FILE #142/227: src\mine\webui\resources\mine-settings\components\theme_picker.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\mine-settings\components\theme_picker.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9235,7 +11359,7 @@ customElements.define('theme-picker', ThemePicker);
 
 
 --------------------------------------------------------------------------------
-FILE #115/199: src\mine\webui\resources\shared\css\tokens.css
+FILE #143/227: src\mine\webui\resources\shared\css\tokens.css
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shared\css\tokens.css
 --------------------------------------------------------------------------------
 /* Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9275,7 +11399,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shared\css\tokens.css
 
 
 --------------------------------------------------------------------------------
-FILE #116/199: src\mine\webui\resources\shared\types\common.ts
+FILE #144/227: src\mine\webui\resources\shared\types\common.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shared\types\common.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9300,7 +11424,7 @@ export interface NavTabItem {
 
 
 --------------------------------------------------------------------------------
-FILE #117/199: src\mine\webui\resources\shield\BUILD.gn
+FILE #145/227: src\mine\webui\resources\shield\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9329,7 +11453,7 @@ build_webui("build") {
 
 
 --------------------------------------------------------------------------------
-FILE #118/199: src\mine\webui\resources\shield\app.ts
+FILE #146/227: src\mine\webui\resources\shield\app.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\app.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9397,7 +11521,7 @@ customElements.define('mine-shield-app', MineShieldApp);
 
 
 --------------------------------------------------------------------------------
-FILE #119/199: src\mine\webui\resources\shield\mojo_client.ts
+FILE #147/227: src\mine\webui\resources\shield\mojo_client.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\mojo_client.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9457,7 +11581,7 @@ export const shieldMojoClient = new ShieldMojoClient();
 
 
 --------------------------------------------------------------------------------
-FILE #120/199: src\mine\webui\resources\shield\shield.html
+FILE #148/227: src\mine\webui\resources\shield\shield.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\shield.html
 --------------------------------------------------------------------------------
 <!DOCTYPE html>
@@ -9489,7 +11613,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\shield.html
 
 
 --------------------------------------------------------------------------------
-FILE #121/199: src\mine\webui\resources\shield\shield.ts
+FILE #149/227: src\mine\webui\resources\shield\shield.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\shield.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9499,7 +11623,7 @@ import './app.js';
 
 
 --------------------------------------------------------------------------------
-FILE #122/199: src\mine\webui\resources\shield\shield_test.ts
+FILE #150/227: src\mine\webui\resources\shield\shield_test.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\shield_test.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9529,7 +11653,7 @@ suite('MineShieldWebUITest', () => {
 
 
 --------------------------------------------------------------------------------
-FILE #123/199: src\mine\webui\resources\shield\components\ruleset_status_card.ts
+FILE #151/227: src\mine\webui\resources\shield\components\ruleset_status_card.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\components\ruleset_status_card.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9617,7 +11741,7 @@ customElements.define('ruleset-status-card', RulesetStatusCard);
 
 
 --------------------------------------------------------------------------------
-FILE #124/199: src\mine\webui\resources\shield\components\site_settings_panel.ts
+FILE #152/227: src\mine\webui\resources\shield\components\site_settings_panel.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\components\site_settings_panel.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9693,7 +11817,7 @@ customElements.define('site-settings-panel', SiteSettingsPanel);
 
 
 --------------------------------------------------------------------------------
-FILE #125/199: src\mine\webui\resources\shield\components\subscription_list.ts
+FILE #153/227: src\mine\webui\resources\shield\components\subscription_list.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\components\subscription_list.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9785,7 +11909,7 @@ customElements.define('subscription-list', SubscriptionList);
 
 
 --------------------------------------------------------------------------------
-FILE #126/199: src\mine\webui\resources\shield\components\telemetry_panel.ts
+FILE #154/227: src\mine\webui\resources\shield\components\telemetry_panel.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\shield\components\telemetry_panel.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9873,7 +11997,7 @@ customElements.define('telemetry-panel', TelemetryPanel);
 
 
 --------------------------------------------------------------------------------
-FILE #127/199: src\mine\webui\resources\vault\BUILD.gn
+FILE #155/227: src\mine\webui\resources\vault\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9902,7 +12026,7 @@ build_webui("build") {
 
 
 --------------------------------------------------------------------------------
-FILE #128/199: src\mine\webui\resources\vault\app.ts
+FILE #156/227: src\mine\webui\resources\vault\app.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\app.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -9998,7 +12122,7 @@ customElements.define('mine-vault-app', MineVaultApp);
 
 
 --------------------------------------------------------------------------------
-FILE #129/199: src\mine\webui\resources\vault\mojo_client.ts
+FILE #157/227: src\mine\webui\resources\vault\mojo_client.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\mojo_client.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10048,7 +12172,7 @@ export const vaultClient = new VaultClient();
 
 
 --------------------------------------------------------------------------------
-FILE #130/199: src\mine\webui\resources\vault\vault.html
+FILE #158/227: src\mine\webui\resources\vault\vault.html
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\vault.html
 --------------------------------------------------------------------------------
 <!DOCTYPE html>
@@ -10080,7 +12204,7 @@ FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\vault.html
 
 
 --------------------------------------------------------------------------------
-FILE #131/199: src\mine\webui\resources\vault\vault.ts
+FILE #159/227: src\mine\webui\resources\vault\vault.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\vault.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10090,7 +12214,7 @@ import './app.js';
 
 
 --------------------------------------------------------------------------------
-FILE #132/199: src\mine\webui\resources\vault\vault_test.ts
+FILE #160/227: src\mine\webui\resources\vault\vault_test.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\vault_test.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10119,7 +12243,7 @@ suite('MineVaultWebUITest', () => {
 
 
 --------------------------------------------------------------------------------
-FILE #133/199: src\mine\webui\resources\vault\components\vault_entry_editor.ts
+FILE #161/227: src\mine\webui\resources\vault\components\vault_entry_editor.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\components\vault_entry_editor.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10216,7 +12340,7 @@ customElements.define('vault-entry-editor', VaultEntryEditor);
 
 
 --------------------------------------------------------------------------------
-FILE #134/199: src\mine\webui\resources\vault\components\vault_entry_list.ts
+FILE #162/227: src\mine\webui\resources\vault\components\vault_entry_list.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\components\vault_entry_list.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10333,7 +12457,7 @@ customElements.define('vault-entry-list', VaultEntryList);
 
 
 --------------------------------------------------------------------------------
-FILE #135/199: src\mine\webui\resources\vault\components\vault_lock_screen.ts
+FILE #163/227: src\mine\webui\resources\vault\components\vault_lock_screen.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\components\vault_lock_screen.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10447,7 +12571,7 @@ customElements.define('vault-lock-screen', VaultLockScreen);
 
 
 --------------------------------------------------------------------------------
-FILE #136/199: src\mine\webui\resources\vault\components\vault_password_generator.ts
+FILE #164/227: src\mine\webui\resources\vault\components\vault_password_generator.ts
 FULL PATH: C:\Users\manoh\codem37\src\mine\webui\resources\vault\components\vault_password_generator.ts
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10538,7 +12662,7 @@ customElements.define('vault-password-generator', VaultPasswordGenerator);
 
 
 --------------------------------------------------------------------------------
-FILE #137/199: build\fuzz\cache_record_fuzzer.cc
+FILE #165/227: build\fuzz\cache_record_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\cache_record_fuzzer.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10574,7 +12698,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 --------------------------------------------------------------------------------
-FILE #138/199: build\fuzz\fetcher_response_fuzzer.cc
+FILE #166/227: build\fuzz\fetcher_response_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\fetcher_response_fuzzer.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10590,7 +12714,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 --------------------------------------------------------------------------------
-FILE #139/199: build\fuzz\protocol_url_fuzzer.cc
+FILE #167/227: build\fuzz\protocol_url_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\protocol_url_fuzzer.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10606,7 +12730,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 --------------------------------------------------------------------------------
-FILE #140/199: build\fuzz\shield_filter_fuzzer.cc
+FILE #168/227: build\fuzz\shield_filter_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\shield_filter_fuzzer.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10622,7 +12746,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 --------------------------------------------------------------------------------
-FILE #141/199: build\fuzz\vault_parser_fuzzer.cc
+FILE #169/227: build\fuzz\vault_parser_fuzzer.cc
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\vault_parser_fuzzer.cc
 --------------------------------------------------------------------------------
 // Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -10645,28 +12769,28 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size) {
 
 
 --------------------------------------------------------------------------------
-FILE #142/199: build\fuzz\corpus\cache\seed1.c37c
+FILE #170/227: build\fuzz\corpus\cache\seed1.c37c
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\cache\seed1.c37c
 --------------------------------------------------------------------------------
 C37C\x01\x00\x00\x00\x12\x34\x56\x78\x9A\xBC\xDE\xF0\x11\x22\x33\x44[ENCRYPTED_PAYLOAD_TEST_SEED]
 
 
 --------------------------------------------------------------------------------
-FILE #143/199: build\fuzz\corpus\fetcher\seed1.http
+FILE #171/227: build\fuzz\corpus\fetcher\seed1.http
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\fetcher\seed1.http
 --------------------------------------------------------------------------------
 bytes 0-1048575/52428800
 
 
 --------------------------------------------------------------------------------
-FILE #144/199: build\fuzz\corpus\protocol\seed1.url
+FILE #172/227: build\fuzz\corpus\protocol\seed1.url
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\protocol\seed1.url
 --------------------------------------------------------------------------------
 codem37://vault?section=credentials
 
 
 --------------------------------------------------------------------------------
-FILE #145/199: build\fuzz\corpus\shield\seed1.txt
+FILE #173/227: build\fuzz\corpus\shield\seed1.txt
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\shield\seed1.txt
 --------------------------------------------------------------------------------
 ! Title: Sample Shield List
@@ -10678,14 +12802,14 @@ FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\shield\seed1.txt
 
 
 --------------------------------------------------------------------------------
-FILE #146/199: build\fuzz\corpus\vault\seed1.dat
+FILE #174/227: build\fuzz\corpus\vault\seed1.dat
 FULL PATH: C:\Users\manoh\codem37\build\fuzz\corpus\vault\seed1.dat
 --------------------------------------------------------------------------------
 C37V\x00\x01\x00\x00[]
 
 
 --------------------------------------------------------------------------------
-FILE #147/199: build\gclient\.gclient
+FILE #175/227: build\gclient\.gclient
 FULL PATH: C:\Users\manoh\codem37\build\gclient\.gclient
 --------------------------------------------------------------------------------
 # codem37 - GClient Configuration Template
@@ -10714,7 +12838,7 @@ target_os = ["linux", "win"]
 
 
 --------------------------------------------------------------------------------
-FILE #148/199: build\gn\common.gn
+FILE #176/227: build\gn\common.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\common.gn
 --------------------------------------------------------------------------------
 # codem37 - Common GN Argument Configuration
@@ -10749,7 +12873,7 @@ ffmpeg_branding = "Chrome"
 
 
 --------------------------------------------------------------------------------
-FILE #149/199: build\gn\asan\args.gn
+FILE #177/227: build\gn\asan\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\asan\args.gn
 --------------------------------------------------------------------------------
 # codem37 - AddressSanitizer (ASan) GN Arguments (Linux Nightly)
@@ -10763,7 +12887,7 @@ symbol_level = 1
 
 
 --------------------------------------------------------------------------------
-FILE #150/199: build\gn\component\args.gn
+FILE #178/227: build\gn\component\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\component\args.gn
 --------------------------------------------------------------------------------
 # codem37 - Component Build GN Arguments (Fast Inner-Loop Iteration)
@@ -10771,6 +12895,7 @@ import("//build/gn/common.gn")
 
 is_debug = true
 dcheck_always_on = true
+dawn_use_built_dxc = false
 symbol_level = 0
 is_component_build = true
 blink_symbol_level = 0
@@ -10778,7 +12903,7 @@ v8_symbol_level = 0
 
 
 --------------------------------------------------------------------------------
-FILE #151/199: build\gn\debug\args.gn
+FILE #179/227: build\gn\debug\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\debug\args.gn
 --------------------------------------------------------------------------------
 # codem37 - Debug GN Arguments
@@ -10793,7 +12918,7 @@ v8_symbol_level = 0
 
 
 --------------------------------------------------------------------------------
-FILE #152/199: build\gn\official\args.gn
+FILE #180/227: build\gn\official\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\official\args.gn
 --------------------------------------------------------------------------------
 # codem37 - Official Production GN Arguments
@@ -10808,7 +12933,7 @@ is_component_build = false
 
 
 --------------------------------------------------------------------------------
-FILE #153/199: build\gn\release\args.gn
+FILE #181/227: build\gn\release\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\release\args.gn
 --------------------------------------------------------------------------------
 # codem37 - Release GN Arguments
@@ -10827,7 +12952,7 @@ v8_symbol_level = 0
 
 
 --------------------------------------------------------------------------------
-FILE #154/199: build\gn\ubsan\args.gn
+FILE #182/227: build\gn\ubsan\args.gn
 FULL PATH: C:\Users\manoh\codem37\build\gn\ubsan\args.gn
 --------------------------------------------------------------------------------
 # codem37 - UndefinedBehaviorSanitizer (UBSan) GN Arguments (Linux Nightly)
@@ -10842,7 +12967,7 @@ symbol_level = 1
 
 
 --------------------------------------------------------------------------------
-FILE #155/199: build\performance\run_fetcher_bench.py
+FILE #183/227: build\performance\run_fetcher_bench.py
 FULL PATH: C:\Users\manoh\codem37\build\performance\run_fetcher_bench.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -10931,7 +13056,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #156/199: build\performance\run_startup_bench.py
+FILE #184/227: build\performance\run_startup_bench.py
 FULL PATH: C:\Users\manoh\codem37\build\performance\run_startup_bench.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -11092,7 +13217,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #157/199: build\scripts\README.md
+FILE #185/227: build\scripts\README.md
 FULL PATH: C:\Users\manoh\codem37\build\scripts\README.md
 --------------------------------------------------------------------------------
 # codem37 — Build Scripts & Tooling Environment
@@ -11131,7 +13256,7 @@ python3 build/scripts/build.py --config component --target codem37
 
 
 --------------------------------------------------------------------------------
-FILE #158/199: build\scripts\build.py
+FILE #186/227: build\scripts\build.py
 FULL PATH: C:\Users\manoh\codem37\build\scripts\build.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -11313,7 +13438,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #159/199: build\size\measure_size.py
+FILE #187/227: build\size\measure_size.py
 FULL PATH: C:\Users\manoh\codem37\build\size\measure_size.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -11442,7 +13567,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #160/199: docs\build-infrastructure.md
+FILE #188/227: docs\build-infrastructure.md
 FULL PATH: C:\Users\manoh\codem37\docs\build-infrastructure.md
 --------------------------------------------------------------------------------
 # codem37 — Build Infrastructure Documentation (Phase 1)
@@ -11594,7 +13719,7 @@ Mandatory flags locked across all presets that **cannot be silently overridden**
 
 
 --------------------------------------------------------------------------------
-FILE #161/199: docs\phase10-release-engineering.md
+FILE #189/227: docs\phase10-release-engineering.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase10-release-engineering.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 10: Release Engineering Specification
@@ -11711,7 +13836,7 @@ Staged Rollout Progression:
 
 
 --------------------------------------------------------------------------------
-FILE #162/199: docs\phase2-privilege-boundary.md
+FILE #190/227: docs\phase2-privilege-boundary.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase2-privilege-boundary.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 2: Process Model & Site Isolation (Privilege Boundary Specification)
@@ -11798,7 +13923,7 @@ FULL PATH: C:\Users\manoh\codem37\docs\phase2-privilege-boundary.md
 
 
 --------------------------------------------------------------------------------
-FILE #163/199: docs\phase3-memory-safety-policy.md
+FILE #191/227: docs\phase3-memory-safety-policy.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase3-memory-safety-policy.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 3: Memory Safety Policy for Owned C++/Rust Additions
@@ -11873,7 +13998,7 @@ The following modifications strictly require the developer's sign-off and an ent
 
 
 --------------------------------------------------------------------------------
-FILE #164/199: docs\phase4-electron-audit.md
+FILE #192/227: docs\phase4-electron-audit.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase4-electron-audit.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 4: Electron to Native Migration Audit & Dependency Map
@@ -11943,7 +14068,7 @@ For each component (`vault` -> `shield` -> `fetcher` -> `protocol`):
 
 
 --------------------------------------------------------------------------------
-FILE #165/199: docs\phase4-migration-record.md
+FILE #193/227: docs\phase4-migration-record.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase4-migration-record.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 4: Native Chromium Migration Record
@@ -11982,7 +14107,7 @@ All legacy Electron and Node.js APIs have been migrated to native Chromium brows
 
 
 --------------------------------------------------------------------------------
-FILE #166/199: docs\phase5-download-manager.md
+FILE #194/227: docs\phase5-download-manager.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase5-download-manager.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 5: Download Manager & Native Segmented Fetch Specification
@@ -12048,7 +14173,7 @@ MineFetcherService (Browser Process KeyedService)
 
 
 --------------------------------------------------------------------------------
-FILE #167/199: docs\phase6-content-blocking.md
+FILE #195/227: docs\phase6-content-blocking.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase6-content-blocking.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 6: Content Blocking Engine Specification
@@ -12122,7 +14247,7 @@ Browser Process (ShieldServiceImpl)
 
 
 --------------------------------------------------------------------------------
-FILE #168/199: docs\phase7-identity-and-local-cache.md
+FILE #196/227: docs\phase7-identity-and-local-cache.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase7-identity-and-local-cache.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 7: Identity, FedCM/SAA, & Secure Local Data Cache Specification
@@ -12227,7 +14352,7 @@ Active Runtime Memory State: [ Loaded / Cleared ]
 
 
 --------------------------------------------------------------------------------
-FILE #169/199: docs\phase8-compatibility-matrix.md
+FILE #197/227: docs\phase8-compatibility-matrix.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase8-compatibility-matrix.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 8: Compatibility Matrix & Policy Specification
@@ -12291,7 +14416,7 @@ When a legitimate website compatibility issue arises due to non-standard server-
 
 
 --------------------------------------------------------------------------------
-FILE #170/199: docs\phase9-security-review-and-threat-model.md
+FILE #198/227: docs\phase9-security-review-and-threat-model.md
 FULL PATH: C:\Users\manoh\codem37\docs\phase9-security-review-and-threat-model.md
 --------------------------------------------------------------------------------
 # codem37 — Phase 9: Comprehensive Security Review, Threat Models & Invariants
@@ -12408,7 +14533,7 @@ SecureLocalCacheService Threat Model Structure
 
 
 --------------------------------------------------------------------------------
-FILE #171/199: docs\security-review-log.md
+FILE #199/227: docs\security-review-log.md
 FULL PATH: C:\Users\manoh\codem37\docs\security-review-log.md
 --------------------------------------------------------------------------------
 # codem37 — Security Review & FFI Log
@@ -12520,7 +14645,7 @@ This document records formal security reviews and justifications for `unsafe` Ru
 
 
 --------------------------------------------------------------------------------
-FILE #172/199: tools\bootstrap_and_run.ps1
+FILE #200/227: tools\bootstrap_and_run.ps1
 FULL PATH: C:\Users\manoh\codem37\tools\bootstrap_and_run.ps1
 --------------------------------------------------------------------------------
 <#
@@ -12543,7 +14668,7 @@ python "$RootDir\build\scripts\build.py" --config component --target codem37 --l
 
 
 --------------------------------------------------------------------------------
-FILE #173/199: tools\check_memory_safety.py
+FILE #201/227: tools\check_memory_safety.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_memory_safety.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -12640,7 +14765,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #174/199: tools\check_no_electron_ipc.py
+FILE #202/227: tools\check_no_electron_ipc.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_no_electron_ipc.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -12716,7 +14841,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #175/199: tools\check_no_eval_in_shield.py
+FILE #203/227: tools\check_no_eval_in_shield.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_no_eval_in_shield.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -12789,7 +14914,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #176/199: tools\check_no_evasion_or_spoofing.py
+FILE #204/227: tools\check_no_evasion_or_spoofing.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_no_evasion_or_spoofing.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -12865,7 +14990,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #177/199: tools\check_secure_cache_boundaries.py
+FILE #205/227: tools\check_secure_cache_boundaries.py
 FULL PATH: C:\Users\manoh\codem37\tools\check_secure_cache_boundaries.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -12936,7 +15061,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #178/199: tools\generate_licenses.py
+FILE #206/227: tools\generate_licenses.py
 FULL PATH: C:\Users\manoh\codem37\tools\generate_licenses.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -12987,7 +15112,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #179/199: tools\generate_release_manifest.py
+FILE #207/227: tools\generate_release_manifest.py
 FULL PATH: C:\Users\manoh\codem37\tools\generate_release_manifest.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -13073,7 +15198,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #180/199: tools\rebase_helper.py
+FILE #208/227: tools\rebase_helper.py
 FULL PATH: C:\Users\manoh\codem37\tools\rebase_helper.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -13119,7 +15244,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #181/199: tools\verify_release_gates.py
+FILE #209/227: tools\verify_release_gates.py
 FULL PATH: C:\Users\manoh\codem37\tools\verify_release_gates.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -13196,7 +15321,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #182/199: tools\verify_security_invariants.py
+FILE #210/227: tools\verify_security_invariants.py
 FULL PATH: C:\Users\manoh\codem37\tools\verify_security_invariants.py
 --------------------------------------------------------------------------------
 #!/usr/bin/env python3
@@ -13283,7 +15408,7 @@ if __name__ == "__main__":
 
 
 --------------------------------------------------------------------------------
-FILE #183/199: stubs\standalone\.gn
+FILE #211/227: stubs\standalone\.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13298,7 +15423,7 @@ root = "//:default"
 
 
 --------------------------------------------------------------------------------
-FILE #184/199: stubs\standalone\BUILD.gn
+FILE #212/227: stubs\standalone\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13334,7 +15459,7 @@ group("default") {
 
 
 --------------------------------------------------------------------------------
-FILE #185/199: stubs\standalone\base\BUILD.gn
+FILE #213/227: stubs\standalone\base\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\base\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13346,7 +15471,7 @@ group("base") {
 
 
 --------------------------------------------------------------------------------
-FILE #186/199: stubs\standalone\base\test\BUILD.gn
+FILE #214/227: stubs\standalone\base\test\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\base\test\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13359,7 +15484,7 @@ group("test_support") {
 
 
 --------------------------------------------------------------------------------
-FILE #187/199: stubs\standalone\build\config\BUILD.gn
+FILE #215/227: stubs\standalone\build\config\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\build\config\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13372,7 +15497,7 @@ config("default_include_dirs") {
 
 
 --------------------------------------------------------------------------------
-FILE #188/199: stubs\standalone\build\config\BUILDCONFIG.gn
+FILE #216/227: stubs\standalone\build\config\BUILDCONFIG.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\build\config\BUILDCONFIG.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13443,7 +15568,7 @@ set_default_toolchain("//build/toolchain/win:default")
 
 
 --------------------------------------------------------------------------------
-FILE #189/199: stubs\standalone\build\toolchain\win\BUILD.gn
+FILE #217/227: stubs\standalone\build\toolchain\win\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\build\toolchain\win\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13502,7 +15627,7 @@ toolchain("default") {
 
 
 --------------------------------------------------------------------------------
-FILE #190/199: stubs\standalone\components\keyed_service\content\BUILD.gn
+FILE #218/227: stubs\standalone\components\keyed_service\content\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\components\keyed_service\content\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13514,7 +15639,7 @@ group("content") {
 
 
 --------------------------------------------------------------------------------
-FILE #191/199: stubs\standalone\content\public\browser\BUILD.gn
+FILE #219/227: stubs\standalone\content\public\browser\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\content\public\browser\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13526,7 +15651,7 @@ group("browser") {
 
 
 --------------------------------------------------------------------------------
-FILE #192/199: stubs\standalone\content\test\BUILD.gn
+FILE #220/227: stubs\standalone\content\test\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\content\test\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13539,7 +15664,7 @@ group("test_support") {
 
 
 --------------------------------------------------------------------------------
-FILE #193/199: stubs\standalone\crypto\BUILD.gn
+FILE #221/227: stubs\standalone\crypto\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\crypto\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13551,7 +15676,7 @@ group("crypto") {
 
 
 --------------------------------------------------------------------------------
-FILE #194/199: stubs\standalone\mojo\public\tools\bindings\mojom.gni
+FILE #222/227: stubs\standalone\mojo\public\tools\bindings\mojom.gni
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\mojo\public\tools\bindings\mojom.gni
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13569,7 +15694,7 @@ template("mojom") {
 
 
 --------------------------------------------------------------------------------
-FILE #195/199: stubs\standalone\testing\gtest\BUILD.gn
+FILE #223/227: stubs\standalone\testing\gtest\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\testing\gtest\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13582,7 +15707,7 @@ group("gtest") {
 
 
 --------------------------------------------------------------------------------
-FILE #196/199: stubs\standalone\ui\webui\BUILD.gn
+FILE #224/227: stubs\standalone\ui\webui\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\ui\webui\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13594,7 +15719,7 @@ group("webui") {
 
 
 --------------------------------------------------------------------------------
-FILE #197/199: stubs\standalone\ui\webui\resources\tools\build_webui.gni
+FILE #225/227: stubs\standalone\ui\webui\resources\tools\build_webui.gni
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\ui\webui\resources\tools\build_webui.gni
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13624,7 +15749,7 @@ template("build_webui") {
 
 
 --------------------------------------------------------------------------------
-FILE #198/199: stubs\standalone\url\BUILD.gn
+FILE #226/227: stubs\standalone\url\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\url\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
@@ -13636,7 +15761,7 @@ group("url") {
 
 
 --------------------------------------------------------------------------------
-FILE #199/199: stubs\standalone\url\mojom\BUILD.gn
+FILE #227/227: stubs\standalone\url\mojom\BUILD.gn
 FULL PATH: C:\Users\manoh\codem37\stubs\standalone\url\mojom\BUILD.gn
 --------------------------------------------------------------------------------
 # Copyright (c) 2026 The codem37 Authors. All rights reserved.
