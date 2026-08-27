@@ -9,36 +9,36 @@
 #include <string>
 #include <vector>
 
-#include "base/files/file.h"
 #include "base/files/file_path.h"
 #include "base/functional/callback.h"
+#include "base/memory/scoped_refptr.h"
 #include "base/memory/weak_ptr.h"
 #include "base/sequence_checker.h"
+#include "mine/fetcher/engine/segment_scheduler.h"
+#include "mine/fetcher/engine/segment_worker.h"
+#include "mine/fetcher/storage/download_file.h"
+#include "mine/fetcher/storage/download_state_store.h"
 #include "url/gurl.h"
 
-namespace codem37 {
+namespace network {
+class SharedURLLoaderFactory;
+}
 
-struct SegmentRange {
-  size_t index = 0;
-  uint64_t start_byte = 0;
-  uint64_t end_byte = 0;
-  uint64_t received_bytes = 0;
-  int retry_count = 0;
-  bool is_completed = false;
-};
+namespace codem37 {
 
 using SegmentedProgressCallback =
     base::RepeatingCallback<void(uint64_t received_bytes, uint64_t total_bytes)>;
 using SegmentedCompleteCallback = base::OnceCallback<void(bool success, const std::string& error)>;
 
-// Internal producer that downloads large range-capable files via parallel segments,
-// writing directly to non-overlapping offsets in a sparse destination file.
+// Production-grade orchestrator that downloads large range-capable files via
+// parallel dynamic segments, writing directly to non-overlapping offsets in a sparse target.
 class SegmentedFetchProducer {
  public:
   SegmentedFetchProducer(const GURL& url,
                          const base::FilePath& destination_path,
                          uint64_t total_bytes,
                          const std::string& etag,
+                         scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
                          SegmentedProgressCallback progress_cb,
                          SegmentedCompleteCallback complete_cb);
   ~SegmentedFetchProducer();
@@ -51,39 +51,31 @@ class SegmentedFetchProducer {
   void Resume();
   void Cancel();
 
-  static bool SaveSidecarState(const base::FilePath& destination_path,
-                              const GURL& url,
-                              uint64_t total_bytes,
-                              const std::string& etag,
-                              const std::vector<SegmentRange>& segments);
-  static bool LoadSidecarState(const base::FilePath& destination_path,
-                              std::string& out_etag,
-                              std::vector<SegmentRange>& out_segments);
+  storage::DownloadFile* target_file() { return target_file_.get(); }
+  engine::SegmentScheduler* scheduler() { return scheduler_.get(); }
 
  private:
-  void InitializeSparseFile();
-  void OnSegmentChunkReceived(size_t segment_index,
-                              uint64_t chunk_offset,
-                              const std::vector<uint8_t>& chunk_data);
-  void OnSegmentFinished(size_t segment_index, bool success);
-  void CheckOverallCompletion();
-
-  SEQUENCE_CHECKER(sequence_checker_);
+  void SpawnWorker(int worker_id);
+  void OnWorkerProgress(uint32_t range_id, uint64_t bytes_written);
+  void OnWorkerCompleted(int worker_id, uint32_t range_id, bool success, uint64_t bytes_transferred);
+  void PersistSidecar();
 
   GURL url_;
   base::FilePath destination_path_;
-  base::FilePath sidecar_path_;
-  uint64_t total_bytes_ = 0;
+  uint64_t total_bytes_;
   std::string etag_;
-
+  scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory_;
   SegmentedProgressCallback progress_cb_;
   SegmentedCompleteCallback complete_cb_;
 
-  base::File destination_file_;
-  std::vector<SegmentRange> segments_;
+  std::unique_ptr<storage::DownloadFile> target_file_;
+  std::unique_ptr<engine::SegmentScheduler> scheduler_;
+  std::vector<std::unique_ptr<engine::SegmentWorker>> workers_;
+
   bool is_paused_ = false;
   bool is_cancelled_ = false;
 
+  SEQUENCE_CHECKER(sequence_checker_);
   base::WeakPtrFactory<SegmentedFetchProducer> weak_factory_{this};
 };
 
