@@ -58,6 +58,36 @@ public:
   }
 };
 
+template <class T,
+          const IID* piid = nullptr,
+          const GUID* plibid = nullptr,
+          WORD wMajor = 1,
+          WORD wMinor = 0,
+          class tihclass = void>
+class ATL_NO_VTABLE IDispatchImpl : public T {
+public:
+  // IDispatch methods
+  STDMETHOD(GetTypeInfoCount)(UINT* pctinfo) override {
+    if (!pctinfo) return E_POINTER;
+    *pctinfo = 0;
+    return S_OK;
+  }
+  STDMETHOD(GetTypeInfo)(UINT iTInfo, LCID lcid, ITypeInfo** ppTInfo) override {
+    if (!ppTInfo) return E_POINTER;
+    *ppTInfo = nullptr;
+    return E_NOTIMPL;
+  }
+  STDMETHOD(GetIDsOfNames)(REFIID riid, LPOLESTR* rgszNames, UINT cNames,
+                           LCID lcid, DISPID* rgDispId) override {
+    return E_NOTIMPL;
+  }
+  STDMETHOD(Invoke)(DISPID dispIdMember, REFIID riid, LCID lcid,
+                    WORD wFlags, DISPPARAMS* pDispParams, VARIANT* pVarResult,
+                    EXCEPINFO* pExcepInfo, UINT* puArgErr) override {
+    return E_NOTIMPL;
+  }
+};
+
 #define BEGIN_COM_MAP(className) \
 public: \
   STDMETHOD_(ULONG, AddRef)() override { return ++this->m_dwRef; } \
