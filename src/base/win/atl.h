@@ -60,6 +60,7 @@ public:
 
 #define BEGIN_COM_MAP(className) \
 public: \
+  virtual ~className() = default; \
   STDMETHOD_(ULONG, AddRef)() override { return ++this->m_dwRef; } \
   STDMETHOD_(ULONG, Release)() override { \
     ULONG res = --this->m_dwRef; \
