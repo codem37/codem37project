@@ -57,6 +57,13 @@ public:
   ULONG InternalAddRef() { return ++m_dwRef; }
   ULONG InternalRelease() { return --m_dwRef; }
 
+  template <class T>
+  ULONG InternalReleaseAndMaybeDelete(T* p) {
+    ULONG res = --m_dwRef;
+    if (res == 0) delete static_cast<CComObject<T>*>(p);
+    return res;
+  }
+
   static HRESULT WINAPI InternalQueryInterface(void* pThis,
                                                const _ATL_INTMAP_ENTRY* pEntries,
                                                REFIID iid,
@@ -136,9 +143,15 @@ public:
 #define BEGIN_COM_MAP(x) \
 public: \
   typedef x _ComMapClass; \
-  STDMETHOD(QueryInterface)(REFIID riid, void** ppv) override; \
-  STDMETHOD_(ULONG, AddRef)() override; \
-  STDMETHOD_(ULONG, Release)() override; \
+  STDMETHOD(QueryInterface)(REFIID riid, void** ppv) override { \
+    return _InternalQueryInterface(this, _GetEntries(), riid, ppv); \
+  } \
+  STDMETHOD_(ULONG, AddRef)() override { \
+    return this->InternalAddRef(); \
+  } \
+  STDMETHOD_(ULONG, Release)() override { \
+    return this->InternalReleaseAndMaybeDelete(this); \
+  } \
   static HRESULT WINAPI _InternalQueryInterface(void* pThis, const _ATL_INTMAP_ENTRY* pEntries, REFIID iid, void** ppvObject) { \
     return x::InternalQueryInterface(pThis, pEntries, iid, ppvObject); \
   } \
@@ -158,17 +171,6 @@ public: \
     {nullptr, 0, nullptr} \
     }; \
     return _entries; \
-  } \
-  inline STDMETHODIMP _ComMapClass::QueryInterface(REFIID riid, void** ppv) { \
-    return _ComMapClass::_InternalQueryInterface(this, _ComMapClass::_GetEntries(), riid, ppv); \
-  } \
-  inline STDMETHODIMP_(ULONG) _ComMapClass::AddRef() { \
-    return this->InternalAddRef(); \
-  } \
-  inline STDMETHODIMP_(ULONG) _ComMapClass::Release() { \
-    ULONG res = this->InternalRelease(); \
-    if (res == 0) delete this; \
-    return res; \
   }
 
 class CComModule;
