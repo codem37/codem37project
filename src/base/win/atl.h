@@ -37,10 +37,12 @@
 class CComSingleThreadModel {};
 class CComMultiThreadModel {};
 
+#include "base/memory/raw_ptr_exclusion.h"
+
 typedef HRESULT (WINAPI _ATL_CREATORARGFUNC)(void* pv, REFIID riid, LPVOID* ppv, DWORD_PTR dw);
 
 struct _ATL_INTMAP_ENTRY {
-  const IID* piid;
+  RAW_PTR_EXCLUSION const IID* piid;
   DWORD_PTR dw;
   _ATL_CREATORARGFUNC* pFunc;
 };
@@ -134,6 +136,9 @@ public:
 #define BEGIN_COM_MAP(x) \
 public: \
   typedef x _ComMapClass; \
+  STDMETHOD(QueryInterface)(REFIID riid, void** ppv) override; \
+  STDMETHOD_(ULONG, AddRef)() override; \
+  STDMETHOD_(ULONG, Release)() override; \
   static HRESULT WINAPI _InternalQueryInterface(void* pThis, const _ATL_INTMAP_ENTRY* pEntries, REFIID iid, void** ppvObject) { \
     return x::InternalQueryInterface(pThis, pEntries, iid, ppvObject); \
   } \
@@ -153,6 +158,17 @@ public: \
     {nullptr, 0, nullptr} \
     }; \
     return _entries; \
+  } \
+  inline STDMETHODIMP _ComMapClass::QueryInterface(REFIID riid, void** ppv) { \
+    return _ComMapClass::_InternalQueryInterface(this, _ComMapClass::_GetEntries(), riid, ppv); \
+  } \
+  inline STDMETHODIMP_(ULONG) _ComMapClass::AddRef() { \
+    return this->InternalAddRef(); \
+  } \
+  inline STDMETHODIMP_(ULONG) _ComMapClass::Release() { \
+    ULONG res = this->InternalRelease(); \
+    if (res == 0) delete this; \
+    return res; \
   }
 
 class CComModule;
